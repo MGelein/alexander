@@ -1,0 +1,48 @@
+<div id="holder_{id}" class="animated panel panel-default" onmouseover='highlightMarkup({id}, true);' onmouseout='highlightMarkup({id}, false);'>
+	<div class="panel-heading"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>Markup Editor: Markup <strong>{id}</strong></span>
+		&nbsp;
+		<button title="Set Scope" onclick="moveMarkup({id})" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-resize-horizontal"></button>
+		<span title="Close &amp; Save" onclick="eval($('#close{id}Script').get(0).innerHTML);" href="#" class="markupCloseButton pull-right"><span class="glyphicon glyphicon-remove"></span>
+	</div>
+	
+	<div class="panel-body">
+			<div class="editor" id="annEditor_{id}"></div>
+	</div>
+</div>
+
+<!--
+THIS SCRIPT RUNS ON LOAD
+-->
+
+<script id="loadScript">
+
+newTextEditor('annEditor_{id}');
+nicEditors.findEditor('annEditor_{id}').setContent('{content}');
+
+</script>
+
+<!--
+THIS SCRIPT IS CALLED BY THE CLOSE BUTTON
+-->
+
+<script id="close{id}Script">
+
+content = nicEditors.findEditor('annEditor_{id}').getContent();
+
+msg="AJAX=" + true + "&saveMarkup=" + {id} + "&content=" + content;
+
+req = getAjaxRequest(function(){
+	if(this.readyState == 4){
+		if(this.status == 200){
+			if(this.responseText != null){
+				removeColumn({id});
+			}
+		}
+	}
+});
+
+highlightMarkup({id}, false);
+
+req.send(msg);
+
+</script>

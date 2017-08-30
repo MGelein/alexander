@@ -1,0 +1,1 @@
+a:1:{s:7:"content";s:55:"This Protagoras and Democritus were citizens of Abdera.";}

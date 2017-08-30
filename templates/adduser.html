@@ -1,0 +1,27 @@
+<form id="logForm" action="index.php" method="post">
+<input type="hidden" value="true" name="logout">
+</form>
+<div class="container">
+	<div class="row">
+		<div class="panel panel-warning">
+			<div class="panel-heading"><span class="glyphicon glyphicon-user"></span>&nbsp;Add New User</div>
+			<div class="panel-body">
+				<a title="Home" href="index.php" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+				
+				<div class="content">
+				<form action="adduser.php" method="post" class="form-horizontal">
+				<table>
+				<tr><td colspan="2" id="loginInfo">{addUserInfo}</td></tr>
+				<tr><td>Name:</td><td><input class="form-control" type="text" name="fullName" placeholder="Surname F."></td></tr>
+				<tr><td>Email: </td><td><input class="form-control" type="text" name="email" placeholder="email@example.com"></td></tr>
+				<tr><td>Password: </td><td><input class="form-control" type="password" name="password" placeholder="password"></td></tr>
+				<tr><td>Password (Repeat): </td><td><input class="form-control" type="password" name="passwordCheck" placeholder="password (repeat)"></td></tr>
+				<tr><td>Access Level: </td><td><input class="form-control" type="text" name="level">[0=Admin, 1=Master, 2=Teacher, 3=Student, 4=Guest]</td></tr>
+				<tr><td><input class="btn btn-primary" type="submit" value="Add User"></td></tr>
+				</table>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

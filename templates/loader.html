@@ -1,0 +1,63 @@
+<div class="container">
+	<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Texts<button data-toggle="collapse" data-target="#loaderCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
+				<div id="loaderCollapse" class="panel-collapse collapse in">
+				<div class="panel-body">
+				<div class="content">
+				
+				<p>
+				<div class="row">
+				
+				<div class="col-sm-4">Load an existing text:</div>
+				
+				<div class="col-sm-4">
+					<p class="text-center">
+					Filter:&nbsp;
+					<input id="textFilter" type="text" onkeyup="loadTextOverview();" onpaste="loadTextOverview();"></input>
+					</p>
+				</div>
+				
+				<div class="col-sm-4">
+				<span class="pull-right">
+				Order by:
+					<select id="textOrder" onchange="loadTextOverview();">
+		  				<option value="titleASC">Title A-Z</option>
+		  				<option value="titleDESC">Title Z-A</option>
+					 	<option value="authorASC">Author A-Z</option>
+					  	<option value="authorDESC">Author Z-A</option>
+					  	<option value="nameASC" selected>Textname A-Z</option>
+					  	<option value="nameDESC">Textname Z-A</option>
+					 	<option value="statusASC">Status Student > Master</option>
+					  	<option value="statusDESC">Status Master > Student</option>
+					  	
+					</select>
+				</span>
+				</div>				
+				</div>
+				</p>
+				
+				
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div id="textOverviewHeader">
+							<span class='col-xs-2'>Textname</span>
+							<span class='col-xs-3'>Author</span> 
+							<span class=''>Title</span>
+						</div>
+						<div id="textOverview">
+							
+						</div>
+					</div>
+				</div>
+				<p>Or create a new text:<br>
+				<input type="button" class="btn btn-primary" value="Add New Text" onclick="createText();"/></p>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="min.php?js=loader.js"></script>
+<script>setTimeout(loadTextOverview, 10000)</script>
+<script>loadTextOverview();</script>

@@ -1,0 +1,37 @@
+<div class="container">
+	
+	<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-heading"><span class="glyphicon glyphicon-user"></span>&nbsp;Account Data<button data-toggle="collapse" data-target="#accountCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
+				<div id="accountCollapse" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<div class="content">
+					{accountInfo}
+					<table class="table">
+					<tr><td>Name: </td><td>{name}</td></tr>
+					<tr><td>Email: </td><td>{user}</td></tr>
+					<tr><td>Password: </td><td id="pass"><input class="btn btn-xs btn-default" type="button" value="Change password" onclick="changeHTML()"></td></tr>
+					<tr><td>Access Level: </td><td>{userLevel}</td></tr>
+					</table>
+					</div>
+				</div>
+				</div>
+			</div>
+	
+		<div class="panel panel-warning">
+				<div class="panel-heading"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Messages&nbsp;<span class="badge">1</span><button data-toggle="collapse" data-target="#messageCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
+				<div id="messageCollapse" class="panel-collapse collapse">
+				<div class="panel-body">
+					<div class="content">
+						<b>Welcome</b>
+						<p>This is a simple test message to show everybody how the message system would work. 
+						These messages can be used for systemwide messages about updates or best practices</p>
+						Author: Gelein, M.
+					</div>
+				</div>
+				</div>
+			</div>
+	</div>
+	{adminUtil}
+</div>
+<script src="min.php?js=pw.js"></script>

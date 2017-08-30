@@ -1,0 +1,61 @@
+@CHARSET "ISO-8859-1";
+
+/**
+BOOTSTRAP OVERRIDE
+**/
+
+.container{
+	margin: 0 auto;
+	width: 97%;
+}
+
+/**
+STANDARD ELEMENTS
+**/
+
+body {
+	color: #111;
+	background-color: #eee;
+}
+
+ul{
+	list-style-type: none;
+	margin: 0em;
+	padding: 0em;
+}
+
+::selection {
+  background: #ffb7b7; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #ffb7b7; /* Gecko Browsers */
+}
+
+/**
+CLASSES
+**/
+
+.textItemHeader{
+	font-size: 1em;
+	margin-bottom: 0.5em;
+	
+}
+
+.textItem {
+	font-size: 1em;
+	margin-bottom: 0.5em;
+}
+
+.group-list {
+	list-style-type: none;
+    -moz-column-gap: 10;
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 10;
+    column-count: 2;
+    column-gap: 10;
+}
+
+/**
+ID's
+**/

@@ -1,0 +1,122 @@
+@CHARSET "ISO-8859-1";
+
+/**
+CLASSES
+**/
+
+.handle{
+	border: 2px dotted #666;
+	background-color: #CCC;
+	color: white;
+	
+	border-radius: 5px;
+	cursor: pointer;
+	
+	opacity: 0.2;
+    -webkit-opacity: 0.2;
+    transition: opacity 0.5s ease-in-out;
+   	-webkit-transition: opacity 0.5s ease-in-out;
+   	
+   	
+  	-webkit-touch-callout: none; /* iOS Safari */
+  	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+  	-khtml-user-select: none;    /* Konqueror */
+  	-moz-user-select: none;      /* Firefox */
+  	-ms-user-select: none;       /* Internet Explorer/Edge */
+  	user-select: none;           /* Non-prefixed version, currently
+	                                  not skeeupported by any browser */
+}
+
+.handleSelected{
+	border-style: solid;
+	opacity : 1.0;
+	-webkit-opacity: 1.0;
+}
+
+.redHandle{
+	border: 2px dotted #CC0000;
+	background-color: #FF9999;
+}
+
+.blueHandle{
+	border: 2px dotted #0000CC;
+	background-color: #5f56f8;
+}
+
+.greenHandle{
+	border: 2px dotted #00CC00;
+	background-color: #92ce75;
+}
+
+.yellowHandle{
+	border: 2px dotted #ff8000;
+	background-color: #ffa953;
+}
+
+.userInput{
+	margin-left: 1em;
+}
+
+.annotation{
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+
+.editor{
+	height: 15em;
+	font-size: 1.3em;
+	border: 1px solid #ccc;
+	overflow: auto;
+}
+
+.editorContainer{
+	padding: 0em 2em 0em 0em;
+}
+
+.animated,
+.editorHolder{
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+.markupCloseButton {
+	color: #333;
+	cursor: pointer;
+}
+
+.markupCloseButton :hover {
+	color: #CC0000;
+	
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+
+.highlightMarkup{
+	 box-shadow: 0px 0px 15px #FF7744;
+	 
+	 -webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+
+.alreadyLoaded{
+	 box-shadow: 0px 0px 25px #FF0000;
+	 
+	 -webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+
+/**
+ID's
+*/
+#annEditorTitle{
+	cursor: pointer;
+}

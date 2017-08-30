@@ -1,0 +1,26 @@
+<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script> 
+<div class="container">
+	<div class="row">
+		<div class="panel panel-primary">
+			<div class="panel-heading"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;Documents<button data-toggle="collapse" data-target="#documentCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
+			<div id="documentCollapse" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<h4>Source Documents</h4>
+					<p>{sourceDocs}</p>
+					<form action="documents.php" method="post" class="form-inline" enctype="multipart/form-data">
+						<input class="form-control" type="file" name="sourceFileUpload" id="sourceFileUpload">
+						<input class="form-control btn-info" type="submit" value="Upload Document">{sourceUploadInfo}
+					</form>
+					<br><br>
+					
+					<h4>Editor Documents</h4>
+					<p>{editorDocs}</p>
+					<form action="documents.php" method="post" class="form-inline" enctype="multipart/form-data">
+						<input class="form-control" type="file" name="editorFileUpload" id="editorFileUpload">
+						<input class="form-control btn-info" type="submit" value="Upload Document">{editorUploadInfo}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
