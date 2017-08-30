@@ -6,13 +6,15 @@ module.exports = function(grunt) {
         uglify: {
             my_target: {
               options: {
-                sourceMap: true,
-                sourceMapName: 'path/to/sourcemap.map'
+                mangle: false
               },
-              files: {
-                'js/alexander.min.js': ['src/lib.js', 'src/loader.js', 'src/documents.js', 
-                                        'src/editor.js', 'src/pw.js', 'src/print.js']
-              }
+              files: [{
+                expand: true,
+                src: '*.js',
+                dest: '../js/',
+                cwd: 'src',
+                ext: '.min.js'
+            }]
             }
           }
       });
