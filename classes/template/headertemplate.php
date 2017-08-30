@@ -14,7 +14,7 @@ class HeaderTemplate extends Template {
 	 * @param unknown $active
 	 */
 	function __construct($htmlTitle, $css = 'none') {
-		parent::__construct ( 'templates/header.tmpl' );
+		parent::__construct ( 'templates/header.html' );
 		
 		if($css != 'none'){
 			$css = "<link rel='stylesheet' type='text/css' href='min.php?css=$css'>";

@@ -15,7 +15,7 @@ class NavigationTemplate extends Template {
 	 * @param unknown $active
 	 */
 	function __construct($active) {
-		parent::__construct ( 'templates/navigation.tmpl' );
+		parent::__construct ( 'templates/navigation.html' );
 		$this->replaceVars ( array (
 				'active' => $active
 		) );

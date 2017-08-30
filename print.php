@@ -9,7 +9,7 @@ if(isset($_GET['fid'])){
 	$text = Text::load($fileID);
 	
 	//displaying the template
-	$printTemplate = new Template('templates/print.tmpl');
+	$printTemplate = new Template('templates/print.html');
 	$printTemplate->replaceVars(array(
 			'htmlTitle' => $textData->generateTextHeader(),
 			'text' => $text,

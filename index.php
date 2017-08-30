@@ -46,7 +46,7 @@ if (! isset ( $_SESSION ['user'] )) {
 	echo $navigationTemplate->display();
 	
 	// the account overview screen
-	$accountTemplate = new Template ( 'templates/account.tmpl' );
+	$accountTemplate = new Template ( 'templates/account.html' );
 	
 	// check if admin account and add a link to ADD USER
 	if ($user->getLevel() == 0) {
@@ -118,7 +118,7 @@ function showLoginScreen($loginInfo){
 	// show the login scree	n
 	$headerTemplate = new HeaderTemplate('Login', 'index.css');
 	echo $headerTemplate->display();
-	$loginTemplate = new Template ( 'templates/login.tmpl' );
+	$loginTemplate = new Template ( 'templates/login.html' );
 	$loginTemplate->replaceVars ( array (
 			'loginInfo' => $loginInfo
 	) );

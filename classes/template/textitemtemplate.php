@@ -11,7 +11,7 @@ class TextItemTemplate extends Template{
 	 * Creates the TextItemTemplate
 	 */
 	function __construct() {
-		parent::__construct ( 'templates/textitem.tmpl' );
+		parent::__construct ( 'templates/textitem.html' );
 	}
 	
 	/**

@@ -14,7 +14,7 @@ class FooterTemplate extends Template {
 	 * @param unknown $active
 	 */
 	function __construct() {
-		parent::__construct ( 'templates/footer.tmpl' );
+		parent::__construct ( 'templates/footer.html' );
 	}
 }
 

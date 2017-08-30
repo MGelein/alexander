@@ -68,7 +68,7 @@ echo $navigationTemplate->display ();
 
 // render the content based on user privileges
 if ($adminUser) {
-	$addUserTemplate = new Template ( 'templates/adduser.tmpl' );
+	$addUserTemplate = new Template ( 'templates/adduser.html' );
 	$addUserTemplate->replaceVars ( array (
 			'addUserInfo' => $addUserInfo 
 	) );

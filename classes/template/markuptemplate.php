@@ -14,7 +14,7 @@ class MarkupTemplate extends Template{
 	 * @param unknown $active
 	 */
 	function __construct($id, $markupType = 'default') {
-		parent::__construct ( 'templates/markups/' . $markupType . '.tmpl' );
+		parent::__construct ( 'templates/markups/' . $markupType . '.html' );
 		
 		$markup = unserialize(loadTextFile("markups/markup-$id"));
 		

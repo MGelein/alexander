@@ -12,7 +12,7 @@ class EditorTemplate extends Template{
 	 * Creates the EditorTemplate
 	 */
 	function __construct($text) {
-		parent::__construct ( 'templates/editor.tmpl' );
+		parent::__construct ( 'templates/editor.html' );
 		$this->replaceVars(array (
 			'authorList' => Author::listAll(),
 			'textName' => $text->getName(),

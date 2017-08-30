@@ -12,6 +12,6 @@ class AdminUtilTemplate extends Template{
 	 * Creates the AdminUtilTemplate
 	 */
 	function __construct() {
-		parent::__construct ( 'templates/adminutil.tmpl' );
+		parent::__construct ( 'templates/adminutil.html' );
 	}
 }

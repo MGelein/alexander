@@ -33,7 +33,7 @@ if ($editMode) {
 	$pageCSS = 'editor.css';
 	$contentTemplate = new EditorTemplate($text);
 } else {
-	$contentTemplate = new Template ( 'templates/loader.tmpl' );
+	$contentTemplate = new Template ( 'templates/loader.html' );
 }
 
 // rendering the header
