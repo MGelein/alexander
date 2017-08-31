@@ -1,13 +1,13 @@
-newTextEditor('editorialComments');
-newTextEditor('textEditor');
+alexander.editor.new('editorialComments');
+alexander.editor.new('textEditor');
 loadText();
 
 /**
  * Adds a markup around the current selection
  */
 function insertMarkup(){
-	range = getRange();
-	replaceSelectionWithHtml("<span contenteditable='false' id='markupStart' class='handle redHandle'></span>" + range + "<span id='markupEnd' contenteditable='false' class='handle redHandle'></span>");
+	range = alexander.select.getRange();
+	alexander.select.replaceWithHtml("<span contenteditable='false' id='markupStart' class='handle redHandle'></span>" + range + "<span id='markupEnd' contenteditable='false' class='handle redHandle'></span>");
 	requestMarkupID();
 }
 
@@ -21,14 +21,14 @@ function moveMarkup(id){
 	mS.parentNode.removeChild(mS);
 	mE.parentNode.removeChild(mE);
 	
-	tmp = ce('p');
+	tmp = alexander.util.ce('p');
 	tmp.appendChild(mS);
 	startString = tmp.innerHTML;
 	tmp.removeChild(mS);
 	tmp.appendChild(mE);
 	endString = tmp.innerHTML;
 	
-	replaceSelectionWithHtml(startString + getRange() + endString);
+	alexander.select.replaceWithHtml(startString + alexander.select.getRange() + endString);
 	mS = $('#' + id + '_start').get(0);
 	mE = $('#' + id + '_end').get(0);
 	activateHandle(mS);
@@ -66,7 +66,7 @@ function saveText(checkIn){
 		'textStatusSelect': textStatus
 	}
 	//Does the actual Ajax call
-	ajaxReq('saveTextContent', saveData, function(responseText){
+	alexander.ajax.req('saveTextContent', saveData, function(responseText){
 		switch(responseText){
 			case "OK":
 				if(checkIn) exitEditor();
@@ -102,10 +102,10 @@ function loadMarkup(id){
 	}
 	
 	//Make an ajax request for the data 
-	ajaxReq('loadMarkup', id, function(responseText){
-		addColumn(this.responseText);
+	alexander.ajax.req('loadMarkup', id, function(responseText){
+		addColumn(responseText);
 		activateHandles();
-		clearSelection();
+		alexander.selection.clear();
 	});
 }
 
@@ -113,7 +113,7 @@ function loadMarkup(id){
  * Loads a complete text into the text-editor
  */
 function loadText(){
-	ajaxReq('loadText', getUrlVars()['txtID'], function(responseText){
+	alexander.ajax.req('loadText', alexander.util.getUrlVars()['txtID'], function(responseText){
 		nicEditors.findEditor('textEditor').setContent(responseText);
 		activateHandles();
 		setTimeout(convertNote, 1000);
@@ -138,12 +138,12 @@ function convertNote(){
 		className += "yellowHandle";
 	}
 	
-	mS = ce('span');
+	mS = alexander.util.ce('span');
 	mS.setAttribute('contenteditable', false);
 	mS.className = className;
 	activateHandle(mS);
 	
-	mE = ce('span');
+	mE = alexander.util.ce('span');
 	mE.setAttribute('contenteditable', false);
 	mE.className = className;
 	activateHandle(mE);
@@ -151,8 +151,8 @@ function convertNote(){
 	note.parentNode.insertBefore(mE, note.nextSibling);
 	note.parentNode.replaceChild(mS, note);
 	
-	ajaxReq('convertNote', note.id, function(responseText){
-		id = this.responseText;
+	alexander.ajax.req('convertNote', note.id, function(responseText){
+		id = responseText;
 		mS.id = id + '_start';
 		mE.id = id + '_end';
 		mS.title = mS.innerHTML = id;
@@ -166,21 +166,21 @@ function convertNote(){
  * Requests a new markup ID number to use from the server.
  */
 function requestMarkupID(){
-	ajaxReq('requestMarkupID', '', function(responseText){
+	alexander.ajax.req('requestMarkupID', '', function(responseText){
 		objS = $('#markupStart').get(0);
 		objE = $('#markupEnd').get(0);
 		
-		objS.id = this.responseText + '_start';
-		objE.id = this.responseText + '_end';
+		objS.id = responseText + '_start';
+		objE.id = responseText + '_end';
 		
 		
-		objS.innerHTML = objE.innerHTML = this.responseText;			
-		objS.title = objE.title = this.responseText;
+		objS.innerHTML = objE.innerHTML = responseText;			
+		objS.title = objE.title = responseText;
 		
 		activateHandle(objS);
 		activateHandle(objE);
 		
-		loadMarkup(this.responseText);	
+		loadMarkup(responseText);	
 	});
 }
 
@@ -252,27 +252,6 @@ function activateHandle(handle){
 	}
 }
 
-/**
- * Replaces the current selection with the provided HTML text
- * @param html
- */
-function replaceSelectionWithHtml(html) {
-	var range, html;
-	if (window.getSelection && window.getSelection().getRangeAt) {
-		range = window.getSelection().getRangeAt(0);
-		range.deleteContents();
-		var div = document.createElement("div");
-		div.innerHTML = html;
-		var frag = document.createDocumentFragment(), child;
-		while ( (child = div.firstChild) ) {
-			frag.appendChild(child);
-		}
-		range.insertNode(frag);
-	} else if (document.selection && document.selection.createRange) {
-		range = document.selection.createRange();
-		range.pasteHTML(html);
-	}
-}
 
 /**
  * Removes the column with the specified ID

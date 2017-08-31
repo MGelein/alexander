@@ -80,6 +80,10 @@ CLASSES
     column-gap: 10;
 }
 
+.passField{
+	margin-bottom: 0.2em;
+}
+
 /**
 ID's
 **/

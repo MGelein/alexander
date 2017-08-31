@@ -16,7 +16,7 @@ THIS SCRIPT RUNS ON LOAD
 
 <script id="loadScript">
 
-newTextEditor('annEditor_{id}');
+alexander.editor.new('annEditor_{id}');
 nicEditors.findEditor('annEditor_{id}').setContent('{content}');
 
 </script>
@@ -33,7 +33,7 @@ var data = {
 	content: contents
 }
 
-ajaxReq('saveMarkup', data, function(responseText){
+alexander.ajax.req('saveMarkup', data, function(responseText){
 	removeColumn({id});
 });
 

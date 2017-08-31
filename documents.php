@@ -88,7 +88,7 @@ function createFileEntry($file, $folder) {
 	$deleteButton = "";
 	$user = new User($_SESSION['user']);
 	if($user->getLevel() < 1){
-		$deleteButton = "<td><a href='javascript:void(0)' class='btn btn-danger'><i class='glyphicon glyphicon-remove'></i></a></td>";
+		$deleteButton = "<td><a href='javascript:void(0)' class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></a></td>";
 	}
 	
 	// return a <li> item

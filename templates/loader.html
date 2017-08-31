@@ -9,20 +9,20 @@
 				<p>
 				<div class="row">
 				
-				<div class="col-sm-4"><span>Load a text from the list below</span> or create a new text: <input type="button" class="btn btn-primary btn-sm" value="Add New Text" onclick="createText();"/></p>
+				<div class="col-sm-4"><span>Load a text from the list below</span> or create a new text: <input type="button" class="btn btn-primary btn-sm" value="Add New Text" onclick="alexander.text.create();"/></p>
 				</div>
 				
 				<div class="col-sm-4">
 					<p class="text-center">
 					Filter:&nbsp;
-					<input id="textFilter" type="text" onkeyup="updateTextOverview();" onpaste="updateTextOverview();"></input>
+					<input id="textFilter" type="text" onkeyup="alexander.text.renderOverview();" onpaste="alexander.text.renderOverview();"></input>
 					</p>
 				</div>
 				
 				<div class="col-sm-4">
 				<span class="pull-right">
 				Order by:
-					<select id="textOrder" onchange="orderTextOverview();">
+					<select id="textOrder" onchange="alexander.text.renderOverview();">
 		  				<option value="titleASC">Title A-Z</option>
 		  				<option value="titleDESC">Title Z-A</option>
 					 	<option value="authorASC">Author A-Z</option>
@@ -33,8 +33,7 @@
 				</span>
 				</div>				
 				</div>
-				</p>
-				
+				</p>				
 				
 				<div class="panel panel-default">
 					<div class="panel-body">
@@ -54,5 +53,8 @@
 		</div>
 	</div>
 </div>
-<script src="dist/js/loader.min.js"></script>
-<Script>loadTextOverview()</script>
+<script>
+function init(){
+	alexander.text.loadOverview();
+}
+</script>

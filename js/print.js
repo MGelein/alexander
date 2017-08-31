@@ -8,8 +8,8 @@ function loadHandle(handle){
 	if(handle == undefined) return;
 	
 	//Make the AJAX request
-	ajaxReq('loadMarkup', handle.innerHTML, function(responseText){
-		parts = this.responseText.split("::");
+	alexander.ajax.req('loadMarkup', handle.innerHTML, function(responseText){
+		parts = responseText.split("::");
 		appendNote(parts[0], parts[1]);
 		
 		handle.className = "note";
@@ -22,7 +22,7 @@ function loadHandle(handle){
  */
 function appendNote(id, content){
 	if($(id) == null){
-		var note = ce('li');
+		var note = alexander.ce('li');
 		note.id = id;
 		note.innerHTML = id + ": " + content;
 		$('app').appendChild(note);

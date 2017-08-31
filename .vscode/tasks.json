@@ -6,7 +6,8 @@
         {
             "taskName": "Grunt",
             "type": "shell",
-            "command": "grunt"
+            "command": "grunt",
+            "problemMatcher": []
         }
     ]
 }
