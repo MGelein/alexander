@@ -1,7 +1,3 @@
-alexander.editor.new('editorialComments');
-alexander.editor.new('textEditor');
-loadText();
-
 /**
  * Adds a markup around the current selection
  */
@@ -36,56 +32,6 @@ function moveMarkup(id){
 }
 
 /**
- * Requests the server to save the text using a AJAX request.
- * If true is passed as parameter, the editor will also exit
- * and load the text-loader
- * @param
- */
-function saveText(checkIn){
-	//loads the variables from the HTML
-	var textContent = nicEditors.findEditor('textEditor').getContent();
-	var authorName = $('#authorField').val();
-	var textName = $('#textNameField').val();
-	var textTitle = $('#titleField').val();
-	var locusFrom = $('#locusFromField').val();
-	var locusTo = $('#locusToField').val();
-	var textStatus = $('#textStatusSelect').val();
-	
-	//replace the nbsp with a normal space to send it back and forth using the AJAX messages
-	textContent = textContent.replace(/&nbsp;/g, ' ');
-
-	//sets up the AJAX message
-	var saveData = {
-		'textContent': textContent,
-		'authorName': authorName.toLowerCase(),
-		'textName': textName,
-		'textTitle': textTitle,
-		'locusF': locusFrom,
-		'locusT': locusTo,
-		'checkIn': checkIn,
-		'textStatusSelect': textStatus
-	}
-	//Does the actual Ajax call
-	alexander.ajax.req('saveTextContent', saveData, function(responseText){
-		switch(responseText){
-			case "OK":
-				if(checkIn) exitEditor();
-				break;
-			case "DB_ERR":
-				alert("A database error occured. Saving has failed. Try again later.");
-				break;
-
-			case 'AUTH_RES_ERR':
-				alert("A result error has occured. This authorName is not yet registered. And you don't have the necessary privileges to register a new author");
-				break;
-
-			default:
-				alert(responseText);
-		}
-	});
-}
-
-/**
  * Loads the markup with the specified id
  */
 function loadMarkup(id){
@@ -106,17 +52,6 @@ function loadMarkup(id){
 		addColumn(responseText);
 		activateHandles();
 		alexander.selection.clear();
-	});
-}
-
-/**
- * Loads a complete text into the text-editor
- */
-function loadText(){
-	alexander.ajax.req('loadText', alexander.util.getUrlVars()['txtID'], function(responseText){
-		nicEditors.findEditor('textEditor').setContent(responseText);
-		activateHandles();
-		setTimeout(convertNote, 1000);
 	});
 }
 

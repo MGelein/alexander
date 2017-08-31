@@ -52,6 +52,56 @@
      * Global text object used to make changes to texts
      */
     _a.text = {
+				
+		/**
+		 * Loads a complete text into the text-editor
+		 */
+		load: function(){
+			alexander.ajax.req('loadText', alexander.util.getUrlVars()['txtID'], function(responseText){
+				nicEditors.findEditor('textEditor').setContent(responseText);
+				activateHandles();
+				setTimeout(convertNote, 1000);
+			});
+		},
+
+		/**
+		 * Requests the server to save the text using a AJAX request.
+		 * If true is passed as parameter, the editor will also exit
+		 * and load the text-loader
+		 * @param andExit
+		 */
+		save: function(andExit){
+			//sets up the AJAX message
+			var saveData = {
+				'textContent': nicEditors.findEditor('textEditor').getContent().replace(/&nbsp;/g, ' '),
+				'authorName': $('#authorField').val().toLowerCase(),
+				'textName': $('#textNameField').val(),
+				'textTitle': $('#titleField').val(),
+				'locusF': $('#locusFromField').val(),
+				'locusT': $('#locusToField').val(),
+				'checkIn': andExit,
+				'textStatusSelect': $('#textStatusSelect').val()
+			}
+			//Does the actual Ajax call
+			alexander.ajax.req('saveTextContent', saveData, function(responseText){
+				switch(responseText){
+					case "OK":
+						if(checkIn) exitEditor();
+						break;
+					case "DB_ERR":
+						alert("A database error occured. Saving has failed. Try again later.");
+						break;
+
+					case 'AUTH_RES_ERR':
+						alert("A result error has occured. This authorName is not yet registered. And you don't have the necessary privileges to register a new author");
+						break;
+
+					default:
+						console.log("ERR:" + responseText);
+				}
+			});
+		},
+
         /**
 	     * Creates a new text and forwards the browser to that page
 	     */

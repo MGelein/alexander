@@ -41,8 +41,8 @@
 			<div class="panel-body">
 				<div class="btn-group btn-group-justified">
 					<a href="javascript:void(0)" title="New Markup" class="btn btn-info" onclick="insertMarkup();"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Markup</a>
-					<a title="Save" class="btn btn-default" onclick="saveText(false);"><span class="glyphicon glyphicon-save"></span>&nbsp;Save</a>
-					<a title="Save & Exit" class="btn btn-primary"  onclick="saveText(true);"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Save &amp; Exit</a>
+					<a title="Save" class="btn btn-default" onclick="alexander.text.save(false);"><span class="glyphicon glyphicon-save"></span>&nbsp;Save</a>
+					<a title="Save & Exit" class="btn btn-primary"  onclick="alexander.text.save(true);"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Save &amp; Exit</a>
 				</div> 
 			</div>
 		</div>
@@ -95,6 +95,13 @@
 	
 </div>
 <script src="dist/js/editor.min.js"></script>
+<script>
+function init(){
+	alexander.editor.new('editorialComments');
+	alexander.editor.new('textEditor');
+	alexander.text.load();
+}
+</script>
 <datalist id="authors">
 {authorList}
 </datalist>
