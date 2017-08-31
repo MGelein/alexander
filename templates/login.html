@@ -1,21 +1,20 @@
 <div class="container">
 	<div class="row" id="login">
+		<!-- SPACER DIV --> 
 		<div class="col-sm-4"></div>
-			<div class="col-sm-4">
-				<div class="panel panel-primary">
-				<div class="panel-heading">Login</div>
-				<div class="panel-body">
-					<form action="index.php" method="post" class="form-horizontal">
-					<div class="col-sm-2"></div>
-					<table style="margin-bottom: 1em;" class="col-sm-6">
-					<tr><td>Email: </td><td><input class="form-control" type="text" placeholder="Email Address" name="email"></td></tr> 
-					<tr><td>Password: </td><td><input class="form-control" type="password" placeholder="Password" name="password"></td></tr>
-					<tr><td class="text-danger bg-danger" colspan="2">{loginInfo}</td></tr>
-					</table>
-					<input class="btn btn-default btn-block" type="submit" value="Log in" class="button">
-					</form>
-				</div>
+		<div class="col-sm-4">
+			<div class="panel panel-primary">
+			<div class="panel-heading">Login</div>
+			<div class="panel-body">
+				<form action="index.php" method="post" class="form-horizontal">
+					<label for='email'>Email: </label><input class="form-control" type="text" placeholder="Email Address" name="email">
+					<label for='password'>Password: </label><input class="form-control" type="password" placeholder="Password" name="password"></label>
+					<span class="text-danger bg-danger">{loginInfo}</span>
+					<br>
+					<input class="btn btn-primary btn-block" type="submit" value="Log in" class="button">
+				</form>
 			</div>
+		</div>
 		</div>
 	</div>
 </div>

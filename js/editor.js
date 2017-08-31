@@ -43,46 +43,46 @@ function moveMarkup(id){
  */
 function saveText(checkIn){
 	//loads the variables from the HTML
-	textContent = nicEditors.findEditor('textEditor').getContent();
-	authorName = $('#authorField').val();
-	textName = $('#textNameField').val();
-	textTitle = $('#titleField').val();
-	locusFrom = $('#locusFromField').val();
-	locusTo = $('#locusToField').val();
-	textStatus = $('#textStatusSelect').val();
+	var textContent = nicEditors.findEditor('textEditor').getContent();
+	var authorName = $('#authorField').val();
+	var textName = $('#textNameField').val();
+	var textTitle = $('#titleField').val();
+	var locusFrom = $('#locusFromField').val();
+	var locusTo = $('#locusToField').val();
+	var textStatus = $('#textStatusSelect').val();
 	
 	//replace the nbsp with a normal space to send it back and forth using the AJAX messages
 	textContent = textContent.replace(/&nbsp;/g, ' ');
 
 	//sets up the AJAX message
-	msg="AJAX=" + true + "&saveTextContent=" + true + "&textContent=" + textContent +
-	"&authorName=" + authorName.toLowerCase() + "&textName=" + textName + 
-	"&textTitle=" + textTitle + "&locusF=" + locusFrom + "&locusT=" + locusTo +"&checkIn=" + checkIn +
-	"&textStatusSelect=" + textStatus;
+	var saveData = {
+		'textContent': textContent,
+		'authorName': authorName.toLowerCase(),
+		'textName': textName,
+		'textTitle': textTitle,
+		'locusF': locusFrom,
+		'locusT': locusTo,
+		'checkIn': checkIn,
+		'textStatusSelect': textStatus
+	}
+	//Does the actual Ajax call
+	ajaxReq('saveTextContent', saveData, function(responseText){
+		switch(responseText){
+			case "OK":
+				if(checkIn) exitEditor();
+				break;
+			case "DB_ERR":
+				alert("A database error occured. Saving has failed. Try again later.");
+				break;
 
-	//creates a new AJAX request and does setup
-	req = getAjaxRequest(function(){
-		if(this.readyState == 4){
-			if(this.status == 200){
-				if(this.responseText != null){
-					if(this.responseText == "OK"){
-						if(checkIn) exitEditor();
-					}
-					else if(this.responseText == "DB_ERR"){
-						alert("A database error occured. Saving has failed. Try again later.");
-					}
-					else if(this.responseText == "AUTH_RES_ERR"){
-						alert("A result error has occured. This authorName is not yet registered. And you don't have the necessary privileges to register a new author");
-					}else{
-						alert(this.responseText);
-					}
-				}
-			}
+			case 'AUTH_RES_ERR':
+				alert("A result error has occured. This authorName is not yet registered. And you don't have the necessary privileges to register a new author");
+				break;
+
+			default:
+				alert(responseText);
 		}
 	});
-
-	//finally sends the AJAX call
-	req.send(msg);
 }
 
 /**
@@ -101,47 +101,23 @@ function loadMarkup(id){
 		return;
 	}
 	
-	//then load the new one
-	msg="AJAX=" + true + "&loadMarkup=" + id;
-	req = getAjaxRequest(function(){
-		if(this.readyState == 4){
-			if(this.status == 200){
-				if(this.responseText != null){
-					addColumn(this.responseText);
-					
-					activateHandles();
-					
-					clearSelection();
-				}
-			}
-		}
+	//Make an ajax request for the data 
+	ajaxReq('loadMarkup', id, function(responseText){
+		addColumn(this.responseText);
+		activateHandles();
+		clearSelection();
 	});
-
-	req.send(msg);
 }
 
 /**
  * Loads a complete text into the text-editor
  */
 function loadText(){
-	//then load the new one
-	msg="AJAX=" + true + "&loadText=" + getUrlVars()['txtID'];
-	req = getAjaxRequest(function(){
-		if(this.readyState == 4){
-			if(this.status == 200){
-				if(this.responseText != null){
-					nicEditors.findEditor('textEditor').setContent(this.responseText);
-					
-					//activate all handles
-					activateHandles();
-					
-					setTimeout(convertNote, 1000);
-				}
-			}
-		}
+	ajaxReq('loadText', getUrlVars()['txtID'], function(responseText){
+		nicEditors.findEditor('textEditor').setContent(responseText);
+		activateHandles();
+		setTimeout(convertNote, 1000);
 	});
-
-	req.send(msg);
 }
 
 /**
@@ -175,25 +151,14 @@ function convertNote(){
 	note.parentNode.insertBefore(mE, note.nextSibling);
 	note.parentNode.replaceChild(mS, note);
 	
-	msg = "AJAX=" + true + "&convertNote=" + note.id;
-	
-	req = getAjaxRequest(function(){
-		if(this.readyState == 4){
-			if(this.status == 200){
-				if(this.responseText != null){
-					id = this.responseText;
-					mS.id = id + '_start';
-					mE.id = id + '_end';
-					mS.title = mS.innerHTML = id;
-					mE.title = mE.innerHTML = id;
-					
-					convertNote();									
-				}
-			}
-		}
+	ajaxReq('convertNote', note.id, function(responseText){
+		id = this.responseText;
+		mS.id = id + '_start';
+		mE.id = id + '_end';
+		mS.title = mS.innerHTML = id;
+		mE.title = mE.innerHTML = id;
+		convertNote();										
 	});
-
-	req.send(msg);
 }
 
 
@@ -201,33 +166,22 @@ function convertNote(){
  * Requests a new markup ID number to use from the server.
  */
 function requestMarkupID(){
-	msg = "AJAX=" + true + "&requestMarkupID=" + true;
-	
-	req = getAjaxRequest(function(){
-		if(this.readyState == 4){
-			if(this.status == 200){
-				if(this.responseText != null){
-					
-					objS = $('#markupStart').get(0);
-					objE = $('#markupEnd').get(0);
-					
-					objS.id = this.responseText + '_start';
-					objE.id = this.responseText + '_end';
-					
-					
-					objS.innerHTML = objE.innerHTML = this.responseText;			
-					objS.title = objE.title = this.responseText;
-					
-					activateHandle(objS);
-					activateHandle(objE);
-					
-					loadMarkup(this.responseText);	
-				}
-			}
-		}
+	ajaxReq('requestMarkupID', '', function(responseText){
+		objS = $('#markupStart').get(0);
+		objE = $('#markupEnd').get(0);
+		
+		objS.id = this.responseText + '_start';
+		objE.id = this.responseText + '_end';
+		
+		
+		objS.innerHTML = objE.innerHTML = this.responseText;			
+		objS.title = objE.title = this.responseText;
+		
+		activateHandle(objS);
+		activateHandle(objE);
+		
+		loadMarkup(this.responseText);	
 	});
-	
-	req.send(msg);
 }
 
 /**
@@ -390,18 +344,12 @@ function addColumn(response){
 	
 	resizeEditors();
 	
-	col = ce('div');
-	col.className = "col-sm-" + colWidth  +" editorHolder";
-	col.innerHTML = response;
-
-	var editorRow = $('#markupRow').get(0);
-	editorRow.appendChild(col);
+	$('#markupRow').append("<div class='editorHolder col-sm-'" + colWidth + "'></div>").find('.editorHolder').html(response);
 	
 	//Activate newly added script. This is a bit of a hack :)
-	addedScript = $('#loadScript').get(0);
-	eval(addedScript.innerHTML);
+	eval($('#loadScript').html());
 	//remove the initscript after it has been run once
-	addedScript.parentNode.removeChild(addedScript);
+	$('#loadScript').remove();
 }
 
 /**

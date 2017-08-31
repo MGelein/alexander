@@ -9,7 +9,7 @@ restartSession();
 $connection = new SQLConnection();
 
 //check for AJAX messaging
-if(isset($_POST['AJAX'])){
+if(isset($_POST['ajaxMethod'])){
 	readAjaxMessage();
 }else{
 	die();
@@ -23,41 +23,46 @@ if(isset($_POST['AJAX'])){
  * Checks and handles AJAX messages
  */
 function readAjaxMessage() {
-	
-	if(isset($_POST['requestMarkupID'])){
-		echo Markup::createNew();
-	}
-	
-	else if (isset ( $_POST ['saveMarkup'] )) {
-		echo Markup::save($_POST['saveMarkup']);
-	}
-	
-	else if (isset ( $_POST ['loadMarkup'] )) {
-		echo Markup::load($_POST['loadMarkup']);
-	}
-	
-	else if (isset ( $_POST ['convertNote'])){
-		echo Markup::convert($_POST['convertNote']);
-	}
-	
-	else if (isset ( $_POST ['newText'] )) {
-		echo Text::createNew();
-	} 
-	
-	else if (isset ( $_POST ['loadText'] )) {
-		echo Text::load($_POST['loadText']);
-	} 
-	
-	else if (isset ( $_POST ['saveTextContent'] ) && isset ( $_POST ['textContent'] ) && isset ( $_POST ['textName'] ) && isset ( $_POST ['authorName'] )) {
-		echo saveTextContent ();
-	}
-	
-	else if (isset ( $_POST ['loadTextOverview'])) {
-		echo Text::listAll($_POST ['loadTextOverview'], $_POST['textFilter']);
-	}
-	
-	else {
-		echo "UNRECOGNIZED AJAX COMMAND! IGNORED";
+	switch($_POST['ajaxMethod']){
+		case 'requestMarkupID':
+			echo Markup::createNew();
+			break;
+
+		case 'saveMarkup':
+			echo Markup::save($_POST['data']);
+			break;
+
+		case 'loadMarkup':
+			echo Markup::load($_POST['data']);
+			break;
+
+		case 'convertNote':
+			echo Markup::convert($_POST['data']);
+			break;
+
+		case 'newText':
+			echo Text::createNew();
+			break;
+
+		case 'loadText':
+			echo Text::load($_POST['data']);
+			break;
+		
+		case 'saveText':
+			echo saveTextContent($_POST['data']);
+			break;
+		
+		case 'loadTextOverview':
+			echo Text::listAll();
+			break;
+		
+		case 'echo':
+			echo $_POST['data'];
+			break;
+		
+		default:
+			echo "UNRECOGNIZED AJAX COMMAND! IGNORED";
+			break;
 	}
 }
 
@@ -65,16 +70,16 @@ function readAjaxMessage() {
 /**
  * Saves the current open text
  */
-function saveTextContent() {
+function saveTextContent($data) {
 	// save the text
-	$textContent = $_POST ['textContent'];
+	$textContent = $data['textContent'];
 	$textID = $_SESSION ['textID'];
-	$textName = getPost ( 'textName' );
-	$authorName = getPost ( 'authorName' );
-	$textTitle = getPost ( 'textTitle' );
-	$locusF = getPost ( 'locusF' );
-	$locusT = getPost ( 'locusT' );
-	$checkIn = (getPost ( 'checkIn' ) == 'true');
+	$textName = $data['textName'];
+	$authorName = $data['authorName'];
+	$textTitle = $data['textTitle'];
+	$locusF = $data['locusF'];
+	$locusT = $data['locusT'];
+	$checkIn = ($data['checkIn'] == 'true');
 
 	// finally saves the text
 	return saveText ( $textID, $textContent, $authorName, $textName, $textTitle, $locusF, $locusT, $checkIn );

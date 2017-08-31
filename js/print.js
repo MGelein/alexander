@@ -6,23 +6,15 @@ loadHandle(document.getElementsByClassName('handle')[0]);
  */
 function loadHandle(handle){
 	if(handle == undefined) return;
+	
+	//Make the AJAX request
+	ajaxReq('loadMarkup', handle.innerHTML, function(responseText){
+		parts = this.responseText.split("::");
+		appendNote(parts[0], parts[1]);
 		
-	msg="AJAX=" + true + "&loadMarkup=" + handle.innerHTML;
-	req = getAjaxRequest(function(){
-		if(this.readyState == 4){
-			if(this.status == 200){
-				if(this.responseText != null){
-					parts = this.responseText.split("::");
-					appendNote(parts[0], parts[1]);
-					
-					handle.className = "note";
-					loadHandle(document.getElementsByClassName('handle')[0])
-				}
-			}
-		}
+		handle.className = "note";
+		loadHandle(document.getElementsByClassName('handle')[0])
 	});
-
-	req.send(msg);
 }
 
 /**

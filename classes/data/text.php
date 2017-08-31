@@ -28,42 +28,15 @@ class Text{
 		return $statusTypes;
 	}
 	/**
-	 * Generates the text overview used in the loader
+	 * Generates the text overview used in the loader. Just returns all the texts
+	 * in a HTML string. Filtering and ordering of texts is done clientside
 	 * @return string
 	 */
-	public static function listAll($order, $filter){
+	public static function listAll(){
 		$textOverview = '';
-		$textOrder;
-		switch($order){
-			case 'statusASC': 
-				$textOrder = 'texts.status';
-				break;
-			case 'statusDESC':
-				$textOrder = 'texts.status DESC';
-				break;
-			case 'titleASC':
-				$textOrder = 'texts.title';
-				break;
-			case 'titleDESC':
-				$textOrder = 'texts.title DESC';
-				break;
-			case 'authorASC':
-				$textOrder = 'authors.name';
-				break;
-			case 'authorDESC':
-				$textOrder = 'authors.name DESC';
-				break;
-			case 'nameDESC':
-				$textOrder = 'texts.name DESC';
-				break;
-			case 'nameASC':
-			default: 
-				$textOrder = 'texts.name';
-				break;
-		}
 		
 		$connection = SQLConnection::getActive();
-		$query = "SELECT texts.id, texts.name, authors.name, texts.status, texts.title FROM texts INNER JOIN authors ON texts.author=authors.id ORDER BY $textOrder";
+		$query = "SELECT texts.id, texts.name, authors.name, texts.status, texts.title FROM texts INNER JOIN authors ON texts.author=authors.id";// ORDER BY $textOrder";
 		$result = $connection->query ( $query );
 		$labelType = "label-default";
 		$textItemTemplate = new TextItemTemplate();
@@ -94,19 +67,8 @@ class Text{
 					break;
 			}
 			
-			$filter = strtolower($filter);
 			$textItemString = $textItemTemplate->renderOnce( $row [0], $labelType, $row [1], $row [2], $row [4] );
-			if($filter != ''){
-				if ((stripos(strip_tags($textItemString), $filter) !== false)){// || (strpos($row[1], $filter) !== false) || (strpos($row[2], $filter) !== false) || (strpos($row[4], $filter) !== false)) {
-					$id = $row[0];
-					$textName = $row[1];
-					$authorName = $row[2];
-					$textTitle = $row[4];
-					$textOverview .= $textItemTemplate->renderOnce( $id, $labelType, $textName, $authorName, $textTitle );
-				}
-			}else{
-				$textOverview .= $textItemString;
-			}
+			$textOverview .= $textItemString;
 		}
 		return $textOverview;
 	}

@@ -35,15 +35,39 @@ ul{
 CLASSES
 **/
 
-.textItemHeader{
-	font-size: 1em;
-	margin-bottom: 0.5em;
-	
+.loaderHeader{
+	font-weight: bold;
+	font-size: 110%;
+	margin-bottom: 1em;
+	margin-right: 1em;
+	border-bottom: 1px solid #777;
+	box-shadow: 0px 2px 0px #ccc;
+}
+
+.loaderTitle{
+	margin-right: 1em;
+}
+
+.loaderName{
+	margin-right: 1em;
+}
+
+.loaderAuthor{
+	margin-right: 1em;
+}
+
+.textlink{
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.textlink:hover{
+	background-color: rgba(102, 177, 255, 0.3);
 }
 
 .textItem {
 	font-size: 1em;
-	margin-bottom: 0.5em;
+	margin-bottom: 0.1em;
+	margin-top: 0.1em;
 }
 
 .group-list {

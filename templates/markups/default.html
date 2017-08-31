@@ -27,22 +27,16 @@ THIS SCRIPT IS CALLED BY THE CLOSE BUTTON
 
 <script id="close{id}Script">
 
-content = nicEditors.findEditor('annEditor_{id}').getContent();
+var contents = nicEditors.findEditor('annEditor_{id}').getContent();
+var data = {
+	id: {id},
+	content: contents
+}
 
-msg="AJAX=" + true + "&saveMarkup=" + {id} + "&content=" + content;
-
-req = getAjaxRequest(function(){
-	if(this.readyState == 4){
-		if(this.status == 200){
-			if(this.responseText != null){
-				removeColumn({id});
-			}
-		}
-	}
+ajaxReq('saveMarkup', data, function(responseText){
+	removeColumn({id});
 });
 
 highlightMarkup({id}, false);
-
-req.send(msg);
 
 </script>

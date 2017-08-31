@@ -1,3 +1,44 @@
+//Useful to set in the console to be able to view logging of ajax messages
+var AJAX_LOGGING = false;
+/**
+ * Creates an AJAX request. Transfres the provided data to the server and
+ * answers the callback when a response is successful.
+ * @param {String} method 		A string denoting our intent
+ * @param {Object} ajaxData		A data object containing the data we want to work with 
+ * @param {Function} callback 	A callback function, takes the response string as parameter
+ */
+function ajaxReq(method, ajaxData, callbackFn){
+	//Simple data object holding the standard data and method 
+	var ajaxObject = {
+		ajaxMethod: method,
+		data: ajaxData
+	};
+
+	//If we are logging, log the request now
+	if(AJAX_LOGGING){
+		console.log("AJAX_REQ_START: method=" + method);
+		console.log(ajaxData);
+		console.log('AJAX_REQ_END')
+	}
+
+	//Now actually send the ajax request
+	$.ajax({
+		type: "POST",
+		url: "ajax.php",
+		data: ajaxObject,
+		success: function(result){
+			//First log, if we are logging
+			if(AJAX_LOGGING){
+				console.log("AJAX_RESP_START");
+				console.log(result);
+				console.log("AJAX_RESP_END");
+			}
+			//Then call the callback
+			callbackFn(result);
+		}
+	});
+}
+
 /**
  * Creates an element with the specified name
  * @param name
@@ -47,38 +88,6 @@ function openDebugHTML(html){
 	myWindow = window.open("data:text/html," + encodeURIComponent(html),
 			"_blank", "width=400,height=300");
 	myWindow.focus();
-}
-
-/**
- * Opens a AJAX request to ajax.php. You only need to send the message and
- * define the callback function
- * @param callback
- * @returns {ajax request}
- */
-function getAjaxRequest(callback){
-	try{
-		var r = new XMLHttpRequest();
-	}catch(e1){
-		try{
-		r = new ActiveXObject("Msxml2.XMLHTTP");
-		}catch(e2){
-			try{
-			r = new ActiveXObject("Microsoft.XMLHTTP");
-			}catch(e3){
-				r = false;
-			}
-		}
-	}
-	
-	//already open the request and set its target
-	r.open("POST", "ajax.php", true);
-	r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	
-	//register the callback
-	r.onreadystatechange = callback;
-	
-	//return the AJAX request
-	return r;
 }
 
 /**
