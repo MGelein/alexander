@@ -13,23 +13,24 @@ class MarkupTemplate extends Template{
 	 *
 	 * @param unknown $active
 	 */
-	function __construct($id, $markupType = 'default') {
-		parent::__construct ( 'templates/markups/' . $markupType . '.html' );
+	function __construct($markup) {
+		parent::__construct ( 'templates/markup/' . $markup->getType() . '.html' );
+		$id = $markup->getID();
 		
-		$markup = unserialize(loadTextFile("markups/markup-$id"));
+		$data = json_decode(loadTextFile("markup/markup-$id"));
 		
-		$this->templatePopulation($markupType, $markup, $id);
+		$this->templatePopulation($markup->getType(), $data, $id);
 	}
 	
 	/**
 	 * Decides how to populate the template based on the type of markup that is requested
 	 * @param unknown $markupType
 	 */
-	function templatePopulation($markupType, $markup, $id){
+	function templatePopulation($markupType, $data, $id){
 		switch($markupType){
 			case 'default':
 			default:
-				$this->defaultReplace($markup, $id);
+				$this->defaultReplace($data, $id);
 				break;
 		}
 	}
@@ -37,10 +38,10 @@ class MarkupTemplate extends Template{
 	/**
 	 * Handles the default variable replacement for the provided template
 	 */
-	function defaultReplace($markup, $id){
+	function defaultReplace($data, $id){
 		$this->replaceVars ( array (
 				'id' => $id,
-				'content' => $markup['content']
+				'content' => $data['content']
 		) );
 	}
 }

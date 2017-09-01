@@ -1,8 +1,9 @@
 <div class="container">
 	
 	<div class="row">
-			<div class="panel panel-primary">
-				<div class="panel-heading"><span class="glyphicon glyphicon-user"></span>&nbsp;Account Data<button data-toggle="collapse" data-target="#accountCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
+		<div class="col-sm-6">
+			<div class="panel panel-primary accountPanel animated slideInLeft">
+				<div class="panel-heading"><span class="glyphicon glyphicon-user"></span>&nbsp;Account Data</div>
 				<div id="accountCollapse" class="panel-collapse collapse in">
 				<div class="panel-body">
 					<div class="content">
@@ -17,10 +18,11 @@
 				</div>
 				</div>
 			</div>
-	
-		<div class="panel panel-warning">
-				<div class="panel-heading"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Messages&nbsp;<span class="badge">1</span><button data-toggle="collapse" data-target="#messageCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
-				<div id="messageCollapse" class="panel-collapse collapse">
+		</div>
+		<div class='col-sm-6'>
+		<div class="panel panel-warning accountPanel animated slideInRight">
+				<div class="panel-heading"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Messages&nbsp;<span class="badge">1</span></div>
+				<div id="messageCollapse" class="panel-collapse collapse in">
 				<div class="panel-body">
 					<div class="content">
 						<b>Welcome</b>
@@ -31,6 +33,7 @@
 				</div>
 				</div>
 			</div>
+		</div class='col-sm-6'>
 	</div>
 	{adminUtil}
 </div>

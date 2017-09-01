@@ -53,10 +53,6 @@ CLASSES
 	background-color: #ffa953;
 }
 
-.userInput{
-	margin-left: 1em;
-}
-
 .annotation{
 	width: 16px;
 	height: 16px;
@@ -64,22 +60,23 @@ CLASSES
 }
 
 .editor{
-	height: 15em;
-	font-size: 1.3em;
+	height: 12em;
+	font-size: 1.1em;
 	border: 1px solid #ccc;
 	overflow: auto;
 }
 
 .editorContainer{
-	padding: 0em 2em 0em 0em;
+	padding: 0em;
 }
+
 
 .animated,
 .editorHolder{
-	-webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
+	-webkit-transition: width 0.3s ease-in-out;
+	-moz-transition: width 0.3s ease-in-out;
+	-o-transition: width 0.3s ease-in-out;
+	transition: width 0.3s ease-in-out;
 }
 
 .markupCloseButton {

@@ -9,7 +9,6 @@
 			 * Catches a paste event and converts any clipboard data into plain text before pasting.
 			 */
 			document.addEventListener("paste", function (e) {
-				console.log(e.target.id);
 				var pastedText = undefined;
 				if (window.clipboardData && window.clipboardData.getData) { // IE
 					pastedText = window.clipboardData.getData('Text');

@@ -36,10 +36,6 @@ function readAjaxMessage() {
 			echo Markup::load($_POST['data']);
 			break;
 
-		case 'convertNote':
-			echo Markup::convert($_POST['data']);
-			break;
-
 		case 'newText':
 			echo Text::createNew();
 			break;
@@ -80,9 +76,10 @@ function saveTextContent($data) {
 	$locusF = $data['locusF'];
 	$locusT = $data['locusT'];
 	$checkIn = ($data['checkIn'] == 'true');
+	$textStatus = $data['textStatusSelect'];
 
 	// finally saves the text
-	return saveText ( $textID, $textContent, $authorName, $textName, $textTitle, $locusF, $locusT, $checkIn );
+	return saveText ( $textID, $textContent, $authorName, $textName, $textTitle, $locusF, $locusT, $checkIn, $textStatus);
 }
 
 /**
@@ -90,7 +87,7 @@ function saveTextContent($data) {
  *
  * @param unknown $id
  */
-function saveText($id, $content, $author, $textName, $textTitle, $locusF, $locusT, $checkIn) {
+function saveText($id, $content, $author, $textName, $textTitle, $locusF, $locusT, $checkIn, $newStatus) {
 	// save the necessary SQL data
 	$connection = SQLConnection::getActive();
 
@@ -112,9 +109,6 @@ function saveText($id, $content, $author, $textName, $textTitle, $locusF, $locus
 			$row = $result->fetch_row();
 			$authorID = $row [0];
 		}
-
-		// update the text status
-		$newStatus = $_POST['textStatusSelect'];
 
 		// only update status if the status is not 99
 		$query = "SELECT status FROM texts WHERE id='$id' LIMIT 1";

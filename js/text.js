@@ -58,7 +58,7 @@
 		 */
 		load: function(){
 			alexander.ajax.req('loadText', alexander.util.getUrlVars()['txtID'], function(responseText){
-				nicEditors.findEditor('textEditor').setContent(responseText);
+				nicEditors.findEditor('textEditor').setContent(decodeURI(responseText));
 				alexander.markup.registerListeners();
 			});
 		},
@@ -72,7 +72,7 @@
 		save: function(andExit){
 			//sets up the AJAX message
 			var saveData = {
-				'textContent': nicEditors.findEditor('textEditor').getContent().replace(/&nbsp;/g, ' '),
+				'textContent': encodeURI(nicEditors.findEditor('textEditor').getContent().replace(/&nbsp;/g, ' ')),
 				'authorName': $('#authorField').val().toLowerCase(),
 				'textName': $('#textNameField').val(),
 				'textTitle': $('#titleField').val(),
@@ -82,10 +82,10 @@
 				'textStatusSelect': $('#textStatusSelect').val()
 			}
 			//Does the actual Ajax call
-			alexander.ajax.req('saveTextContent', saveData, function(responseText){
+			alexander.ajax.req('saveText', saveData, function(responseText){
 				switch(responseText){
 					case "OK":
-						if(checkIn) exitEditor();
+						if(andExit) alexander.editor.exit();
 						break;
 					case "DB_ERR":
 						alert("A database error occured. Saving has failed. Try again later.");
@@ -117,10 +117,14 @@
         loadOverview: function (){
             //Do the actual request
             alexander.ajax.req('loadTextOverview', '', function(responseText){
-                $('#textOverview').html(responseText);	
-            });
-            //Now apply the filter and order elements
-            alexander.text.renderOverview();
+				$('#textOverview').html(responseText);
+				
+				//Now apply the filter and order elements
+				alexander.text.renderOverview();	
+			});
+			
+			//Stop the texts from fading in
+			setTimeout(function(){$('.animated.fadeIn').removeClass('animated fadeIn')}, 500);
         },
 
         /**

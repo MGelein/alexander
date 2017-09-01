@@ -115,8 +115,6 @@ function registerNewNote(){
  */
 function registerNewMarkup(){
 	$connection = SQLConnection::getActive();
-	//$query = "INSERT INTO markups(type, status) VALUES (0, -1)";
-	//$result = $connection->query($query);
 	
 	//request the ID of the newly created value
 	$query = "SELECT ID FROM markups WHERE status=-1 LIMIT 1";

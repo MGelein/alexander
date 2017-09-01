@@ -25,9 +25,11 @@
 			 * of the new column
 			 */
 			add: function(htmlContent){
-				$('#markupRow').append("<div class='editorHolder newEditor col-sm-'" + _a.editor.column.width + "'></div>");
+				$('#markupRow').append("<div class='editorHolder newEditor col-sm-1'" + _a.editor.column.width + "'></div>");
 				//Find the just added editor and remove the class that designates it as a just added editor
-				$('.newEditor').html(htmlContent).removeClass('newEditor');
+				var newEditor = $('.newEditor').hide();
+				newEditor.addClass('markupEditor');
+				newEditor.html(htmlContent).removeClass('newEditor');
 				
 				//Activate newly added script. This is a bit of a hack :)
 				eval($('#loadScript').html());
@@ -36,14 +38,23 @@
 
 				//Resizes the columns
 				alexander.editor.column.resize();
+
+				//FadeIn 400ms after we're showing, to allow for the space to be there (300ms)
+				setTimeout(function(){
+					newEditor.fadeIn(200);
+					newEditor.addClass('animated slideInRight');
+					alexander.editor.column.resize();
+				}, 300);
 			},
 
 			/**
 			 * Removes the column with the specified ID
 			 */
 			remove: function(id){
-				$('#holder_' + id).parent().remove();
-				alexander.editor.column.resize();
+				$('#holder_' + id).parent().fadeOut(400, function(){
+					this.remove()
+					alexander.editor.column.resize();
+				});
 			},
 
 			/**
@@ -51,9 +62,9 @@
 			 */
 			resize: function(){
 				//Get the new width of the columns
-				var newWidth = widthClasses[Math.max(0, Math.min($('.editorHolder').length - 1, 3))];
-				//Remove the old width class and add the new width class
-				$('.col-sm-' + width).removeClass('col-sm-' + _a.editor.column.width).addClass('col-sm-' + newWidth);
+				var newWidth = alexander.editor.column.widthClasses[Math.max(0, Math.min($('.editorHolder').length, 3)) - 1];
+				//Remove all the width classes and add the new one
+				$('.editorHolder').removeClass('col-sm-12 col-sm-6 col-sm-4 col-sm-3 col-sm-1').addClass('col-sm-' + newWidth);
 				//Reassign the currentWidth class
 				_a.editor.column.width = newWidth;
 
@@ -75,6 +86,14 @@
 			editor = new nicEditor({buttonList : ['bold','italic','underline','strikeThrough','subscript','superscript']});
 			editor.panelInstance(areaID);
 			return editor;	
+		},
+
+		/**
+		 * Returns to the text-load page
+		 */
+		exit: function(){
+			index = window.location.href.indexOf("?");
+			window.location = window.location.href.substring(0, index);
 		}
 	};
 })(alexander);

@@ -20,7 +20,7 @@ class EditorTemplate extends Template{
 			'title' => $text->getTitle(),
 			'locusF' => $text->getLocusF(),
 			'locusT' => $text->getLocusT(),
-			'noteTypes' => Note::getNoteTypes(),
+			'noteTypes' => Markup::getTypes(),
 			'textStatusTypes' => Text::getStatusTypes($text->getStatus())
 	) );
 	}

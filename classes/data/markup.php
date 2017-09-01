@@ -4,6 +4,61 @@
  * @author Mees Gelein
  */
 class Markup{
+
+	/**The id of this markup*/
+	private $id;
+	/**The type (as string) of this markup*/
+	private $type;
+	/**The status number*/
+	private $status;
+
+	/**
+	 * Constructs a new Markup object.
+	 **/
+	function __construct($id){
+		//Question the db for the object
+		$connection = SQLConnection::getActive();
+		$connection->select('id, type, status', 'markups', "WHERE id=$id");
+		$row = $connection->get_row();
+
+		//Fill in the data object
+		$this->id = $row['id'];
+		$this->status = $row['status'];
+		$this->type = $row['type'];
+	}
+
+	/**	
+	 * Returns the ID of this markup
+	 **/
+	public function getID(){
+		return $this->id;
+	}
+
+	/**	
+	 * Returns the status of this markup
+	 **/
+	 public function getStatus(){
+		return $this->status;
+	}
+	/**	
+	 * Returns the type of this markup
+	 **/
+	 public function getType(){
+		return $this->type;
+	}
+
+	/**
+	 * Returns all the possible markup-type options HTML tags
+	 */
+	 public static function getTypes() {
+		$typeArray = array('note', 'note-expert', 'translation', 'app-fontium', 'app-criticus');
+		$noteTypes = "";
+		foreach ($typeArray as $type ) {
+			$display = ucfirst($type);
+			$noteTypes .= "<option value='$type'>$display</option>";
+		}
+		return $noteTypes;
+	}
 	
 	/**
 	 * Creates a new markup
@@ -15,32 +70,16 @@ class Markup{
 		if ($connection->select('id', 'markups', "WHERE status=-1 LIMIT 1")){
 			if($connection->num_results() == 1) {
 				$id = $connection->get_row_field();
-				saveTextFile ( "markups/markup-$id", "" );
+				saveTextFile ( "markup/markup-$id", "" );
 				return $id;
 			}else{
-				if($connection->insert('markups', 'type, status','0, -1')){
+				if($connection->insert('markups', 'type, status',"'default', -1")){
 					return Markup::createNew();
 				}
 			}
 		}else{
 			return;
 		}
-	}
-	
-	/**
-	 * Converts the note with the provided ID to a markup
-	 * @param unknown $id
-	 */
-	public static function convert($id){
-		$newID = Markup::createNew();
-		Markup::load($newID);
-		
-		//creates a new standard object to load
-		$markup = array();
-		$markup['content'] = loadTextFile("notes/note-$id");		
-		
-		saveTextFile("markups/markup-$newID", serialize($markup));
-		echo $newID;
 	}
 
 	/**
@@ -51,7 +90,7 @@ class Markup{
 		$connection = SQLConnection::getActive();
 		$connection->update('markups', 'status=0', "WHERE id=$id");
 		
-		$markupTemplate = new MarkupTemplate($id);
+		$markupTemplate = new MarkupTemplate(new Markup($id));
 		
 		return $markupTemplate->display();
 	}
@@ -60,15 +99,11 @@ class Markup{
 	 * Saves the markup with the provided ID
 	 * @param unknown $id
 	 */
-	public static function save($id){
-		$markup = array();
+	public static function save($data){
+		$id = $data['id'];
 		
-		foreach($_POST as $key => $value){
-			if($key == 'saveMarkup' || $key == 'AJAX') continue;			
-			$markup[$key] = $value;
-		}
-		
-		saveTextFile("markups/markup-$id", serialize($markup));
+		//Save the serialized data
+		saveTextFile("markup/markup-$id", json_encode($data));
 		
 		//Echo the ID back in case we want to remove the markup holder
 		echo $id;

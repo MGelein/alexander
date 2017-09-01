@@ -9,7 +9,7 @@
          */
         insert: function(){
             var range = alexander.select.getRange();
-            alexander.select.replaceWithHtml("<span contenteditable='false' id='markupStart' class='handle redHandle'></span>" + range + "<span id='markupEnd' contenteditable='false' class='handle redHandle'></span>");
+            alexander.select.replaceWithHTML("<span contenteditable='false' id='markupStart' class='handle redHandle'></span>" + range + "<span id='markupEnd' contenteditable='false' class='handle redHandle'></span>");
             alexander.markup.requestID();
         },
 
@@ -67,7 +67,6 @@
          * Loads the markup with the specified id
          */
         load: function(id){
-            console.log(id);
             //check if it is not already loaded:
             var check = $('#holder_' + id).get(0)
             if(check != undefined) return;
@@ -76,8 +75,7 @@
             alexander.ajax.req('loadMarkup', id, function(responseText){
                 alexander.editor.column.add(responseText);
                 alexander.markup.registerListeners();
-                alexander.selection.clear();
-                console.log(responseText);
+                alexander.select.clear();
             });
         },
 
@@ -98,7 +96,7 @@
             markupEnd.unwrap().remove();
             
             //Finally actually re-add the elements using a contrstructed html string
-            alexander.select.replaceWithHtml(startString + alexander.select.getRange() + endString);
+            alexander.select.replaceWithHTML(startString + alexander.select.getRange() + endString);
             alexander.markup.registerListeners();
         },
 
@@ -138,23 +136,16 @@
          * but at the same time allows for tons of customization
          */
         close: function(markupID){
-            eval($('#close' + markupID + 'Script').get(0).innerHTML);    
+            eval($('#close' + markupID + 'Script').get(0).innerHTML);  
+            alexander.editor.column.remove(markupID);  
         },
 
         /**
          * Saves the markup identified by the ID. 
          */
         save: function(markupID){
-            //Create the data object to save
-            var data = {
-                id: markupID,
-                content: nicEditors.findEditor('annEditor_' + markupID).getContent()
-            }
-
-            //Saves it using AJAX. The id is returned if succesful
-            alexander.ajax.req('saveMarkup', data, function(responseText){
-                alexander.editor.column.remove(responseText);
-            });
+            //Run the included saveScript
+            eval($('#close' + markupID + 'Script').get(0).innerHTML);  
         }
     };
 })(alexander);

@@ -1,58 +1,15 @@
 <div class="container">
-	<div class="row" id="textDataRow">
-		<div class="panel panel-success">
-			<div class="panel-heading"><span class="glyphicon glyphicon-th-list"></span>&nbsp;Text Data<button data-toggle="collapse" data-target="#textDataCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
-				<div id="textDataCollapse" class="panel-collapse collapse in">
-					<div class="panel-body">
-						
-						<div class="form-inline">
-							<div class="form-horizontal">
-								<h3>Text</h3>
-								<div class="form-group col-xs-12">
-									<label class="userInput">Name: <input class="form-control" id="textNameField" placeholder="Text Name" type="text" value="{textName}"></label>
-									<label class="userInput">Author: <input class="form-control" id="authorField" placeholder="Author Name" type="text" list="authors" value="{author}"></label>
-									<label class="userInput">Title: <input class="form-control" id="titleField" placeholder="Text Title" type="text" value="{title}"></label>
-								</div>
-							</div>
-						</div>
-						
-						<div class="form-horizontal">
-							<h3>Locus</h3>
-							<div class="form-group col-xs-12">
-								<label class="userInput">From: <input class="form-control" id="locusFromField" placeholder="Start Locus" type="text" value="{locusF}"></label>
-								<label class="userInput">To: <input class="form-control" id="locusToField" placeholder="End Locus" type="text" value="{locusT}"></label>
-							</div>
-						</div>
-						
-						<div class="form-horizontal">
-							<h3>Bibliographical Info</h3>
-							<div class="form-group col-xs-12">
-								<label class="userInput">Sources: <input class="form-control" id="dummy" placeholder="Default (Not working)" type="text" disabled></label>
-							</div>
-					</div>
-				</div>
-			</div>
-		</div>	
-	</div>
-	
-	
-	<div class="row">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="btn-group btn-group-justified">
-					<a href="javascript:void(0)" title="New Markup" class="btn btn-info" onclick="alexander.markup.insert();"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Markup</a>
-					<a title="Save" class="btn btn-default" onclick="alexander.text.save(false);"><span class="glyphicon glyphicon-save"></span>&nbsp;Save</a>
-					<a title="Save & Exit" class="btn btn-primary"  onclick="alexander.text.save(true);"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Save &amp; Exit</a>
-				</div> 
-			</div>
-		</div>
-	</div>
-	
-	
-	
 	<div class="row" id="editorRow">
 		<div class="panel panel-info">
-			<div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Text Editor</div>
+			<div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Text Editor
+				<div class="btn-group pull-right tight">
+					<a title="Save" class="btn btn-default btn-xs" onclick="alexander.text.save(false);"><span class="glyphicon glyphicon-save"></span>&nbsp;Save</a>
+					<a title="Save & Exit" class="btn btn-primary btn-xs"  onclick="alexander.text.save(true);"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Save &amp; Exit</a>
+				</div>
+				<div class="btn-group textToolbar">
+					<a href="javascript:void(0)" title="New Markup" class="btn btn-info btn-xs" onclick="alexander.markup.insert();"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Markup</a>
+				</div>
+			</div>
 			<div class="panel-body">
 				<div class="editorContainer">					
 					<div class="editor" id="textEditor">LOADING...</div>
@@ -61,37 +18,76 @@
 		</div>
 	</div>
 	
+	<div class="row" id="markupRow"></div>
 	
-	
-	<div class="row" id="markupRow">
-				
-	</div>
-	
-	
-	<div class="row" id="editorialDataRow">
-		<div class="panel panel-warning">
-			<div class="panel-heading"><span class="glyphicon glyphicon-cog"></span>&nbsp;Editorial Data<button data-toggle="collapse" data-target="#editorialDataCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
-			<div id="editorialDataCollapse" class="panel-collapse collapse in">
-				<div class="panel-body">
-					<div class="form-inline">
-
-						<div class="form-horizontal">
-							<div class="form-group col-xs-12">
-								<label class="userInput">Text Status: <select class="form-control" id="textStatusSelect" >{textStatusTypes}</select></label>
+	<div class="row" id="textDataRow">
+			<div class="col-sm-6">
+				<div class="panel panel-success editorialPanel">
+					<div class="panel-heading"><span class="glyphicon glyphicon-th-list"></span>&nbsp;Text Data<button data-toggle="collapse" data-target="#textDataCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
+					<div id="textDataCollapse" class="panel-collapse collapse in">
+						<div class="panel-body">
+							
+							<div class="form-horizontal col-sm-4">
+								<h4>Text</h4>
+								<div class="col-xs-6 tight">
+									<label for="textName">Name: </label>
+									<input name="textName" class="form-control" id="textNameField" placeholder="Text Name" type="text" value="{textName}">
+								</div>
+								<div class="col-xs-6 tight">
+									<label for="textAuthor">Author: </label>
+									<input name="textAuthor" class="form-control" id="authorField" placeholder="Author Name" type="text" list="authors" value="{author}">
+								</div>
+								<label for="textTitle">Title: </label>
+								<input name="textTitle" class="form-control" id="titleField" placeholder="Text Title" type="text" value="{title}">
+							</div>
+							
+							<div class="form-horizontal col-sm-4">
+								<h4>Locus</h4>
+								<div class="col-xs-6 tight">
+									<label for="locusFrom">From: </label>
+									<input class="form-control" id="locusFromField" placeholder="Start Locus" type="text" value="{locusF}">
+								</div>
+								<div class="col-xs-6 tight">
+									<label for="locusTo">To: </label>
+									<input class="form-control" id="locusToField" placeholder="End Locus" type="text" value="{locusT}">
+								</div>
+							</div>
+							
+							<div class="form-horizontal col-sm-4">
+								<h4>Bibliographical Info</h4>
+								<label for="sources">Sources: </label>
+								<input name="sources" class="form-control" id="dummy" placeholder="Default (Not working)" type="text" disabled>
 							</div>
 						</div>
 					</div>
-					
-					<div class="form-horizontal">
-						<div class="form-group col-xs-12">
-							<label class="userInput" style="width: 100%">Editorial Comments:</label> <br><textarea style="width: 100%" class="text-editor" placeholder="Not working" id="editorialComments" disabled></textarea>
+				</div>
+			</div>	
+	
+			<!-- Editorial Data-->
+			<div class="col-sm-6">
+				<div class="panel panel-warning editorialPanel">
+					<div class="panel-heading"><span class="glyphicon glyphicon-cog"></span>&nbsp;Editorial Data<button data-toggle="collapse" data-target="#editorialDataCollapse" class="btn btn-xs btn-default pull-right">Toggle</button></div>
+					<div id="editorialDataCollapse" class="panel-collapse collapse in">
+						<div class="panel-body">
+							<div class="form-inline">
+	
+								<div class="form-horizontal">
+									<div class="form-group col-xs-12">
+										<label class="userInput">Text Status: <select class="form-control" id="textStatusSelect" >{textStatusTypes}</select></label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-horizontal">
+								<div class="form-group col-xs-12">
+									<label class="userInput" style="width: 100%">Editorial Comments:</label> <br><textarea style="width: 100%" class="text-editor" placeholder="Not working" id="editorialComments" disabled></textarea>
+								</div>
+							</div>						
 						</div>
-					</div>						
+					</div>
 				</div>
 			</div>
-		</div>	
-	</div>
-	
+		</div>
 	
 </div>
 <script>
@@ -99,6 +95,7 @@ function init(){
 	alexander.editor.new('editorialComments');
 	alexander.editor.new('textEditor');
 	alexander.text.load();
+	$(window).resize(function(){alexander.editor.column.resize();});
 }
 </script>
 <datalist id="authors">

@@ -9,9 +9,28 @@ BOOTSTRAP OVERRIDE
 	width: 97%;
 }
 
+.col-sm-12, .col-sm-10, .col-sm-9, .col-sm-8, .col-sm-7, .col-sm-6,
+.col-sm-5, .col-sm-4, .col-sm-3, .col-sm-2, .col-sm-1 {
+	padding: 0.2em;
+}
+
+.panel-body{
+	padding: 0.1em;
+	padding-bottom: 1em;
+}
+
+.panel{
+	padding: 0em;
+	margin: 0em;
+}
+
 /**
 STANDARD ELEMENTS
 **/
+div{
+	padding: 0;
+	margin: 0;
+}
 
 body {
 	color: #111;
@@ -34,6 +53,23 @@ ul{
 /**
 CLASSES
 **/
+
+.textToolbar{
+	margin-left: 2em;
+}
+
+.noPadding{
+	padding: 0;
+}
+
+.noMargin{
+	margin: 0;
+}
+
+.tight{
+	padding: 0;
+	margin: 0;
+}
 
 .loaderHeader{
 	font-weight: bold;
@@ -82,6 +118,16 @@ CLASSES
 
 .passField{
 	margin-bottom: 0.2em;
+}
+
+.accountPanel{
+	height: 40vh;
+	overflow-y: auto;
+}
+
+.editorialPanel{
+	height: 30vh;
+	overflow-y: auto;
 }
 
 /**

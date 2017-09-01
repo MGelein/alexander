@@ -22,6 +22,20 @@ nicEditors.findEditor('annEditor_{id}').setContent('{content}');
 </script>
 
 <!--
+THIS SCRIPT RUNS ON SAVE
+-->
+<script id="save{id}Script">
+//Create the data object to save
+var data = {
+	id: {id},
+	content: nicEditors.findEditor('annEditor_{id}').getContent()
+}
+//Saves it using AJAX. The id is returned if succesful
+alexander.ajax.req('saveMarkup', data, function(responseText){
+});
+</script>
+
+<!--
 THIS SCRIPT IS CALLED BY THE CLOSE BUTTON
 -->
 

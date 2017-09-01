@@ -12,7 +12,6 @@ require_once 'classes/data/sqlconnection.php';
 require_once 'classes/data/user.php';
 require_once 'classes/data/text.php';
 require_once 'classes/data/author.php';
-require_once 'classes/data/note.php';
 require_once 'classes/data/markup.php';
 
 //Import all templates
