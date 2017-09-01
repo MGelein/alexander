@@ -23,7 +23,7 @@ module.exports = function(grunt) {
             dist: {
               src: ['dist/js/alexander.min.js', 'dist/js/util.min.js', 'dist/js/select.min.js', 
                     'dist/js/event.min.js', 'dist/js/account.min.js', 'dist/js/ajax.min.js',
-                    
+                    'dist/js/markup.min.js', 'dist/js/editor.min.js', 'dist/js/print.min.js',
                     'dist/js/text.min.js', 'dist/js/global.min.js'],//keep global.min.js as last file!
               dest: 'dist/alexander.min.comp.js',
             },

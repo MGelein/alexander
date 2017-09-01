@@ -59,8 +59,7 @@
 		load: function(){
 			alexander.ajax.req('loadText', alexander.util.getUrlVars()['txtID'], function(responseText){
 				nicEditors.findEditor('textEditor').setContent(responseText);
-				activateHandles();
-				setTimeout(convertNote, 1000);
+				alexander.markup.registerListeners();
 			});
 		},
 
@@ -121,7 +120,7 @@
                 $('#textOverview').html(responseText);	
             });
             //Now apply the filter and order elements
-            this.renderOverview();
+            alexander.text.renderOverview();
         },
 
         /**

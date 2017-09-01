@@ -1,8 +1,8 @@
-<div id="holder_{id}" class="animated panel panel-default" onmouseover='highlightMarkup({id}, true);' onmouseout='highlightMarkup({id}, false);'>
+<div id="holder_{id}" class="animated panel panel-default" onmouseover='alexander.markup.highlight({id}, true);' onmouseout='alexander.markup.highlight({id}, false);'>
 	<div class="panel-heading"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>Markup Editor: Markup <strong>{id}</strong></span>
 		&nbsp;
-		<button title="Set Scope" onclick="moveMarkup({id})" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-resize-horizontal"></button>
-		<span title="Close &amp; Save" onclick="eval($('#close{id}Script').get(0).innerHTML);" href="#" class="markupCloseButton pull-right"><span class="glyphicon glyphicon-remove"></span>
+		<button title="Set Scope" onclick="alexander.markup.move({id})" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-resize-horizontal"></button>
+		<span title="Close &amp; Save" onclick="alexander.markup.close({id})" href="#" class="markupCloseButton pull-right"><span class="glyphicon glyphicon-remove"></span>
 	</div>
 	
 	<div class="panel-body">
@@ -15,10 +15,10 @@ THIS SCRIPT RUNS ON LOAD
 -->
 
 <script id="loadScript">
-
+//Create a new editor from the provided annEditor div
 alexander.editor.new('annEditor_{id}');
+//Set its contents to the provided content
 nicEditors.findEditor('annEditor_{id}').setContent('{content}');
-
 </script>
 
 <!--
@@ -26,17 +26,8 @@ THIS SCRIPT IS CALLED BY THE CLOSE BUTTON
 -->
 
 <script id="close{id}Script">
-
-var contents = nicEditors.findEditor('annEditor_{id}').getContent();
-var data = {
-	id: {id},
-	content: contents
-}
-
-alexander.ajax.req('saveMarkup', data, function(responseText){
-	removeColumn({id});
-});
-
-highlightMarkup({id}, false);
-
+//save the current markup
+alexander.markup.save({id});
+//Stop any highlighting before closing
+alexander.markup.highlight({id}, false);
 </script>

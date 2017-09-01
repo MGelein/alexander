@@ -1,1 +1,0 @@
-a:1:{s:7:"content";s:138:"We have said before<img id="854" contenteditable="false" src="img/fontBut.png" title="id-854" class="annotation"> what a solecism is like.";}

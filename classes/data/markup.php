@@ -69,6 +69,8 @@ class Markup{
 		}
 		
 		saveTextFile("markups/markup-$id", serialize($markup));
-		echo "OK";
+		
+		//Echo the ID back in case we want to remove the markup holder
+		echo $id;
 	}
 }
