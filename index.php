@@ -39,7 +39,7 @@ if (! isset ( $_SESSION ['user'] )) {
 	
 	//now show the account screen
 	$headerTemplate = new HeaderTemplate('Account');
-	$headerTemplate->replaceVars(array('css' => '<link rel="stylesheet" href="min.php?css=index.css">'));
+	$headerTemplate->replaceVars(array('htmlTitle'=> 'Account','css' => '<link rel="stylesheet" href="min.php?css=index.css">'));
 	echo $headerTemplate->display();
 	
 	// show navigation bar with the provided active tab

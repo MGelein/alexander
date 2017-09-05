@@ -133,6 +133,21 @@ class User{
 	}
 
 	/**
+	 * Returns the list that is used for the user administration
+	 **/
+	static function listAll(){
+		$connection = SQLConnection::getActive();
+		$result = $connection->select('name, email', 'users', '');
+		$userItems = '';
+		while($row = $result->fetch_row()){
+			$name = $row[0];
+			$email = $row[1];
+			$userItems .= "<div class='col-sm-12 tight userItem' email='$email'>$name</div>";
+		}
+		return $userItems;
+	}
+
+	/**
 	 * Logs out the current user
 	 */
 	static function logOut(){

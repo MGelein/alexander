@@ -15,7 +15,7 @@ BOOTSTRAP OVERRIDE
 }
 
 .panel-body{
-	padding: 0.1em;
+	padding: 0.5em;
 	padding-bottom: 1em;
 }
 
@@ -130,6 +130,26 @@ CLASSES
 	overflow-y: auto;
 }
 
+.userItem{
+	cursor: default;
+}
+
+.userItem:hover{
+	background-color: rgba(102, 177, 255, 0.3);
+}
+
+.userItem.selected{
+	border: 1px solid #777;
+}
+
 /**
 ID's
 **/
+
+#userList{
+	overflow-y: scroll;
+	height: 25vh;
+	border: 1px solid #ccc;
+	border-top-left-radius: 0.5em;
+	border-bottom-left-radius: 0.5em;
+}

@@ -15,11 +15,16 @@ THIS SCRIPT RUNS ON LOAD
 -->
 
 <script id="loadScript">
-//Create a new editor from the provided annEditor div
-alexander.editor.new('annEditor_{id}');
-//Set its contents to the provided content
-nicEditors.findEditor('annEditor_{id}').setContent('{content}');
+/**Create a new editor from the provided annEditor div*/
+setTimeout(function(){
+	alexander.editor.new('annEditor_{id}');
+}, 1000);
+/**Set its contents to the provided content
+nicEditors.findEditor('annEditor_{id}').setContent('{content}');*/
 </script>
+
+<div id='annEditor_{id}'>
+</div>
 
 <!--
 THIS SCRIPT RUNS ON SAVE

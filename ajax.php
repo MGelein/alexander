@@ -9,7 +9,7 @@ restartSession();
 $connection = new SQLConnection();
 
 //check for AJAX messaging
-if(isset($_POST['ajaxMethod'])){
+if(isset($_POST['ajaxMethod']) && isset($_SESSION['user'])){
 	readAjaxMessage();
 }else{
 	die();
@@ -50,6 +50,19 @@ function readAjaxMessage() {
 		
 		case 'loadTextOverview':
 			echo Text::listAll();
+			break;
+
+		case 'userChangePass':
+			break;
+
+		case 'userChangeEmail':
+			break;
+		
+		case 'userChangeName':
+			break;
+
+		case 'loadUserOverview':
+			echo User::listAll();
 			break;
 		
 		case 'echo':
