@@ -146,14 +146,10 @@ function changePassword(){
 	} else { // we can change the password
 	
 		// check if the old password matches
-		$passwordOld = hash ( 'md5', $salt . $passwordOld . $salt );
 		$user = new User($email);
 		
 		// check if we have data connection
-		if ($user->getPassword() == $passwordOld) { // old password is indeed correct
-			// hash the password
-			$password = hash ( 'md5', $salt . $password . $salt );
-				
+		if (password_verify($passwordOld, $user->getPassword())) { // old password is indeed correct
 			// insert into DB
 			if (! $user->changePassword($password)){
 				die ( $db_result_error );
@@ -174,20 +170,17 @@ function handleLogin(){
 	// retrieve email and pass from post data
 	$loginInfo = '';
 	$email = getPost ( 'email' );
-	$password = hash ( 'md5', User::$salt . getPost ( 'password' ) . User::$salt );
-	
-	// received values, query the connection for the provided user/pass combination
 	$user = new User($email);
-	
-	// check if the username matches anyone
-	if (!User::exists($email)) {
-		$loginInfo = "&#x2716 Incorrect email/password combination (doesn't exist)";
-	} else if ($user->getPassword() == $password) { // check if the stored hash matches the provided hash
-		//WE HAVE A MATCH :D
+	$password = getPost('password');
+	if(password_verify($password, $user->getPassword())){
+		//Check if we need to rehash
+		if(password_needs_rehash($user->getPassword(), PASSWORD_DEFAULT, $options = ['cost' => 12])){
+			$user->changePassword($password);
+		}
+		//Set the user email in the session, indicating we're logged in
 		$_SESSION ['user'] = $email;
-	} else { //Nope, incorrect login info
-		$pass = $user->getPassword();
-		$loginInfo = "&#x2716 Incorrect email/password combination (wrong pass) pass=<$pass>";
+	}else{
+		$loginInfo = "&#x2716 Incorrect email/password combination";
 	}
 	return $loginInfo;
 }

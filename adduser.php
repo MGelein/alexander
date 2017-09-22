@@ -43,12 +43,8 @@ if (isset ( $_SESSION['user'] )) {
 			if (User::exists($email)) {
 				$addUserInfo = "That user already exists.";
 			}else{
-				// hash the password
-				$password = hash ( 'md5', User::$salt . $password . User::$salt );
-			
 				// everything checks out, let's add a new user.
 				User::registerNew($email, $password, $level, $fullName);
-			}
 			}
 	}
 } else {

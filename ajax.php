@@ -23,6 +23,7 @@ if(isset($_POST['ajaxMethod']) && isset($_SESSION['user'])){
  * Checks and handles AJAX messages
  */
 function readAjaxMessage() {
+	$currentUser = new User($_SESSION['user']);
 	switch($_POST['ajaxMethod']){
 		case 'requestMarkupID':
 			echo Markup::createNew();
@@ -53,12 +54,18 @@ function readAjaxMessage() {
 			break;
 
 		case 'userChangePass':
+			if($currentUser->getLevel() > 0) echo "Access denied";
+			echo (new User($_POST['data']['email']))->changePassword($_POST['data']['edit']);
 			break;
 
 		case 'userChangeEmail':
+			if($currentUser->getLevel() > 0) echo "Access denied";
+			echo (new User($_POST['data']['email']))->changeEmail($_POST['data']['edit']);
 			break;
 		
 		case 'userChangeName':
+			if($currentUser->getLevel() > 0) echo "Access denied";
+			echo (new User($_POST['data']['email']))->changeName($_POST['data']['edit']);
 			break;
 
 		case 'loadUserOverview':

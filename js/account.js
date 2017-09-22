@@ -10,6 +10,65 @@
          */
         user: {
             /**
+             * Starts editing one of the user data change fields
+             * @param {String} type 
+             */
+            edit: function(type){
+                type = type.toLowerCase();
+                var id = ((type == 'name') ? '#sUserChangeName': (type == 'pass') ? '#sUserChangePass': '#sUserChangeEmail');
+                var button = $(id);
+                //If the button is disabled, don't do anything.
+                if(button.hasClass('disabled')) return;
+
+                var inputType;
+                if(type == 'pass') inputType = 'password';
+                else if(type =='email') inputType = 'email';
+                else inputType = 'text';
+
+                //get the holder and remove all its children
+                button.wrap('<div id="temp"></div>');
+                button.hide();
+                var holder = $('#temp');
+                holder.append('<div id="editingGroup" class="input-group"><input type=' + inputType + ' placeholder="Type new value here" data-editing="' 
+                + type + '" class="form-control"><span class="input-group-btn"><input type="button" class="btn btn-primary" onclick="alexander.account.user.saveEdit(this);" value="OK"></span></div>');
+                $('#temp').children().unwrap();
+            },
+
+            /**
+             * Saves the edit we're trying to make
+             * @param {HTMLElement} source the source of the click
+             */
+            saveEdit: function(source){
+                //Get a reference to the necessary parts
+                var dataField = $(source).parent().parent().find('input[data-editing]');
+                var dataType = dataField.attr('data-editing');
+                var buttonId = ((dataType == 'name') ? '#sUserChangeName': (dataType == 'pass') ? '#sUserChangePass': '#sUserChangeEmail');
+                var button = $(buttonId);
+                var data = dataField.val();
+                //If there is no data to submit, do nothing
+                if(data == undefined || data.length < 1) return;
+
+                var selectedUserEmail = $('.userItem.selected').attr('email');
+                var ajaxMethod;
+                if(dataType == 'pass') ajaxMethod = 'userChangePass';
+                else if(dataType == 'email') ajaxMethod = 'userChangeEmail';
+                else if(dataType == 'name') ajaxMethod = 'userChangeName';
+                var ajaxData = {
+                    edit: data,
+                    email: selectedUserEmail
+                }
+
+                alexander.ajax.req(ajaxMethod, ajaxData, function(response){
+                    console.log(response);
+                });
+
+                //we're sure the data is correct, continue
+                var editGroup = $(dataField).parent();
+                editGroup.remove();
+                button.show();
+            },
+
+            /**
              * Renders the overview, applies the filter
              */
             renderOverview: function(){

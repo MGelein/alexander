@@ -7,9 +7,6 @@ class User{
 	
 	/**The different levels of acces people can have*/
 	public static $access_levels = array('Admin', 'Master', 'Teacher', 'Student', 'Guest');
-	/**The salt used to hash the passwords*/
-	public static $salt = '!@#$%^&*(';
-	
 	/**
 	 * Registers a new User in the database
 	 * @param unknown $email			the email the user uses to login	
@@ -75,13 +72,31 @@ class User{
 	}
 	
 	/**
-	 * Changes the old password to the new password. This value must already be hashed!
+	 * Changes the old password to the new password. 
 	 * Returns succes
 	 * @param unknown $newPass
 	 */
 	function changePassword($newPass){
 		$connection = SQLConnection::getActive();
-		return $connection->query ( "UPDATE users SET password='$password' WHERE email='$email' LIMIT 1" );
+		$hash = password_hash($newPass, PASSWORD_DEFAULT, $options = ['cost' => 12]);
+		return $connection->query ( "UPDATE users SET password='$hash' WHERE email='$this->email' LIMIT 1" );
+	}
+
+	/**
+	 * Changes the old name of the user to the new name
+	 */
+	function changeName($newName){
+		$connection = SQLConnection::getActive();
+		return $connection->query("UPDATE users SET name='$newName' where email='$this->email' LIMIT 1");
+	}
+
+	/**
+	 * Change the email address of a user
+	 */
+	function changeEmail($newEmail){
+		$connection = SQLConnection::getActive();
+		$connection->query("UPDATE users SET email='$newEmail' where email='$this->email' LIMIT 1");
+		$this->email = $newEmail;
 	}
 	
 	/**
