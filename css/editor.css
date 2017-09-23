@@ -10,13 +10,12 @@ body{
 /**
 CLASSES
 **/
-
 .handle{
-	border: 2px dotted #666;
-	background-color: #CCC;
-	color: white;
-	
-	border-radius: 5px;
+	border: 2px solid #666;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+
+	border-radius: 1em;
 	cursor: pointer;
 	
 	opacity: 0.2;
@@ -24,46 +23,72 @@ CLASSES
     transition: opacity 0.5s ease-in-out;
    	-webkit-transition: opacity 0.5s ease-in-out;
    	
-   	
   	-webkit-touch-callout: none; /* iOS Safari */
   	-webkit-user-select: none;   /* Chrome/Safari/Opera */
   	-khtml-user-select: none;    /* Konqueror */
   	-moz-user-select: none;      /* Firefox */
   	-ms-user-select: none;       /* Internet Explorer/Edge */
   	user-select: none;           /* Non-prefixed version, currently
-	                                  not skeeupported by any browser */
+	                                  not supported by any browser */
 }
-
-.handleSelected{
-	border-style: solid;
+.handle.left{
+	border-right: none;
+}
+.handle.right{
+	border-left: none;
+}
+.handle.selected{
 	opacity : 1.0;
 	-webkit-opacity: 1.0;
 }
-
-.redHandle{
-	border: 2px dotted #CC0000;
-	background-color: #FF9999;
+.handle.red{
+	border-color: #CC0000;
+}
+.handle.blue{
+	border-color: #0000CC;
+}
+.handle.green{
+	border-color: #00CC00;
+}
+.handle.yellow{
+	border-color: #FFD900;
 }
 
-.blueHandle{
-	border: 2px dotted #0000CC;
-	background-color: #5f56f8;
-}
-
-.greenHandle{
-	border: 2px dotted #00CC00;
-	background-color: #92ce75;
-}
-
-.yellowHandle{
-	border: 2px dotted #ff8000;
-	background-color: #ffa953;
-}
-
-.annotation{
-	width: 16px;
-	height: 16px;
+.markupItem{
+	border: 1px solid #ccc;
 	cursor: pointer;
+	font-weight: bold;
+
+    transition: background-color 0.5s ease-in-out;
+   	-webkit-transition: background-color 0.5s ease-in-out;
+}
+.markupItem.red{
+	border-color: #CC0000;
+	background-color: rgba(204, 0, 0, 0.1);
+}
+.markupItem.red.selected{
+	background-color: rgba(204, 0, 0, 0.4);
+}
+.markupItem.blue{
+	border-color: #0000CC;
+	background-color: rgba(0, 0, 204, 0.1);
+}
+.markupItem.blue.selected{
+	background-color: rgba(0, 0, 204, 0.4);
+}
+.markupItem.green{
+	border-color: #00CC00;
+	background-color: rgba(0, 204, 0, 0.1);
+}
+.markupItem.green.selected{
+	background-color: rgba(0, 204, 0, 0.4);
+}
+.markupItem.yellow{
+	border-color: #DBBA00;
+	background-color: rgba(255, 217, 0, 0.1);
+}
+.markupItem.yellow.selected{
+	background-color: rgba(255, 217, 0, 0.4);
 }
 
 .editor{
@@ -73,47 +98,14 @@ CLASSES
 	overflow: auto;
 }
 
-.editorContainer{
-	padding: 0em;
-}
-
 .editorialPanel{
 	height: 40vh;
 	overflow-y: auto;
-}
-.animated,
-.editorHolder{
-	-webkit-transition: width 0.3s ease-in-out;
-	-moz-transition: width 0.3s ease-in-out;
-	-o-transition: width 0.3s ease-in-out;
-	transition: width 0.3s ease-in-out;
-}
-
-.highlightMarkup{
-	 box-shadow: 0px 0px 15px #FF7744;
-	 
-	 -webkit-transition: all 0.5s ease-in-out;
-	-moz-transition: all 0.5s ease-in-out;
-	-o-transition: all 0.5s ease-in-out;
-	transition: all 0.5s ease-in-out;
-}
-
-.alreadyLoaded{
-	 box-shadow: 0px 0px 25px #FF0000;
-	 
-	 -webkit-transition: all 0.5s ease-in-out;
-	-moz-transition: all 0.5s ease-in-out;
-	-o-transition: all 0.5s ease-in-out;
-	transition: all 0.5s ease-in-out;
 }
 
 /**
 ID's
 */
-#annEditorTitle{
-	cursor: pointer;
-}
-
 #editorRowPanel{
 	height: 50vh;
 }

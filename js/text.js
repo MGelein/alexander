@@ -60,6 +60,7 @@
 			alexander.ajax.req('loadText', alexander.util.getUrlVars()['txtID'], function(responseText){
 				nicEditors.findEditor('textEditor').setContent(decodeURI(responseText));
 				alexander.markup.registerListeners();
+				alexander.markup.list();
 			});
 		},
 

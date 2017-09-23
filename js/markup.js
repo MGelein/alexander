@@ -9,7 +9,8 @@
          */
         insert: function(){
             var range = alexander.select.getRange();
-            alexander.select.replaceWithHTML("<span contenteditable='false' id='markupStart' class='handle redHandle'></span>" + range + "<span id='markupEnd' contenteditable='false' class='handle redHandle'></span>");
+            alexander.select.replaceWithHTML("<span contenteditable='false' id='markupStart' class='handle left red'></span>" 
+            + range + "<span id='markupEnd' contenteditable='false' class='handle right red'></span>");
             alexander.markup.requestID();
         },
 
@@ -65,10 +66,41 @@
          * Lists all the markups found in the current document and shows it in the #markupRow
          */
         list: function(){
+            //Find all found markups
             var markups = $('.handle').filter(function(){
                 return $(this).attr('id').indexOf('_start') != -1;
             });
+            //First empty the markupRow
             var markupRow = $('#markupRow');
+            markupRow.children().remove();
+
+            //Now list all the found markups
+            markups.each(function(index, markup){
+                var m = $(markup);
+                var id = m.attr('id').replace('_start', '');
+                var className = m.attr('class').replace('handle', '').replace('selected', '').replace('left', '');
+                markupRow.append(
+                    "<div class='col-xs-12 markupItem " + className + "' id='" + id + "_holder' markup-id='" + id + "'>" 
+                    + "Markup"
+                    + "<span class='btn-group btn-group-xs pull-right'>" 
+                    + "<button class='btn btn-default' onclick='alexander.markup.move(" + id + ")'><span class='glyphicon glyphicon-resize-horizontal'></span>&nbsp;Move</button>"
+                    + "<button class='btn btn-default'><span class='glyphicon glyphicon-pencil'></span>&nbsp;Edit</button>"
+                    + "<button class='btn btn-default'><span class='glyphicon glyphicon-search'></span>&nbsp;Focus</button>"
+                    + "<button class='btn btn-danger'><span class='glyphicon glyphicon-remove-circle'></span>&nbsp;Remove</button>"
+                    + "</span>"
+                    + "</div>"
+                );
+            });
+
+            $('.markupItem').each(function(index, item){
+                var m = $(item);
+                m.unbind('mouseout').mouseout(function(event){
+                    alexander.markup.highlight($(this).attr('markup-id'), false); 
+                });
+                m.unbind('mouseover').mouseover(function(event){
+                    alexander.markup.highlight($(this).attr('markup-id'), true, true);
+                });
+            })
         },
 
         /**
@@ -95,8 +127,8 @@
             var markupEnd = $('#' + id + '_end');
 
             //Get their HTML including the tag themselves
-            var startString = markupStart.wrap().parent().html();
-            var endString = markupEnd.wrap().parent().html();
+            var startString = markupStart.wrap("<span/>").parent().html();
+            var endString = markupEnd.wrap("<span/>").parent().html();
 
             //Remove the actual elements now
             markupStart.unwrap().remove();
@@ -113,38 +145,26 @@
          */
         highlight: function(markupID, doHighlight, showWindow){
             //Input validation
-            if(markupID != undefined || markupID == -1) return;
+            if(markupID == undefined || markupID == -1) return;
             if(showWindow == undefined) showWindow = false;
 
             //Get references to both handles
             var start = $("#" + markupID + "_start");
             var end  = $("#" + markupID + "_end");
-            var holder = $('#holder_' + markupID);
+            var holder = $('#' + markupID + '_holder');
 
             //Either highlight or unhighlight based on the boolean value
             if(doHighlight){
-                //Highlight the holder
-                if(check != undefined && showWindow) check.addClass('highlightMarkup');
                 //Highlight the handles
-                start.addClass("handleSelected");
-                end.addClass("handleSelected");
+                start.addClass("selected");
+                end.addClass("selected");
+                holder.addClass("selected");
             }else{
-                //Unhighlight the holder
-                if(check != undefined) check.removeClass('highlightMarkup');
                 //Unhighlight the handles
-                start.removeClass("handleSelected");
-                end.removeClass("handleSelected");
+                start.removeClass("selected");
+                end.removeClass("selected");
+                holder.removeClass("selected");
             }
-        },
-
-        /**
-         * Closes the editor (if it is open) of the provided markup. This
-         * means running its close script using eval. Bit of a hack again,
-         * but at the same time allows for tons of customization
-         */
-        close: function(markupID){
-            eval($('#close' + markupID + 'Script').get(0).innerHTML);  
-            alexander.editor.column.remove(markupID);  
         },
 
         /**
