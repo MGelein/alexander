@@ -17,7 +17,7 @@ class MarkupTemplate extends Template{
 		parent::__construct ( 'templates/markup/' . $markup->getType() . '.html' );
 		$id = $markup->getID();
 		
-		$data = json_decode(loadTextFile("markup/markup-$id"));
+		$data = json_decode(loadTextFile("markup/markup-$id"), true);
 		
 		$this->templatePopulation($markup->getType(), $data, $id);
 	}
@@ -40,8 +40,8 @@ class MarkupTemplate extends Template{
 	 */
 	function defaultReplace($data, $id){
 		$this->replaceVars ( array (
-				'id' => $id,
-				'content' => $data['content']
+			'id' => $id,
+			'content' => $data['content']
 		) );
 	}
 }

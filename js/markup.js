@@ -5,6 +5,11 @@
      */
     _a.markup = {
         /**
+         * The currently opened Markup by ID
+         */
+        currentOpen: -1,
+
+        /**
          * Adds a markup around the current selection
          */
         insert: function(){
@@ -30,7 +35,8 @@
                 objS.title = objE.title = responseText;
                 
                 alexander.markup.registerListeners();                
-                alexander.markup.load(responseText);	
+                alexander.markup.load(responseText);
+                alexander.markup.list();	
             });
         },
         
@@ -84,14 +90,20 @@
                     + "Markup"
                     + "<span class='btn-group btn-group-xs pull-right'>" 
                     + "<button class='btn btn-default' onclick='alexander.markup.move(" + id + ")'><span class='glyphicon glyphicon-resize-horizontal'></span>&nbsp;Move</button>"
-                    + "<button class='btn btn-default'><span class='glyphicon glyphicon-pencil'></span>&nbsp;Edit</button>"
+                    + "<button class='btn btn-default editButton' onclick='alexander.markup.edit(" + id + ")'><span class='glyphicon glyphicon-pencil'></span>&nbsp;Edit</button>"
                     + "<button class='btn btn-default'><span class='glyphicon glyphicon-search'></span>&nbsp;Focus</button>"
                     + "<button class='btn btn-danger'><span class='glyphicon glyphicon-remove-circle'></span>&nbsp;Remove</button>"
                     + "</span>"
+                    + "<div class='markupContent'></div>"
                     + "</div>"
                 );
+                //Do a request to load this specific markup
+                alexander.ajax.req('loadMarkup', id, function(response){
+                    $('#' + id + '_holder > .markupContent').html(response);
+                });
             });
 
+            //Bind the mouse listener
             $('.markupItem').each(function(index, item){
                 var m = $(item);
                 m.unbind('mouseout').mouseout(function(event){
@@ -100,17 +112,39 @@
                 m.unbind('mouseover').mouseover(function(event){
                     alexander.markup.highlight($(this).attr('markup-id'), true, true);
                 });
-            })
+            });
+
+            //Hide all textfields
+            $('.markupContent').hide();
+        },
+
+        /**
+         * Starts editing the markup with the specified id (i.e. it shows this markup edit field and hides the others)
+         */
+        edit: function(id){
+            //first hide all others
+            $('.markupContent').hide();
+            //set all edit buttons to their original content:
+            $('.editButton').html("<span class='glyphicon glyphicon-pencil'></span>&nbsp;Edit");
+            //If it is already opened it means we want to save
+            if(id == alexander.markup.currentOpen){
+                alexander.markup.save(id);
+                //since it is no longer opened, reset the id
+                alexander.markup.currentOpen = -1;
+                return;
+            }
+            //We're opening this id, save it
+            alexander.markup.currentOpen = id;
+            
+            //then hide the one we're editing
+            $('#' + id + '_holder > .markupContent').show();
+            $('#' + id + '_holder .editButton').html("<span class='glyphicon glyphicon-floppy-disk'></span>&nbsp;Save");
         },
 
         /**
          * Loads the markup with the specified id
          */
         load: function(id){
-            //check if it is not already loaded:
-            var check = $('#holder_' + id).get(0)
-            if(check != undefined) return;
-            
             //Make an ajax request for the data 
             alexander.ajax.req('loadMarkup', id, function(responseText){
                 alexander.markup.registerListeners();
@@ -170,9 +204,21 @@
         /**
          * Saves the markup identified by the ID. 
          */
-        save: function(markupID){
-            //Run the included saveScript
-            eval($('#close' + markupID + 'Script').get(0).innerHTML);  
+        save: function(id){
+            //find out what kind of markup it is and how to save it
+            var holder = $('#' + id + '_holder');
+            var type = holder.find('.markupData').attr('markup-type');
+            var data = {'id': id};
+            switch(type){
+                case 'default':
+                    data.content = holder.find('.markupField').val();
+                    break;
+            }
+
+            //now that we've constructed the data object, submit it to be saved
+            alexander.ajax.req('saveMarkup', data, function(response){
+                console.log("response: " + response);
+            });
         }
     };
 })(alexander);
