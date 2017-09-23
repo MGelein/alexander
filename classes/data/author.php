@@ -23,6 +23,16 @@ class Author{
 		}	
 		return $authorList;
 	}
+
+	/*
+	 * Returns the ID associated with the provided name
+	 */
+	public static function getIDFromName($name){
+		$connection = SQLConnection::getActive();
+		$query = "SELECT id FROM authors WHERE name='$name' LIMIT 1";
+		$result = $connection->query($query);
+		return $connection->get_row_field();
+	}
 	
 	/**The full name of the author*/
 	private $name = 'notset';

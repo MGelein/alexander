@@ -118,6 +118,8 @@ class Text{
 	private $locusT = '';
 	/**The editorial status number of this text*/
 	private $status = 404;
+	/**The content of the file that is linked to the DB*/
+	private $content;
 	
 	/**
 	 * Loads the text using its ID number
@@ -143,6 +145,37 @@ class Text{
 		$this->locusF = $row['locusF'];
 		$this->locusT = $row['locusT'];
 		$this->status = $row['status'];
+		$this->content = Text::load($id);
+	}
+
+	/**
+	 * Changes the text with the changes described in the data object
+	 */
+	function change($data){
+		$this->content = $data['textContent'];
+		$this->name = $data['textName'];
+		$this->author = $data['authorName'];
+		$this->title = $data['textTitle'];
+		$this->locusF = $data['locusF'];
+		$this->locusT = $data['locusT'];
+		$this->status = $data['textStatusSelect'];
+	}
+
+	/**
+	 * Saves the changes to disk.
+	 */
+	function save(){
+		//get a DB connection
+		$connection = SQLConnection::getActive();
+		//find the authorID for the specified author
+		$authorID = Author::getIDFromName($this->author);
+		//Update the DB
+		$query = "UPDATE texts SET name='$this->name', status='$this->status',author='$authorID', title='$this->title', locusF='$this->locusF', locusT='$this->locusT' WHERE id='$this->id'";
+		$connection->query($query);
+		//Update the content file
+		saveTextFile("texts/txt-$this->id", $this->content);
+		//All is well, communicate to JS
+		return "OK";
 	}
 	
 	/**

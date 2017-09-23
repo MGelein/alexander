@@ -26,8 +26,6 @@
                 objS.id = responseText + '_start';
                 objE.id = responseText + '_end';
                 
-                
-                objS.innerHTML = objE.innerHTML = responseText;			
                 objS.title = objE.title = responseText;
                 
                 alexander.markup.registerListeners();                
@@ -64,6 +62,16 @@
         },
 
         /**
+         * Lists all the markups found in the current document and shows it in the #markupRow
+         */
+        list: function(){
+            var markups = $('.handle').filter(function(){
+                return $(this).attr('id').indexOf('_start') != -1;
+            });
+            var markupRow = $('#markupRow');
+        },
+
+        /**
          * Loads the markup with the specified id
          */
         load: function(id){
@@ -73,7 +81,6 @@
             
             //Make an ajax request for the data 
             alexander.ajax.req('loadMarkup', id, function(responseText){
-                alexander.editor.column.add(responseText);
                 alexander.markup.registerListeners();
                 alexander.select.clear();
             });

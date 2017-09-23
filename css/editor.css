@@ -89,20 +89,6 @@ CLASSES
 	transition: width 0.3s ease-in-out;
 }
 
-.markupCloseButton {
-	color: #333;
-	cursor: pointer;
-}
-
-.markupCloseButton :hover {
-	color: #CC0000;
-	
-	-webkit-transition: all 0.5s ease-in-out;
-	-moz-transition: all 0.5s ease-in-out;
-	-o-transition: all 0.5s ease-in-out;
-	transition: all 0.5s ease-in-out;
-}
-
 .highlightMarkup{
 	 box-shadow: 0px 0px 15px #FF7744;
 	 
@@ -130,4 +116,11 @@ ID's
 
 #editorRowPanel{
 	height: 50vh;
+}
+
+#markupRow{
+	border: 1px solid #ccc;
+	height: 40vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
