@@ -157,7 +157,7 @@ class User{
 		while($row = $result->fetch_row()){
 			$name = $row[0];
 			$email = $row[1];
-			$userItems .= "<div class='col-sm-12 tight userItem' email='$email'>$name</div>";
+			$userItems .= "<div class='col-xs-12 tight userItem' email='$email'>$name</div>";
 		}
 		return $userItems;
 	}

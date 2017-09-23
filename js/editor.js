@@ -25,7 +25,7 @@
 			 * of the new column
 			 */
 			add: function(htmlContent){
-				$('#markupRow').append("<div class='editorHolder newEditor col-sm-1'" + _a.editor.column.width + "'></div>");
+				$('#markupRow').append("<div class='editorHolder newEditor col-xs-1'" + _a.editor.column.width + "'></div>");
 				//Find the just added editor and remove the class that designates it as a just added editor
 				var newEditor = $('.newEditor').hide();
 				newEditor.addClass('markupEditor');
@@ -64,7 +64,7 @@
 				//Get the new width of the columns
 				var newWidth = alexander.editor.column.widthClasses[Math.max(0, Math.min($('.editorHolder').length, 3)) - 1];
 				//Remove all the width classes and add the new one
-				$('.editorHolder').removeClass('col-sm-12 col-sm-6 col-sm-4 col-sm-3 col-sm-1').addClass('col-sm-' + newWidth);
+				$('.editorHolder').removeClass('col-xs-12 col-xs-6 col-xs-4 col-xs-3 col-xs-1').addClass('col-xs-' + newWidth);
 				//Reassign the currentWidth class
 				_a.editor.column.width = newWidth;
 

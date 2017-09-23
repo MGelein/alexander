@@ -1,6 +1,13 @@
 @CHARSET "ISO-8859-1";
 
 /**
+HTML OVERRIDES
+**/
+body{
+	overflow-y: hidden;
+}
+
+/**
 CLASSES
 **/
 
@@ -60,7 +67,7 @@ CLASSES
 }
 
 .editor{
-	height: 12em;
+	height: 39vh;
 	font-size: 1.1em;
 	border: 1px solid #ccc;
 	overflow: auto;
@@ -70,7 +77,10 @@ CLASSES
 	padding: 0em;
 }
 
-
+.editorialPanel{
+	height: 40vh;
+	overflow-y: auto;
+}
 .animated,
 .editorHolder{
 	-webkit-transition: width 0.3s ease-in-out;
@@ -116,4 +126,8 @@ ID's
 */
 #annEditorTitle{
 	cursor: pointer;
+}
+
+#editorRowPanel{
+	height: 50vh;
 }

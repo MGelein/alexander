@@ -9,17 +9,17 @@
 				<p>
 				<div class="row">
 				
-				<div class="col-sm-4"><span>Load a text from the list below</span> or create a new text: <input type="button" class="btn btn-primary btn-sm" value="Add New Text" onclick="alexander.text.create();"/></p>
+				<div class="col-xs-4"><span>Load a text from the list below</span> or create a new text: <input type="button" class="btn btn-primary btn-sm" value="Add New Text" onclick="alexander.text.create();"/></p>
 				</div>
 				
-				<div class="col-sm-4">
+				<div class="col-xs-4">
 					<p class="text-center">
 					Filter:&nbsp;
 					<input id="textFilter" type="text" onkeyup="alexander.text.renderOverview();" onpaste="alexander.text.renderOverview();"></input>
 					</p>
 				</div>
 				
-				<div class="col-sm-4">
+				<div class="col-xs-4">
 				<span class="pull-right">
 				Order by:
 					<select id="textOrder" onchange="alexander.text.renderOverview();">

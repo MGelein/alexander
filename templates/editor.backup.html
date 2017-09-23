@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row" id="editorRow">
-		<div class="panel panel-info" id="editorRowPanel">
+		<div class="panel panel-info">
 			<div class="panel-heading"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;Text Editor
 				<div class="btn-group pull-right tight">
 					<a title="Save" class="btn btn-default btn-xs" onclick="alexander.text.save(false);"><span class="glyphicon glyphicon-save"></span>&nbsp;Save</a>
@@ -10,20 +10,15 @@
 					<a href="javascript:void(0)" title="New Markup" class="btn btn-info btn-xs" onclick="alexander.markup.insert();"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Markup</a>
 				</div>
 			</div>
-			
 			<div class="panel-body">
-				<div class="col-xs-8">
-					<div class="editorContainer">					
-						<div class="editor" id="textEditor">LOADING...</div>
-					</div>
-				</div>
-				<div class="col-xs-4">
-					
+				<div class="editorContainer">					
+					<div class="editor" id="textEditor">LOADING...</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
+	
+	<div class="row" id="markupRow"></div>
 	
 	<div class="row" id="textDataRow">
 			<div class="col-xs-6">
