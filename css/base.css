@@ -119,7 +119,7 @@ CLASSES
 
 .accountPanel{
 	height: 40vh;
-	overflow-y: auto;
+	overflow-y: hidden;
 }
 
 .userItem{
