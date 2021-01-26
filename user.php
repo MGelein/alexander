@@ -13,7 +13,7 @@ if($action == 'ping'){
     if(is_logged_in()) echo 'true';
     else echo 'false';
 }else if($action == 'login'){
-    if(!isset($json['password']) || !isset($json['username'])) exit();
+    if(!isset($json['password']) || !isset($json['username'])) exit('not set');
     $password = $json['password'];
     $username = $json['username'];
     
