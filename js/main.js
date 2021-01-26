@@ -1,8 +1,8 @@
 window.onload = () => {
     const obj = {
-        'action': 'login',
-        'username': 'test@gmail.com',
-        'password': 'bla',
+        'action': 'list',
+        'username': 'kirsten@gmail.com',
+        'password': 'broef',
         'name': 'Dummy',
         'level': 'student'  
     }

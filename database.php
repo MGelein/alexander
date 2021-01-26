@@ -11,7 +11,14 @@ class DB extends SQLite3 {
     function query_array($sql){
         $ret = $this->query($sql);
         if(!$ret) return NULL;
-        else return $ret->fetchArray(SQLITE3_ASSOC);
+        else{
+            $rows = array();
+            do{
+                $row = $ret->fetchArray(SQLITE3_ASSOC);
+                if($row) array_push($rows, $row);
+            } while($row);
+            return $rows;
+        }
     }
 }
 
@@ -22,7 +29,7 @@ class CredentialDB extends DB{
     }
 
     function get_user($username){
-        return $this->query_array("SELECT * FROM users WHERE username='$username'");
+        return $this->query_array("SELECT * FROM users WHERE username='$username'")[0];
     }
 
     function add_user($username, $name, $password, $levelString){
@@ -33,7 +40,7 @@ class CredentialDB extends DB{
     }
 
     function remove_user($username){
-        $username = preg_replace("/[^a-zA-Z0-9@]/", "", $username);
+        $username = preg_replace("/[^a-zA-Z0-9@\.]/", "", $username);
         $sql = "DELETE FROM users WHERE username='$username'";
         $this->exec($sql);
     }

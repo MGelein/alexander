@@ -52,10 +52,9 @@ if($action == 'create' || $action == 'add'){
     exit("OK");
 }else if($action == 'list'){
     if($_SESSION['userlevel'] != Level::Admin) exit();
-
     
     $credentials = new CredentialDB();
     $sql = 'SELECT * FROM users';
-    $arr = $credentials->query_array($sql);
-    echo print_r($arr);
+    $result = $credentials->query_array($sql);
+    echo json_encode($result);
 }
