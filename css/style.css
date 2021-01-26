@@ -108,6 +108,7 @@ IDs
 #main{
     padding: 1em;
     flex-basis: 75%;
+    flex-grow: 1;
 }
 
 #sidepanel{

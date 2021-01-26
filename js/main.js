@@ -8,8 +8,8 @@ async function startup(){
     await template.load();
     if(await api.ping()){
         user = await api.whoami();
-        page.show(template.dashboard);
+        page.showHome();
     }else{
-        page.show(template.login);
+        page.showLogin();
     }
 }

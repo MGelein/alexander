@@ -8,7 +8,7 @@ ui.submitLogin = function(){
     const password = document.querySelector('#passwordField').value;
     const username = document.querySelector('#usernameField').value;
     api.loginUser(username, password).then(response =>{
-        if(response == 'OK') page.show(template.dashboard);
+        if(response == 'OK') page.showHome();
         else{
             loginFeedback = document.querySelector('#loginFeedback');
             loginFeedback.innerHTML = 'Username or password incorrect!';
@@ -21,6 +21,6 @@ ui.submitLogin = function(){
 
 ui.submitLogout = function(){
     api.logout().then(() => {
-        page.show(template.login);
+        page.showLogin();
     });
 }
