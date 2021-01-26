@@ -1,12 +1,13 @@
 <div id='side'>
     <div id='sidepanel'>
-        <h1 id='title'>Ale<span class='accent'>x</span>ander</h1>
-        <ul id='nav'>
-            <li><a href='#' onclick=''>Dashboard</a></li>
-            <li><a href='#' onclick=''>Texts</a></li>
-        </ul>
-        <br><br>
-        <button id='logout' onclick='ui.submitLogout();'>Log out</button>
+        <div style='display: flex; flex-direction: column;'>
+            <h1 id='title'>Ale<span class='accent'>x</span>ander</h1>
+            <ul id='nav'>
+                <li><a href='#' onclick=''>Dashboard</a></li>
+                <li><a href='#' onclick=''>Texts</a></li>
+            </ul>
+            <button onclick='ui.submitLogout();' style='margin-top: 2em;'>Log out</button>
+        </div>
     </div>
 </div>
 
