@@ -21,6 +21,31 @@ body{
     font-family: 'Roboto', sans-serif;
     color: var(--fg);
     font-size: 120%;
+    line-height: 1.2;
+}
+
+select{
+    display: block;
+    font-size: 100%;
+    width: 100%;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+thead{
+    background-color: var(--fg);
+    color: var(--bg);
+    font-weight: bold;
+}
+
+td{
+    padding: 0.5em;
+    margin: 0;
+    border: 1px solid var(--bg);
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -57,16 +82,28 @@ a.current{
 
 button{
     background-color: var(--accent);
+    border: 1px solid var(--accent);
     padding: 1em;
     color: var(--bg);
     font-weight: bold;
-    border: 0px;
     transition: background-color 0.5s ease;
     font-size: 90%;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+}
+
+button.alt{
+    background-color: var(--bg);
+    border: 1px solid var(--accent);
+    color: var(--accent);
 }
 
 button:hover{
     background-color: var(--accent-light);
+}
+
+button.alt:hover{
+    color: white;
 }
 /**
 CLASSES

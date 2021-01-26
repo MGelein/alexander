@@ -24,3 +24,19 @@ ui.submitLogout = function(){
         page.showLogin();
     });
 }
+
+ui.updateUser = function(username){
+    const newName = document.getElementById(`${username}-name`).value;
+    const newLevel = document.getElementById(`${username}-level`).value;
+    api.updateUser(username, newName, newLevel);
+}
+
+ui.deleteUser = function(username){
+    if(confirm('Are you sure you want to remove this user?')){
+        api.removeUser(username);
+    }
+}
+
+ui.addUser = function(){
+    
+}
