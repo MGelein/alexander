@@ -33,7 +33,7 @@ if(!is_logged_in()) exit();
 
 if($action == 'create' || $action == 'add'){
     if(!isset($json['password']) || !isset($json['username']) || !isset($json['level']) || !isset($json['name'])) exit();
-    if($_SESSION['userlevel'] != Level::Admin) exit();
+    else if($_SESSION['userlevel'] != Level::Admin) exit();
     $levelString = $json['level'];
     $username = $json['username'];
     $password = $json['password'];
@@ -42,4 +42,20 @@ if($action == 'create' || $action == 'add'){
     $credentials = new CredentialDB();
     $credentials->add_user($username, $name, $password, $levelString);
     exit("OK");
+}else if($action == 'remove' || $action == 'delete'){
+    if(!isset($json['username']) || $_SESSION['userlevel'] != Level::Admin) exit();
+    $username = $json['username'];
+    if($_SESSION['username'] == $username) exit();
+
+    $credentials = new CredentialDB();
+    $credentials->remove_user($username);
+    exit("OK");
+}else if($action == 'list'){
+    if($_SESSION['userlevel'] != Level::Admin) exit();
+
+    
+    $credentials = new CredentialDB();
+    $sql = 'SELECT * FROM users';
+    $arr = $credentials->query_array($sql);
+    echo print_r($arr);
 }

@@ -1,6 +1,6 @@
 window.onload = () => {
     const obj = {
-        'action': 'ping',
+        'action': 'login',
         'username': 'test@gmail.com',
         'password': 'bla',
         'name': 'Dummy',

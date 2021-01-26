@@ -32,6 +32,12 @@ class CredentialDB extends DB{
         $this->exec($sql);
     }
 
+    function remove_user($username){
+        $username = preg_replace("/[^a-zA-Z0-9@]/", "", $username);
+        $sql = "DELETE FROM users WHERE username='$username'";
+        $this->exec($sql);
+    }
+
     function verify_user($username, $password){
         $user = $this->get_user($username);
         if(!$user) return FALSE;
