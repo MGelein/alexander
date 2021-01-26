@@ -42,12 +42,17 @@ div{
 a{
     text-decoration: none;
     color: var(--fg);
-    transition: color 0.5s ease;
+    transition: all 0.5s ease;
+    cursor: pointer;
 }
 
-a:hover{
+a:hover, a.current{
+    padding-left: 0.2em;
     color: var(--accent);
-    text-decoration: underline;
+}
+
+a.current{
+    border-bottom: 5px solid var(--accent);
 }
 
 button{
@@ -113,7 +118,7 @@ IDs
 
 #sidepanel{
     background-color: var(--bg);
-    border: 1px solid var(--bg-dark);
+    border-right: 5px solid var(--accent);
     height: 100%;
     padding: 1em;
     font-size: 130%;
@@ -121,18 +126,23 @@ IDs
 
 #mainpanel{
     background-color: var(--bg);
-    border: 1px solid var(--bg-dark);
     padding: 1em 1em 4em 1em;
     margin-top: 2em;
 }
 
 #nav li{
     padding-top: 1em;
+    width: 100%;
+}
+
+#nav a{
+    display:block;
+    width: 100%;
 }
 
 #loginpanel{
     background-color: var(--bg);
-    border: 1px solid var(--bg-dark);
+    border-left: 10px solid var(--accent);
     position: absolute;
     top: 25%;
     left: 30%;

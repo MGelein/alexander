@@ -3,6 +3,9 @@ const template = {'db': {}};
 template.load = async function(){
     template.login = await get('./templates/login.html');
     template.home = await get('./templates/home.html');
+    template.account = await get('./templates/account.html');
+    template.texts = await get('./templates/texts.html');
+    template.dashboard = await get('./templates/dashboard.html');
 }
 
 template.replaceVars = function(templateString, vars){

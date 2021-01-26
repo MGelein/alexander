@@ -3,9 +3,9 @@
         <div style='display: flex; flex-direction: column;'>
             <h1 id='title'>Ale<span class='accent'>x</span>ander</h1>
             <ul id='nav'>
-                <li><a href='#' onclick=''>Account</a></li>
-                <li><a href='#' onclick=''>Dashboard</a></li>
-                <li><a href='#' onclick=''>Texts</a></li>
+                <li><a id='accountLink' onclick='page.showAccount()'>Account</a></li>
+                <li><a id='dashboardLink' onclick='page.showDashboard()'>Dashboard</a></li>
+                <li><a id='textsLink' onclick='page.showTexts()'>Texts</a></li>
             </ul>
             <button onclick='ui.submitLogout();' style='margin-top: 2em;'>Log out</button>
         </div>
