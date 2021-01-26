@@ -1,6 +1,6 @@
 page = {};
 
-page.show = function(templateString){
+page.show = function(templateString, vars){
     const content = document.getElementById('content');
-    content.innerHTML = templateString;
+    content.innerHTML = vars ? template.replaceVars(templateString, vars) : templateString;
 }
