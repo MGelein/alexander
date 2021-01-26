@@ -76,4 +76,11 @@ if($action == 'create' || $action == 'add'){
     $credentials->change_password($new_pass);
 
     exit('OK');
+}else if($action == 'whoami'){
+    $username = $_SESSION['username'];
+    $user = $credentials->get_user($username);
+    unset($user['hash']);
+    $user['level'] = level_to_levelstring($user['level']);
+
+    exit(json_encode($user));
 }

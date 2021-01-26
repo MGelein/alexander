@@ -5,6 +5,8 @@
     --fg-dark: #111;
     --bg: #fff;
     --bg-dark: #ccc;
+    --accent: rgb(36, 111, 121);
+    --accent-light: rgb(83, 151, 160);
 }
 
 /**
@@ -18,6 +20,7 @@ body{
     padding: 0;
     font-family: 'Roboto', sans-serif;
     color: var(--fg);
+    font-size: 120%;
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -25,13 +28,50 @@ h1, h2, h3, h4, h5, h6{
     text-align: center;
 }
 
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
 div{
     padding: 0;
     margin: 0;
 }
+
+a{
+    text-decoration: none;
+    color: var(--fg);
+    transition: color 0.5s ease;
+}
+
+a:hover{
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+button{
+    background-color: var(--accent);
+    padding: 1em;
+    color: var(--bg);
+    font-weight: bold;
+    border: 0px;
+    transition: background-color 0.5s ease;
+}
+
+button:hover{
+    background-color: var(--accent-light);
+}
 /**
 CLASSES
 **/
+.accent{
+    color: var(--accent);
+}
+
+.accent-bg{
+    background-color: var(--accent);
+}
 
 /**
 IDs
@@ -60,6 +100,7 @@ IDs
     border: 1px solid var(--bg-dark);
     height: 100%;
     padding: 1em;
+    font-size: 130%;
 }
 
 #mainpanel{
@@ -67,4 +108,8 @@ IDs
     border: 1px solid var(--bg-dark);
     padding: 1em 1em 4em 1em;
     margin-top: 2em;
+}
+
+#nav li{
+    padding-top: 1em;
 }

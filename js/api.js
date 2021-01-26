@@ -13,6 +13,10 @@ api.ping = async function(){
     return post('./user.php', {'action': 'ping'}, true);
 }
 
+api.whoami = async function(){
+    return post('./user.php', {'action': 'whoami'}, true);
+}
+
 api.listUsers = async function(){
     return post('./user.php', {'action': 'list'}, true);
 }
