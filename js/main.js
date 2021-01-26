@@ -1,6 +1,7 @@
 window.onload = () => {
     const obj = {
-        'key': 'vallbval'
+        'action': 'login',
+        'username': 'meesgelein@gmail.com',
     }
     post('./user.php', obj).then(response => console.log(response));
 };
@@ -8,6 +9,7 @@ window.onload = () => {
 async function post(url, object){
     let response = await fetch(url, {
         method: "POST",
+        cache: "no-store",
         headers: {'Content-Type': 'application/json;charset=utf-8'},
         body: JSON.stringify(object)
     });
@@ -15,11 +17,11 @@ async function post(url, object){
 }
 
 async function getJSON(url){
-    let response = await fetch(url);
+    let response = await fetch(url, {cache: "no-store"});
     return await response.json();
 }
 
 async function get(url){
-    let response = await fetch(url);
+    let response = await fetch(url, {cache: "no-store"});
     return await response.text();
 }
