@@ -1,7 +1,10 @@
 window.onload = () => {
     const obj = {
-        'action': 'login',
-        'username': 'meesgelein@gmail.com',
+        'action': 'ping',
+        'username': 'test@gmail.com',
+        'password': 'bla',
+        'name': 'Dummy',
+        'level': 'student'  
     }
     post('./user.php', obj).then(response => console.log(response));
 };

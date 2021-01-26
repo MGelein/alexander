@@ -1,5 +1,6 @@
 <?php
 require_once('./data/credentials.php');
+require_once('./const.php');
 
 class DB extends SQLite3 {
 
@@ -22,6 +23,13 @@ class CredentialDB extends DB{
 
     function get_user($username){
         return $this->query_array("SELECT * FROM users WHERE username='$username'");
+    }
+
+    function add_user($username, $name, $password, $levelString){
+        $level = levelstring_to_level($levelString);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users(username, name, hash, level) VALUES('$username', '$name', '$hash', $level)";
+        $this->exec($sql);
     }
 
     function verify_user($username, $password){

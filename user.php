@@ -1,24 +1,45 @@
 <?php
+require_once('./const.php');
 require_once('./database.php');
-
 session_start();
+header('Content-Type: application/json');
 
 $json = json_decode(file_get_contents('php://input'), true);
-if(!$json || !$json['action']){die();}
+if(!$json || !isset($json['action'])) exit();
 
-$action = $json['action'];
+$action = strtolower($json['action']);
 
-$credentials = new CredentialDB();
-if($action == 'login'){
-    if(!isset($json['password']) || !isset($json['username'])) die('No password');
+if($action == 'ping'){
+    if(is_logged_in()) echo 'true';
+    else echo 'false';
+}else if($action == 'login'){
+    if(!isset($json['password']) || !isset($json['username'])) exit();
     $password = $json['password'];
     $username = $json['username'];
+    
+    $credentials = new CredentialDB();
+    $verified = $credentials->verify_user($username, $password);
+    if(!$verified) exit();
+    $user = $credentials->get_user($username);
+    $_SESSION['username'] = $username;
+    $_SESSION['userlevel'] = $user['level'];
+    exit("OK");
+}else if($action == 'logout'){
+    session_unset();
+    exit("OK");
 }
+//If we make it this far we are not logging in, and thus we should be logged in at this point
+if(!is_logged_in()) exit();
 
-
-
-if($credentials->verify_user($username, $password)){
-    echo "Welcome!";
-}else{
-    echo "Go away!";
+if($action == 'create' || $action == 'add'){
+    if(!isset($json['password']) || !isset($json['username']) || !isset($json['level']) || !isset($json['name'])) exit();
+    if($_SESSION['userlevel'] != Level::Admin) exit();
+    $levelString = $json['level'];
+    $username = $json['username'];
+    $password = $json['password'];
+    $name = $json['name'];
+    
+    $credentials = new CredentialDB();
+    $credentials->add_user($username, $name, $password, $levelString);
+    exit("OK");
 }
