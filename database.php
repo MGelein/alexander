@@ -11,13 +11,13 @@ class DB extends SQLite3 {
 class CredentialDB extends DB{
 
     function __construct(){
-        parent::__construct('./data/credentials.db');
+        parent::__construct(Constants::CREDENTIALS_DB_LOCATION);
     }
 }
 
 class CorpusDB extends DB{
 
     function __construct(){
-        parent::__construct('./data/corpus.db');
+        parent::__construct(Constants::CORPUS_DB_LOCATION);
     }
 }
