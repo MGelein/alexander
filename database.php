@@ -45,6 +45,20 @@ class CredentialDB extends DB{
         $this->exec($sql);
     }
 
+    function update_user($username, $new_name, $new_levelString){
+        $username = preg_replace("/[^a-zA-Z0-9@\.]/", "", $username);
+        $level = levelstring_to_level($new_levelString);
+        $sql = "UPDATE users SET name='$new_name', level=$level WHERE username='$username'";
+        $this->exec($sql);
+    }
+
+    function change_password($new_password){
+        $username = preg_replace("/[^a-zA-Z0-9@\.]/", "", $_SESSION['username']);
+        $hash = password_hash($new_password, PASSWORD_DEFAULT);
+        $sql = "UPDATE users SET hash='$hash' WHERE username='$username'";
+        $this->exec($sql);
+    }
+
     function verify_user($username, $password){
         $user = $this->get_user($username);
         if(!$user) return FALSE;

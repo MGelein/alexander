@@ -23,14 +23,15 @@ if($action == 'ping'){
     $user = $credentials->get_user($username);
     $_SESSION['username'] = $username;
     $_SESSION['userlevel'] = $user['level'];
-    exit("OK");
+    exit('OK');
 }else if($action == 'logout'){
     session_unset();
-    exit("OK");
+    exit('OK');
 }
 //If we make it this far we are not logging in, and thus we should be logged in at this point
 if(!is_logged_in()) exit();
 
+$credentials = new CredentialDB();
 if($action == 'create' || $action == 'add'){
     if(!isset($json['password']) || !isset($json['username']) || !isset($json['level']) || !isset($json['name'])) exit();
     else if($_SESSION['userlevel'] != Level::Admin) exit();
@@ -38,23 +39,35 @@ if($action == 'create' || $action == 'add'){
     $username = $json['username'];
     $password = $json['password'];
     $name = $json['name'];
-    
-    $credentials = new CredentialDB();
     $credentials->add_user($username, $name, $password, $levelString);
-    exit("OK");
+
+    exit('OK');
 }else if($action == 'remove' || $action == 'delete'){
     if(!isset($json['username']) || $_SESSION['userlevel'] != Level::Admin) exit();
     $username = $json['username'];
     if($_SESSION['username'] == $username) exit();
-
-    $credentials = new CredentialDB();
     $credentials->remove_user($username);
-    exit("OK");
+
+    exit('OK');
 }else if($action == 'list'){
     if($_SESSION['userlevel'] != Level::Admin) exit();
-    
-    $credentials = new CredentialDB();
     $sql = 'SELECT * FROM users';
     $result = $credentials->query_array($sql);
-    echo json_encode($result);
+
+    exit(json_encode($result));
+}else if($action == 'update'){
+    if($_SESSION['userlevel'] != Level::Admin) exit();
+    if(!isset($json['username']) || !isset($json['level']) || !isset($json['name'])) exit();
+    $username = $json['username'];
+    $name = $json['name'];
+    $levelString = $json['level'];    
+    $credentials->update_user($username, $name, $levelString);
+
+    exit('OK');
+}else if($action == 'change_password'){
+    if(!isset($json['password'])) exit();
+    $new_pass = $json['password'];
+    $credentials->change_password($new_pass);
+
+    exit('OK');
 }
