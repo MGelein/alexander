@@ -10,11 +10,11 @@ api.loginUser = async function(username, password){
 }
 
 api.ping = async function(){
-    return post('./user.php', {'action': 'ping'});
+    return post('./user.php', {'action': 'ping'}, true);
 }
 
 api.listUsers = async function(){
-    return post('./user.php', {'action': 'list'});
+    return post('./user.php', {'action': 'list'}, true);
 }
 
 api.logout = async function(){
@@ -56,14 +56,15 @@ api.addUser = async function(username, name, password, level){
     return post('./user.php', obj);
 }
 
-async function post(url, object){
+async function post(url, object, returnJSON){
+    if(!returnJSON) returnJSON = false;
     let response = await fetch(url, {
         method: "POST",
         cache: "no-store",
         headers: {'Content-Type': 'application/json;charset=utf-8'},
         body: JSON.stringify(object)
     });
-    return await response.text()
+    return returnJSON ? await response.json(): await response.text();
 }
 
 async function getJSON(url){
@@ -74,4 +75,8 @@ async function getJSON(url){
 async function get(url){
     let response = await fetch(url, {cache: "no-store"});
     return await response.text();
+}
+
+function print(...args){
+    console.log(...args);
 }

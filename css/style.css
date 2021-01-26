@@ -1,0 +1,20 @@
+/**
+HTML OVERRIDES
+**/
+body{
+    background-color: #333;
+    background: linear-gradient(#333, #111);
+    overflow: hidden;
+    min-height: 100vh;
+}
+/**
+CLASSES
+**/
+
+/**
+IDs
+**/
+#content{
+    margin: 0;
+    padding: 0;
+}

@@ -53,8 +53,14 @@ if($action == 'create' || $action == 'add'){
     if($_SESSION['userlevel'] != Level::Admin) exit();
     $sql = 'SELECT * FROM users';
     $result = $credentials->query_array($sql);
+    $results_wo_hashes = array();
+    foreach($result as $user){
+        unset($user['hash']);
+        $user['level'] = level_to_levelstring($user['level']);
+        array_push($results_wo_hashes, $user);
+    }
 
-    exit(json_encode($result));
+    exit(json_encode($results_wo_hashes));
 }else if($action == 'update'){
     if($_SESSION['userlevel'] != Level::Admin) exit();
     if(!isset($json['username']) || !isset($json['level']) || !isset($json['name'])) exit();
