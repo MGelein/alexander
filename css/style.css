@@ -73,6 +73,20 @@ CLASSES
     background-color: var(--accent);
 }
 
+.inputfield{
+    display: block;
+    width: 100%;
+    padding: 0.2em;
+    font-size: 100%;
+    margin-top: 0.2em;
+    margin-bottom: 1em;
+    border: 1px solid var(--bg-dark);
+}
+
+label{
+    font-weight: bold;
+}
+
 /**
 IDs
 **/
@@ -112,4 +126,22 @@ IDs
 
 #nav li{
     padding-top: 1em;
+}
+
+#loginpanel{
+    background-color: var(--bg);
+    border: 1px solid var(--bg-dark);
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    width: 40%;
+    padding: 0;
+    margin: 0;
+}
+
+#logincontents{
+    font-size: 100%;
+    display: flex;
+    padding: 2em;
+    flex-direction: column;
 }

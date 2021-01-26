@@ -1,4 +1,4 @@
-page = {};
+const page = {};
 
 page.show = function(templateString, vars){
     const content = document.getElementById('content');

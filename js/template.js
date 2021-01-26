@@ -1,4 +1,4 @@
-template = {'db': {}};
+const template = {'db': {}};
 
 template.load = async function(){
     template.login = await get('./templates/login.html');

@@ -1,6 +1,9 @@
 let user = {};
 
-window.onload = () => { startup();}
+window.onload = () => {
+    $ = document.querySelector; 
+    startup();
+}
 async function startup(){
     await template.load();
     if(await api.ping()){
