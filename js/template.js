@@ -9,7 +9,7 @@ template.replaceVars = function(templateString, vars){
     const keys = Object.keys(vars);
     let replaced = templateString + "";
     for(const key of keys){
-        re = new RegExp(key, 'g');
+        re = new RegExp(`{{${key}}}`, 'g');
         replaced = replaced.replace(re, vars[key]);
     }
     return replaced;

@@ -1,11 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Roboto&display=swap');
+
+:root{
+    --fg: #333;
+    --fg-dark: #111;
+    --bg: #fff;
+    --bg-dark: #ccc;
+}
+
 /**
 HTML OVERRIDES
 **/
 body{
-    background-color: #333;
-    background: linear-gradient(#333, #111);
+    background-color: var(--fg);
+    background: linear-gradient(var(--fg), var(--fg-dark));
     overflow: hidden;
-    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    color: var(--fg);
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+}
+
+div{
+    padding: 0;
+    margin: 0;
 }
 /**
 CLASSES
@@ -17,4 +39,32 @@ IDs
 #content{
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+#side{
+    padding: 0em 1em 0em 0em;
+    flex-basis: 25%;
+    flex-direction: column;
+}
+
+#main{
+    padding: 1em;
+    flex-basis: 75%;
+}
+
+#sidepanel{
+    background-color: var(--bg);
+    border: 1px solid var(--bg-dark);
+    height: 100%;
+    padding: 1em;
+}
+
+#mainpanel{
+    background-color: var(--bg);
+    border: 1px solid var(--bg-dark);
+    padding: 1em 1em 4em 1em;
+    margin-top: 2em;
 }
