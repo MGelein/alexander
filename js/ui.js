@@ -75,6 +75,10 @@ ui.submitLogout = function(){
     });
 }
 
+ui.saveTextEditor = function(){
+    
+}
+
 ui.updateUser = function(username){
     const newName = document.getElementById(`${username}-name`).value;
     const newLevel = document.getElementById(`${username}-level`).value;

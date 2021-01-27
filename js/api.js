@@ -1,6 +1,6 @@
 const api = {};
 
-api.addText = async function(urn, data, level){
+api.addText= async function(urn, data, level){
     const obj = {
         'action': 'add',
         'urn': urn,

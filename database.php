@@ -72,10 +72,14 @@ class CorpusDB extends DB{
         parent::__construct(Constants::CORPUS_DB_LOCATION);
     }
 
-    function add_text($urn, $data, $levelString){
-        if($this->get_text($urn)) return FALSE;
+    function update_text($urn, $data, $levelString){
         $level = levelstring_to_level($levelString);
-        $sql = "INSERT INTO texts(urn, data, level) VALUES('$urn', '$data', $level);";
+        $sql = '';
+        if($this->get_text($urn)) {
+            $sql = "UPDATE texts SET level=$level, data='$data' WHERE urn='$urn'";
+        }else{
+            $sql = "INSERT INTO texts(urn, data, level) VALUES('$urn', '$data', $level);";
+        }
         $this->exec($sql);
         return TRUE;
     }

@@ -10,12 +10,12 @@ if(!$json || !isset($json['action'])) exit();
 
 $action = strtolower($json['action']);
 $corpus = new CorpusDB();
-if($action == 'add'){
-    $urn = $json['urn'];
+if($action == 'add' || $action == 'update'){
+    if(!isset($json['urn']) || !isset($json['level']) || !isset($json['data'])) exit();
     $data = json_encode($json['data']);
     $level = $json['level'];
-    if($corpus->add_text($urn, $data, $level)) exit("OK");
-    else exit();
+    $corpus->add_text($urn, $data, $level));
+    exit("OK");
 }else if ($action == 'list'){
     $level = $_SESSION['userlevel'];
     $sql = "SELECT * FROM texts WHERE level>=$level";
