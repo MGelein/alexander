@@ -4,6 +4,28 @@ ui.passwordtype = function(event){
     if(event.key == 'Enter') ui.submitLogin();
 }
 
+ui.showCreateNote = function(event){
+    ui.hideCreateNote();
+    setTimeout(() => {
+        const sel = window.getSelection();
+        if(!sel || sel.rangeCount < 1) return;
+        const range = sel.getRangeAt(0);
+        const start = range.startOffset < range.endOffset ? range.startOffset : range.endOffset;
+        const end = range.startOffset < range.endOffset ? range.endOffset : range.startOffset;
+        if(end - start < 1) return;
+        
+        const button = document.getElementById('createNoteButton');
+        button.style.left = event.clientX + 10 + 'px';
+        button.style.top = event.clientY + 10 + 'px';
+        button.style.display = 'block';
+    }, 200);
+}
+
+ui.hideCreateNote = function(){
+    const button = document.getElementById('createNoteButton');
+    button.style.display = 'none';
+}
+
 ui.submitLogin = function(){
     const password = document.querySelector('#passwordField').value;
     const username = document.querySelector('#usernameField').value;
