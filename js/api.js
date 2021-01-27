@@ -1,6 +1,6 @@
 const api = {};
 
-api.addText= async function(urn, data, level){
+api.addText = async function(urn, data, level){
     const obj = {
         'action': 'add',
         'urn': urn,
@@ -8,6 +8,11 @@ api.addText= async function(urn, data, level){
         'level': level
     };
     return post('./text.php', obj);
+}
+api.updateText = api.addText;
+
+api.removeText = async function(urn){
+    return post('./text.php', {action: 'remove', 'urn': urn});
 }
 
 api.listTexts = async function(){

@@ -83,6 +83,11 @@ class CorpusDB extends DB{
         $this->exec($sql);
         return TRUE;
     }
+    
+    function remove_text($urn){
+        $sql = "DELETE FROM texts WHERE urn='$urn'";
+        $this->exec($sql);
+    }
 
     function get_text($urn){
         $sql = "SELECT * FROM texts WHERE urn='$urn'";

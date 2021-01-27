@@ -76,7 +76,50 @@ ui.submitLogout = function(){
 }
 
 ui.saveTextEditor = function(){
-    
+    const newTitle = document.getElementById('editorTitle');
+    const newAuthor = document.getElementById('editorAuthor');
+    const newBibliography = document.getElementById('editorBibliography');
+    const newLanguage = document.getElementById('editorLanguage');
+    const newLevel = document.getElementById('editorLevel');
+    const newURN = document.getElementById('editorURN');
+    const newContent = document.getElementById('editorContent');
+    const text = {};
+    let errorsFound = false;
+    if(newTitle.value.length < 2){
+        ui.blinkError(newTitle);
+        errorsFound = true;
+    }
+    if(newAuthor.value.length < 2){
+        ui.blinkError(newAuthor);
+        errorsFound = true;
+    }
+    if(newURN.innerText < 15){
+        ui.blinkError(newURN);
+        errorsFound = true;
+    }
+    if(errorsFound) return;
+    text.urn = newURN.innerText;
+    text.level = newLevel.value;
+    text.data = {
+        urn: text.urn,
+        level: text.level,
+        author: newAuthor.value,
+        bibliography: newBibliography.value,
+        language: newLanguage.value,
+        title: newTitle.value,
+        content: newContent.innerText,
+    }
+    api.updateText(text.urn, text.data, text.level).then(response =>{
+        console.log(response);
+    });
+}
+
+ui.submitRemove = function(urn){
+    if(confirm(`Are you sure you want to remove this text? (${urn})`)){
+        api.removeText(urn).then(() =>{
+            page.showTexts();
+        });
+    }
 }
 
 ui.updateUser = function(username){
