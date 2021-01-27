@@ -83,14 +83,37 @@ class CorpusDB extends DB{
         $this->exec($sql);
         return TRUE;
     }
+
+    function update_note($urn, $parent, $data, $type){
+        $sql = '';
+        if($this->get_note($urn)){
+            $sql = "UPDATE notes SET parent='$parent', data='$data', type='$type' WHERE urn='$urn'";
+        }else{
+            $sql = "INSERT INTO notes(urn, parent, data, type) VALUES('$urn', '$parent', '$data', '$type')";
+        }
+        $this->exec($sql);
+        return TRUE;
+    }
     
     function remove_text($urn){
         $sql = "DELETE FROM texts WHERE urn='$urn'";
         $this->exec($sql);
     }
 
+    function remove_note($urn){
+        $sql = "DELETE FROM notes WHERE urn='$urn'";
+        $this->exec($sql);
+    }
+
     function get_text($urn){
         $sql = "SELECT * FROM texts WHERE urn='$urn'";
+        $results = $this->query_array($sql);
+        if($results == NULL) return FALSE;
+        else return $results[0];
+    }
+
+    function get_note($urn){
+        $sql = "SELECT * FROM notes WHERE urn='$urn'";
         $results = $this->query_array($sql);
         if($results == NULL) return FALSE;
         else return $results[0];
