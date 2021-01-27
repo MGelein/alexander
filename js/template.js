@@ -13,9 +13,12 @@ template.load = async function(){
     template.textrow = await get('./templates/textrow.html');
 
     template.usersButton = "<li><a id='usersLink' onclick='page.showUsers()'>Users</a></li>";
-    template.roleSelect = `<select id='{{username}}-level'><option value='admin' {{adminselected}}>admin</option>
+    template.roleselect = `<select name='roleselect' id='{{id}}'><option value='admin' {{adminselected}}>admin</option>
     <option value='board' {{boardselected}}>board</option><option value='teacher' {{teacherselected}}>teacher</option>
-    <option value='student' {{studentselected}}>student</option></select>`
+    <option value='student' {{studentselected}}>student</option></select>`;
+    template.langselect = `<select id='editorLanguage' name='textLanguage'>
+    <option value='gr' {{greekselected}}>Greek</option><option value='la' {{latinselected}}>Latin</option>
+    <option value='en' {{englishselected}}>English</option></select>`;
 }
 
 template.replaceVars = function(templateString, vars){

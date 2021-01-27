@@ -124,11 +124,32 @@ label{
     font-weight: bold;
 }
 
+.inline label{
+    float: left;
+    flex-grow: 0;
+}
+
+.inline input{
+    width: auto;
+    flex-grow: 1;
+}
+
+.inline select{
+    width: auto;
+    flex-grow: 1;
+}
+
+.inline{
+    display: flex;
+    flex-grow: 1;
+    padding-right: 1em;
+}
+
 /**
 CLASSES
 **/
 
-.userdetail{
+.formfield{
     margin-bottom: 1em;
 }
 
@@ -143,6 +164,16 @@ CLASSES
 .inputfield{
     margin-top: 0.2em;
     margin-bottom: 1em;
+}
+
+.editor{
+    font-family: inherit;
+    font-size: inherit;
+    border: 1px solid var(--fg-dark);
+    padding: 0.5em;
+    min-height: 20vh;
+    overflow-y: scroll;
+    white-space: pre;
 }
 
 /**

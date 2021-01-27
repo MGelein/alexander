@@ -24,7 +24,42 @@ ui.submitLogin = function(){
 ui.openInTextEditor = async function(urn){
     let text = {};
     if(urn) text = await api.getText(urn);
+    if(!text.data){
+        const newURNInput = document.getElementById('newTextURN');
+        if(newURNInput.value.length < 15) {
+            ui.blinkError(newURNInput);
+            return;
+        }
+        if(await api.getText(newURNInput.value)){
+            ui.blinkError(newURNInput);
+            alert("This URN is already taken");
+            return;
+        }
+        text.urn = newURNInput.value;
+    }
     page.showTextEditor(text);
+}
+
+ui.interceptPaste = function(event){
+    let pastedText = '';
+
+    if(event.clipboardData && event.clipboardData.getData){
+        pastedText = event.clipboardData.getData('text/plain');
+    }
+    event.stopPropagation();
+    event.preventDefault();
+
+    const text = event.target.innerHTML;
+    let cursorPos = 0;
+    const selection = window.getSelection();
+    if(selection){
+        const range = selection.getRangeAt(0);
+        if(range){
+            cursorPos = range.startOffset;
+        }
+    }
+    const newText = text.slice(0, cursorPos) + pastedText + text.slice(cursorPos);
+    event.target.innerHTML = newText;
 }
 
 ui.openInAnnotationEditor = async function(urn){

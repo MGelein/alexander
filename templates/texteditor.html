@@ -1,1 +1,32 @@
 <h1>Text Editor</h1>
+<div style='display: flex; flex-direction: row;'>
+    <div class='formfield inline'>
+        <label for='textTitle'>Title:&nbsp;</label>
+        <input type='text' name='textTitle' id='editorTitle' placeHolder='The Republic' value='{{title}}'>
+    </div>
+    <div class='formfield inline'>
+        <label for='textAuthor'>Author:&nbsp;</label>
+        <input type='text' name='textAuthor' id='editorAuthor' placeHolder='Plato' value='{{author}}'>
+    </div>
+</div>
+<div class='formfield'>
+    <label for='textURN'>URN: </label>
+    <span name='textURN' id='editorURN'>{{urn}}</span>
+</div>
+<div class='formfield'>
+    <label for='textBibliography'>Bibliography: </label>
+    <input type='text' name='textBibliography' id='editorBibliography' placeHolder='Jowett, B. (Ed.). (1888). The republic of Plato. Clarendon press.' value='{{bibliography}}'>
+</div>
+<div style='display: flex; flex-direction: row;'>
+    <div class='formfield inline'>
+        <label for='textLanguage'>Language:&nbsp;</label>
+        {{langselect}}
+    </div>
+    <div class='formfield inline'>
+        <label for='roleselect'>Level:&nbsp;</label>
+        {{roleselect}}
+    </div>
+</div>
+<div onpaste='ui.interceptPaste(event)' id='editorContent' class='editor' contenteditable="true">{{content}}</div>
+<br>
+<button style='display:block; width: 100%'>Save Text</button>

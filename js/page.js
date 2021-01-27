@@ -51,13 +51,38 @@ page.showTexts = function(){
 }
 
 page.showTextEditor = function(text){
-    text = JSON.parse(text.data);
-    page.changeHomepage(template.texteditor);
+    if(text && text.data) text = JSON.parse(text.data);
+    else{
+        text = {
+            author: '',
+            title: '',
+            urn: text.urn,
+            bibliography: '',
+            language: 'gr',
+            level: user.level,
+            content: ''
+        }
+    }
+    const languages = {
+        greekselected: text.language == 'gr' ? 'selected' : '',
+        latinselected: text.language == 'la' ? 'selected' : '',
+        englishselected: text.language == 'en' ? 'selected' : '',
+    }
+    const roles = {
+        id: 'editorLevel',
+        adminselected: text.level == 'admin' ? 'selected' : '',
+        teacherselected: text.level == 'teacher' ? 'selected' : '',
+        boardselected: text.level == 'board' ? 'selected' : '',
+        studentselected: text.level == 'student' ? 'selected' : '',
+    }
+    text.langselect = template.replaceVars(template.langselect, languages);
+    text.roleselect = template.replaceVars(template.roleselect, roles);
+    page.changeHomepage(template.replaceVars(template.texteditor, text));
 }
 
 page.showAnnotationEditor = function(text){
-    text = JSON.parse(text.data);
-    page.changeHomepage(template.texteditor);
+    if(text && text.data) text = JSON.parse(text.data);
+    page.changeHomepage(template.replaceVars(template.annotationeditor, text));
 }
 
 page.showUsers = function(){
@@ -69,14 +94,14 @@ page.showUsers = function(){
         const htmlParts = [];
         for(let user of users){
             const roles = {
-                username: user.username,
+                id: user.username + '-level',
                 adminselected: user.level == 'admin' ? 'selected' : '',
                 teacherselected: user.level == 'teacher' ? 'selected' : '',
                 boardselected: user.level == 'board' ? 'selected' : '',
                 studentselected: user.level == 'student' ? 'selected' : '',
             }
             const vars = {
-                roleselect: template.replaceVars(template.roleSelect, roles),
+                roleselect: template.replaceVars(template.roleselect, roles),
                 username: user.username,
                 level: user.level,
                 name: user.name,
