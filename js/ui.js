@@ -21,6 +21,18 @@ ui.submitLogin = function(){
     });
 }
 
+ui.openInTextEditor = async function(urn){
+    let text = {};
+    if(urn) text = await api.getText(urn);
+    page.showTextEditor(text);
+}
+
+ui.openInAnnotationEditor = async function(urn){
+    let text = {};
+    if(urn) text = await api.getText(urn);
+    page.showAnnotationEditor(text);
+}
+
 ui.submitLogout = function(){
     api.logout().then(() => {
         page.showLogin();

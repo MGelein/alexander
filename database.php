@@ -73,7 +73,17 @@ class CorpusDB extends DB{
     }
 
     function add_text($urn, $data, $levelString){
+        if($this->get_text($urn)) return FALSE;
         $level = levelstring_to_level($levelString);
-        
+        $sql = "INSERT INTO texts(urn, data, level) VALUES('$urn', '$data', $level);";
+        $this->exec($sql);
+        return TRUE;
+    }
+
+    function get_text($urn){
+        $sql = "SELECT * FROM texts WHERE urn='$urn'";
+        $results = $this->query_array($sql);
+        if($results == NULL) return FALSE;
+        else return $results[0];
     }
 }

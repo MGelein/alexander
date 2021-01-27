@@ -8,6 +8,9 @@ template.load = async function(){
     template.dashboard = await get('./templates/dashboard.html');
     template.users = await get('./templates/users.html');
     template.userrow = await get('./templates/userrow.html');
+    template.texteditor = await get('./templates/texteditor.html');
+    template.annotationeditor = await get('./templates/annotationeditor.html');
+    template.textrow = await get('./templates/textrow.html');
 
     template.usersButton = "<li><a id='usersLink' onclick='page.showUsers()'>Users</a></li>";
     template.roleSelect = `<select id='{{username}}-level'><option value='admin' {{adminselected}}>admin</option>

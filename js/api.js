@@ -10,6 +10,14 @@ api.addText = async function(urn, data, level){
     return post('./text.php', obj);
 }
 
+api.listTexts = async function(){
+    return post('./text.php', {action: 'list'}, true);
+}
+
+api.getText = async function(urn){
+    return post('./text.php', {'action': 'get', 'urn': urn}, true);
+}
+
 api.loginUser = async function(username, password){
     const obj = {
         'action': 'login',
@@ -78,7 +86,13 @@ async function post(url, object, returnJSON){
         headers: {'Content-Type': 'application/json;charset=utf-8'},
         body: JSON.stringify(object)
     });
-    return returnJSON ? await response.json(): await response.text();
+    const responseText = await response.text();
+    if(returnJSON){
+        if(responseText.length > 1) return JSON.parse(responseText);
+        else return undefined;
+    }else{
+        return responseText;
+    }
 }
 
 async function getJSON(url){

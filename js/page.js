@@ -10,7 +10,7 @@ page.showHome = function(){
         usersLink: user.level == 'admin' ? template.usersButton : ''
     };
     page.show(template.replaceVars(template.home, vars));
-    page.showDashboard();
+    page.showTexts();
 }
 
 page.showLogin = function(){
@@ -39,6 +39,25 @@ page.showDashboard = function(){
 page.showTexts = function(){
     page.changeHomepage(template.texts);
     document.querySelector('#textsLink').classList.add('current');
+
+    api.listTexts().then(texts =>{
+        if(!texts) return;
+        const htmlParts = [];
+        for(let text of texts){
+            htmlParts.push(template.replaceVars(template.textrow, JSON.parse(text.data)));
+        }
+        document.getElementById('textsTable').innerHTML = htmlParts.join("");
+    });
+}
+
+page.showTextEditor = function(text){
+    text = JSON.parse(text.data);
+    page.changeHomepage(template.texteditor);
+}
+
+page.showAnnotationEditor = function(text){
+    text = JSON.parse(text.data);
+    page.changeHomepage(template.texteditor);
 }
 
 page.showUsers = function(){
@@ -46,8 +65,8 @@ page.showUsers = function(){
     page.changeHomepage(template.users);
     document.querySelector('#usersLink').classList.add('current');
 
-    const htmlParts = [];
     api.listUsers().then(users =>{
+        const htmlParts = [];
         for(let user of users){
             const roles = {
                 username: user.username,
