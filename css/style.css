@@ -50,7 +50,8 @@ td{
 
 h1, h2, h3, h4, h5, h6{
     font-family: 'Oswald', sans-serif;
-    text-align: center;
+    padding-left: 0.5em;
+    border-left: 5px solid var(--accent);
 }
 
 ul{
@@ -105,9 +106,32 @@ button:hover{
 button.alt:hover{
     color: white;
 }
+
+input[type='text'], input[type='email'], input[type='password']{
+    display: block;
+    width: 100%;
+    padding: 0.2em;
+    font-size: 100%;
+    border: 1px solid var(--bg-dark);
+}
+
+input.error{
+    border: 1px solid #c00;
+    color: #c00;
+}
+
+label{
+    font-weight: bold;
+}
+
 /**
 CLASSES
 **/
+
+.userdetail{
+    margin-bottom: 1em;
+}
+
 .accent{
     color: var(--accent);
 }
@@ -117,17 +141,8 @@ CLASSES
 }
 
 .inputfield{
-    display: block;
-    width: 100%;
-    padding: 0.2em;
-    font-size: 100%;
     margin-top: 0.2em;
     margin-bottom: 1em;
-    border: 1px solid var(--bg-dark);
-}
-
-label{
-    font-weight: bold;
 }
 
 /**
@@ -151,6 +166,8 @@ IDs
     padding: 1em;
     flex-basis: 75%;
     flex-grow: 1;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 
 #sidepanel{
@@ -175,6 +192,12 @@ IDs
 #nav a{
     display:block;
     width: 100%;
+}
+
+#title{
+    text-align: center;
+    border: none;
+    padding: 0;
 }
 
 #loginpanel{

@@ -12,3 +12,31 @@
 
     </tbody>
 </table>
+<br><br>
+<h2>Add User</h2>
+<div class='userdetail'>
+    <label for='userfield'>Username:</label>
+    <input name='userfield' type='text' id='newUsername' placeholder='example@example.com'>
+</div>
+<div class='userdetail'>
+    <label for='namefield'>Name: </label>
+    <input name='namefield' type='text' id='newName' placeholder='Protagoras of Abdera'>
+</div>
+<div class='userdetail'>
+    <label for='pass1field'>Password: </label>
+    <input name='pass1field' type='password' id='newPassword1'>
+</div>
+<div class='userdetail'>
+    <label for='pass2field'>Password (repeat):</label>
+    <input name='pass2field' type='password' id='newPassword2'>
+</div>
+<div class='userdetail'>
+    <label for='rolefield'>Level: </label>
+    <select name='rolefield' id='newLevel'>
+        <option value='admin'>admin</option>
+        <option value='board'>board</option>
+        <option value='teacher'>teacher</option>
+        <option value='student' selected>student</option>
+    </select>
+</div>
+<button style='display:block; width: 100%' onclick='ui.addUser()'>Add New User</button>

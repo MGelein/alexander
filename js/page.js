@@ -9,8 +9,8 @@ page.showHome = function(){
     const vars = {
         usersLink: user.level == 'admin' ? template.usersButton : ''
     };
-    page.show(template.home, vars);
-    page.showUsers();
+    page.show(template.replaceVars(template.home, vars));
+    page.showDashboard();
 }
 
 page.showLogin = function(){
@@ -27,7 +27,7 @@ page.changeHomepage = function(html){
 }
 
 page.showAccount = function(){
-    page.changeHomepage(template.account);
+    page.changeHomepage(template.replaceVars(template.account, user));
     document.querySelector('#accountLink').classList.add('current');
 }
 
@@ -42,6 +42,7 @@ page.showTexts = function(){
 }
 
 page.showUsers = function(){
+    if(user.level != 'admin') return page.showDashboard();
     page.changeHomepage(template.users);
     document.querySelector('#usersLink').classList.add('current');
 

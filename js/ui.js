@@ -8,8 +8,10 @@ ui.submitLogin = function(){
     const password = document.querySelector('#passwordField').value;
     const username = document.querySelector('#usernameField').value;
     api.loginUser(username, password).then(response =>{
-        if(response == 'OK') page.showHome();
-        else{
+        if(response == 'OK') {
+            page.showHome();
+            location.reload();
+        }else{
             loginFeedback = document.querySelector('#loginFeedback');
             loginFeedback.innerHTML = 'Username or password incorrect!';
             document.querySelector('#passwordField').value = '';
@@ -22,6 +24,7 @@ ui.submitLogin = function(){
 ui.submitLogout = function(){
     api.logout().then(() => {
         page.showLogin();
+        location.reload();
     });
 }
 
@@ -38,5 +41,55 @@ ui.deleteUser = function(username){
 }
 
 ui.addUser = function(){
-    
+    const newUsername = document.getElementById('newUsername');
+    const newName = document.getElementById('newName');
+    const newLevel = document.getElementById('newLevel');
+    const newPassword1 = document.getElementById('newPassword1');
+    const newPassword2 = document.getElementById('newPassword2');
+    let errorFound = false;
+    if(newUsername.value.length < 10){
+        ui.blinkError(newUsername);
+        errorFound = true;
+    }
+    if(newName.value.length < 5){
+        ui.blinkError(newName);
+        errorFound = true;
+    }
+    if(newPassword1.value != newPassword2.value){
+        ui.blinkError(newPassword2);
+        errorFound = true;
+    }else if(newPassword1.value.length < 8){
+        ui.blinkError(newPassword2);
+        ui.blinkError(newPassword1);
+        errorFound = true;
+    }
+    if(!errorFound){
+        api.addUser(newUsername.value, newName.value, newPassword1.value, newLevel.value).then(()=>{
+            page.showUsers();
+        });
+    }
+}
+
+ui.changePassword = function(){
+    const newPassword1 = document.getElementById('newPassword1');
+    const newPassword2 = document.getElementById('newPassword2');
+    let errorFound = false;
+    if(newPassword1.value != newPassword2.value){
+        ui.blinkError(newPassword2);
+        errorFound = true;
+    }else if(newPassword1.value.length < 8){
+        ui.blinkError(newPassword2);
+        ui.blinkError(newPassword1);
+        errorFound = true;
+    }
+    if(!errorFound){
+        api.changePassword(newPassword1.value).then(()=>{
+            page.showHome();
+        });
+    }
+}
+
+ui.blinkError = function(el){
+    el.classList.add('error');
+    setTimeout(() => el.classList.remove('error'), 2000);
 }
