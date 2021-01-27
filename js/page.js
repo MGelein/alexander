@@ -85,6 +85,18 @@ page.showAnnotationEditor = function(text){
     page.changeHomepage(template.replaceVars(template.annotationeditor, text));
 }
 
+page.showOverlay = function(html){
+    const overlay = document.getElementById('overlay');
+    if(overlay) overlay.style.display = 'block';
+    if(html) overlay.innerHTML = html;
+}
+
+page.hideOverlay = function(){
+    const overlay = document.getElementById('overlay');
+    if(overlay) overlay.style.display = 'none';
+    overlay.innerHTML = '';
+}
+
 page.showUsers = function(){
     if(user.level != 'admin') return page.showDashboard();
     page.changeHomepage(template.users);

@@ -11,6 +11,7 @@ template.load = async function(){
     template.texteditor = await get('./templates/texteditor.html');
     template.annotationeditor = await get('./templates/annotationeditor.html');
     template.textrow = await get('./templates/textrow.html');
+    template.noteeditor = await get('./templates/noteeditor.html');
 
     template.usersButton = "<li><a id='usersLink' onclick='page.showUsers()'>Users</a></li>";
     template.roleselect = `<select name='roleselect' id='{{id}}'><option value='admin' {{adminselected}}>admin</option>

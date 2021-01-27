@@ -43,6 +43,20 @@ ui.submitLogin = function(){
     });
 }
 
+ui.openInNoteEditor = async function(urn){
+    let note = {}
+    if(urn) note = await api.getNote(urn);
+    if(!note.data){
+
+    }
+    const html = template.replaceVars(template.noteeditor, note);
+    ui.hideCreateNote();
+    const sel = window.getSelection();
+    if(!sel || sel.rangeCount < 1) return;
+    const range = sel.getRangeAt(0);
+    page.showOverlay(html);
+}
+
 ui.openInTextEditor = async function(urn){
     let text = {};
     if(urn) text = await api.getText(urn);

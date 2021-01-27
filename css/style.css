@@ -255,4 +255,39 @@ IDs
 
 #createNoteButton{
     position: absolute;
+    border-width: 2px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#overlay{
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#noteEditor{
+    padding: 1em;
+    position: absolute;
+    top: 10%;
+    left: 25%;
+    width: 60%;
+    max-height: 80%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--bg);
+    border: 1px solid var(--bg-dark);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#noteEditor .editor{
+    max-height: 60%;
+}
+
+#annotationText{
+    white-space: pre-wrap;
 }
