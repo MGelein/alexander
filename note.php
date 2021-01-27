@@ -9,6 +9,7 @@ $json = json_decode(file_get_contents('php://input'), true);
 if(!$json || !isset($json['action'])) exit();
 
 $action = strtolower($json['action']);
+$corpus = new CorpusDB();
 
 if($action == 'add' || $action == 'update'){
     if(!isset($json['urn']) || !isset($json['parent']) || !isset($json['type']) || !isset($json['data'])) exit();
@@ -25,11 +26,11 @@ if($action == 'add' || $action == 'update'){
     if($filter == 'parent'){
         if(!isset($json['parent'])) exit();
         $parent = $json['parent'];
-        $sql = "SELECT * FROM notes WHERE parent=$parent";
+        $sql = "SELECT * FROM notes WHERE parent='$parent'";
     }else if($filter == 'type'){
         if(!isset($json['type'])) exit();
         $type = $json['type'];
-        $sql = "SELECT * FROM notes WHERE type=$type";
+        $sql = "SELECT * FROM notes WHERE type='$type'";
     }else{
         exit();
     }

@@ -11,7 +11,7 @@ api.addText = async function(urn, data, level){
 }
 api.updateText = api.addText;
 
-api.addnote = async function(urn, parent, data, type){
+api.addNote = async function(urn, parent, data, type){
     const obj = {
         'action': 'add',
         'urn': urn,
@@ -21,7 +21,7 @@ api.addnote = async function(urn, parent, data, type){
     };
     return post('./note.php', obj);
 }
-api.updateNote = api.addnote;
+api.updateNote = api.addNote;
 
 api.removeText = async function(urn){
     return post('./text.php', {action: 'remove', 'urn': urn});
