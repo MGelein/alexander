@@ -1,5 +1,15 @@
 const api = {};
 
+api.addText = async function(urn, data, level){
+    const obj = {
+        'action': 'add',
+        'urn': urn,
+        'data': data,
+        'level': level
+    };
+    return post('./text.php', obj);
+}
+
 api.loginUser = async function(username, password){
     const obj = {
         'action': 'login',

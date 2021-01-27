@@ -9,3 +9,11 @@ $json = json_decode(file_get_contents('php://input'), true);
 if(!$json || !isset($json['action'])) exit();
 
 $action = strtolower($json['action']);
+$corpus = new CorpusDB();
+if($action == 'add'){
+    $urn = $json['urn'];
+    $data = json_encode($json['data']);
+    $level = $json['level'];
+    $corpus->add_text($urn, $data, $level);
+    exit("OK");
+}

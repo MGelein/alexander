@@ -71,4 +71,9 @@ class CorpusDB extends DB{
     function __construct(){
         parent::__construct(Constants::CORPUS_DB_LOCATION);
     }
+
+    function add_text($urn, $data, $levelString){
+        $level = levelstring_to_level($levelString);
+        
+    }
 }
