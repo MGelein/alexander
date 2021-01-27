@@ -11,16 +11,54 @@ api.addText = async function(urn, data, level){
 }
 api.updateText = api.addText;
 
+api.addnote = async function(urn, parent, data, type){
+    const obj = {
+        'action': 'add',
+        'urn': urn,
+        'parent': parent,
+        'data': data,
+        'type': type
+    };
+    return post('./note.php', obj);
+}
+api.updateNote = api.addnote;
+
 api.removeText = async function(urn){
     return post('./text.php', {action: 'remove', 'urn': urn});
+}
+
+api.removeNote = async function(urn){
+    return post('./note.php', {action: 'remove', 'urn': urn});
 }
 
 api.listTexts = async function(){
     return post('./text.php', {action: 'list'}, true);
 }
 
+api.getNotesByType = async function(type){
+    const obj ={
+        action: 'list',
+        filter: 'type',
+        'type': type
+    }
+    return post('./note.php', obj, true);
+}
+
+api.getNotesByParent = async function(parent){
+    const obj ={
+        action: 'list',
+        filter: 'parent',
+        'parent': parent
+    }
+    return post('./note.php', obj, true);
+}
+
 api.getText = async function(urn){
     return post('./text.php', {'action': 'get', 'urn': urn}, true);
+}
+
+api.getNote = async function(urn){
+    return post('./note.php', {'action': 'get', 'urn': urn}, true);
 }
 
 api.loginUser = async function(username, password){
