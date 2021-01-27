@@ -12,7 +12,7 @@ $action = strtolower($json['action']);
 $corpus = new CorpusDB();
 
 if($action == 'add' || $action == 'update'){
-    if(!isset($json['urn']) || !isset($json['parent']) || !isset($json['type']) || !isset($json['data'])) exit();
+    if(!isset($json['urn']) || !isset($json['parent']) || !isset($json['type']) || !isset($json['data'])) exit('missing');
     $urn = $json['urn'];
     $data = json_encode($json['data']);
     $type = $json['type'];

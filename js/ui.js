@@ -90,6 +90,27 @@ ui.removeNote = function(urn){
     })
 }
 
+ui.saveAndExitNote = function(){
+    const noteURN = document.getElementById('noteEditorURN').textContent;
+    const parent = document.getElementById('noteEditorParent').textContent;
+    const scope = document.getElementById('noteEditorScope').textContent;
+    const type = document.getElementById('noteEditorType').value;
+    const content = document.getElementById('noteEditorContent').innerText;
+    const note = {
+        'urn': noteURN,
+        'parent': parent,
+        'type': type,
+        'data': {
+            'scope': scope,
+            'content': content
+        }
+    }
+    api.updateNote(note.urn, note.parent, note.data, note.type).then((response) =>{
+        console.log(response);
+        page.hideOverlay();
+    });
+}
+
 ui.openInTextEditor = async function(urn){
     let text = {};
     if(urn) text = await api.getText(urn);

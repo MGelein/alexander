@@ -16,6 +16,7 @@ api.requestNoteURN = function(){
 }
 
 api.addNote = async function(urn, parent, data, type){
+    print(urn, parent, data, type);
     const obj = {
         'action': 'add',
         'urn': urn,
