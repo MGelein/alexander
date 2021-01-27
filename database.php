@@ -72,6 +72,17 @@ class CorpusDB extends DB{
         parent::__construct(Constants::CORPUS_DB_LOCATION);
     }
 
+    function get_next_note_urn(){
+        $num = 0;
+        while(TRUE){
+            $urn = "urn:seip:notes:$num";
+            if(!$this->get_note($urn)){
+                return $urn;
+            }
+            $num = $num + 1;
+        }
+    }
+
     function update_text($urn, $data, $levelString){
         $level = levelstring_to_level($levelString);
         $sql = '';

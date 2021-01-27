@@ -46,4 +46,6 @@ if($action == 'add' || $action == 'update'){
     $urn = $json['urn'];
     $corpus->remove_note($urn);
     exit("OK");
+}else if($action == 'request_urn'){
+    exit($corpus->get_next_note_urn());
 }

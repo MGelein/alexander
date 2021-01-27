@@ -11,6 +11,10 @@ api.addText = async function(urn, data, level){
 }
 api.updateText = api.addText;
 
+api.requestNoteURN = function(){
+    return post('./note.php', {action: 'request_urn'});
+}
+
 api.addNote = async function(urn, parent, data, type){
     const obj = {
         'action': 'add',

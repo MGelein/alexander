@@ -80,9 +80,18 @@ page.showTextEditor = function(text){
     page.changeHomepage(template.replaceVars(template.texteditor, text));
 }
 
-page.showAnnotationEditor = function(text){
+page.showAnnotationEditor = function(text, notes){
     if(text && text.data) text = JSON.parse(text.data);
     page.changeHomepage(template.replaceVars(template.annotationeditor, text));
+    page.updateUnscopedNotes(notes);
+}
+
+page.updateUnscopedNotes = function(notes){
+    const htmlParts = [];
+    for(let note of notes){
+        htmlParts.push(template.replaceVars(template.noterow, note));
+    }
+    document.getElementById('unscopedNotesTable').innerHTML = htmlParts.join("");
 }
 
 page.showOverlay = function(html){

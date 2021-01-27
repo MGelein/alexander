@@ -1,3 +1,16 @@
 <h1>Annotation Editor</h1>
 <h3>{{title}}, {{author}}&nbsp;<span style='font-weight: 100; font-size: 50%; font-style: italic;'>{{bibliography}}</span></h3>
 <div id='annotationText' onmouseup="ui.showCreateNote(event)">{{content}}</div>
+
+<h3>Unscoped Notes</h3>
+<table>
+    <thead>
+        <td>URN</td>
+        <td>type</td>
+        <td>actions</td>
+    </thead>
+    <tbody id='unscopedNotesTable'></tbody>
+</table>
+<button style='display:block; width: 100%' onclick='ui.openNewNote(false)'>Create New Unscoped Note</button>
+
+<input id='parentURN' style='display:none;' value='{{urn}}'>

@@ -10,8 +10,12 @@
             <span name='noteParent' id='editorParent'>{{parent}}</span>
         </div>
         <div class='formfield inline'>
+            <label for='noteScope'>Scope:&nbsp;</label>
+            <span name='noteScope' id='editorScope'>{{scope}}</span>
+        </div>
+        <div class='formfield inline'>
             <label for='noteType'>Type:&nbsp;</label>
-            <input type='note' name='noteType' id='editorType' placeHolder='urn:seip:notetype:xx' value='{{type}}'>
+            <input type='text' name='noteType' id='editorType' placeHolder='urn:seip:notetype:xx' value='{{type}}'>
         </div>
     </div>
     <div class='editor' contenteditable="">{{content}}</div>
@@ -21,6 +25,9 @@
         </div>
         <div style='flex-grow: 1; padding-left: 0.5em;'>
             <button class='alt' style='display:block; width: 100%' onclick='page.hideOverlay()'>Cancel</button>
+        </div>
+        <div style='flex-grow: 1; padding-left: 0.5em;'>
+            <button style='display:block; width: 100%' onclick='ui.removeNote("{{urn}}")'>Delete</button>
         </div>
     </div>
 </div>

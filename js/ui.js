@@ -43,18 +43,51 @@ ui.submitLogin = function(){
     });
 }
 
-ui.openInNoteEditor = async function(urn){
-    let note = {}
-    if(urn) note = await api.getNote(urn);
-    if(!note.data){
-
+ui.openNewNote = async function(scoped){
+    let note = {
+        data: {content: '', scope: 'unscoped'},
+        urn: await api.requestNoteURN(),
+        type: '',
+        parent: document.getElementById('parentURN').value,
     }
-    const html = template.replaceVars(template.noteeditor, note);
+    await api.addNote(note.urn, note.parent, note.data, note.type);
+    if(scoped){
+        const sel = window.getSelection();
+        if(!sel || sel.rangeCount < 1) return;
+        const range = sel.getRangeAt(0);
+    }
+    ui.openNoteEditor(note);
+}
+
+ui.openNoteEditor = function(note){
+    if(!note.data.scope){
+        note.data = JSON.parse(note.data);
+    }
+    const vars = {
+        content: note.data.content,
+        urn: note.urn,
+        type: note.type,
+        parent: note.parent,
+        scope: note.data.scope
+    }
+    const html = template.replaceVars(template.noteeditor, vars);
     ui.hideCreateNote();
-    const sel = window.getSelection();
-    if(!sel || sel.rangeCount < 1) return;
-    const range = sel.getRangeAt(0);
     page.showOverlay(html);
+}
+
+ui.openNote = async function(urn){
+    const note = await api.getNote(urn);
+    ui.openNoteEditor(note);
+}
+
+ui.removeNote = function(urn){
+    api.removeNote(urn).then(()=>{
+        page.hideOverlay();
+        const parent = document.getElementById('parentURN').value;
+        api.getNotesByParent(parent).then(notes =>{
+            page.updateUnscopedNotes(notes);
+        });
+    })
 }
 
 ui.openInTextEditor = async function(urn){
@@ -101,7 +134,8 @@ ui.interceptPaste = function(event){
 ui.openInAnnotationEditor = async function(urn){
     let text = {};
     if(urn) text = await api.getText(urn);
-    page.showAnnotationEditor(text);
+    const notes = await api.getNotesByParent(urn);
+    page.showAnnotationEditor(text, notes);
 }
 
 ui.submitLogout = function(){
