@@ -178,7 +178,7 @@ CLASSES
     padding: 0.5em;
     min-height: 20vh;
     overflow-y: scroll;
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 
