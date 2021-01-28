@@ -78,6 +78,26 @@ ui.rangeToScope = function(text, start, end){
     return parts.join("-");
 }
 
+ui.scopeToRange = function(text, scope){
+    const parts = scope.replace(/[\[\]]/g, '').split('-');
+    const startLetter = parts[0].charAt(0);
+    const endLetter = parts[1].charAt(0);
+    let startOcc = parseInt(parts[0].substr(1));
+    let endOcc = parseInt(parts[1].substr(1));
+    let lastIndex = 0;
+    do{
+        lastIndex = text.indexOf(startLetter, lastIndex + 1);
+        startOcc --;
+    }while(startOcc > 0);
+    let startIndex = lastIndex;
+    lastIndex = 0;
+    do{
+        lastIndex = text.indexOf(endLetter, lastIndex + 1);
+        endOcc --;
+    }while(endOcc > 0);
+    let endIndex = lastIndex;
+    print(startIndex, endIndex);
+}
 ui.openNoteEditor = function(note){
     if(!note.data.scope){
         note.data = JSON.parse(note.data);
