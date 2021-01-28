@@ -241,10 +241,6 @@ ui.saveTextEditor = function(button){
         ui.blinkError(newTitle);
         errorsFound = true;
     }
-    if(newAuthor.value.length < 2){
-        ui.blinkError(newAuthor);
-        errorsFound = true;
-    }
     if(newURN.innerText < 15){
         ui.blinkError(newURN);
         errorsFound = true;
