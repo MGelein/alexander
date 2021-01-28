@@ -79,25 +79,44 @@ ui.rangeToScope = function(text, start, end){
 }
 
 ui.scopeToRange = function(text, scope){
+    if(!scope || scope == 'unscoped') return [0, text.length];
     const parts = scope.replace(/[\[\]]/g, '').split('-');
     const startLetter = parts[0].charAt(0);
     const endLetter = parts[1].charAt(0);
     let startOcc = parseInt(parts[0].substr(1));
     let endOcc = parseInt(parts[1].substr(1));
-    let lastIndex = 0;
+    let lastIndex = -1;
     do{
         lastIndex = text.indexOf(startLetter, lastIndex + 1);
         startOcc --;
     }while(startOcc > 0);
     let startIndex = lastIndex;
-    lastIndex = 0;
+    lastIndex = -1;
     do{
         lastIndex = text.indexOf(endLetter, lastIndex + 1);
         endOcc --;
     }while(endOcc > 0);
     let endIndex = lastIndex;
-    print(startIndex, endIndex);
+    return [startIndex, endIndex];
 }
+
+ui.highlightScope = function(scope){
+    const annEditor = document.getElementById('annotationText');
+    const [start, end] = ui.scopeToRange(annEditor.innerText, scope);
+    const selection = document.getSelection();
+    if(!selection) return;
+    const range = new Range();
+    range.setStart(annEditor.firstChild, start);
+    range.setEnd(annEditor.firstChild, end);
+    selection.removeAllRanges();
+    selection.addRange(range);
+}
+
+ui.removeHighlight = function(){
+    const selection = document.getSelection();
+    if(selection) selection.removeAllRanges();
+}
+
 ui.openNoteEditor = function(note){
     if(!note.data.scope){
         note.data = JSON.parse(note.data);

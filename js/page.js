@@ -90,6 +90,8 @@ page.showAnnotationEditor = function(text, notes){
 page.updateUnscopedNotes = function(notes){
     const htmlParts = [];
     for(let note of notes){
+        if(note.data) note.data = JSON.parse(note.data);
+        note.scope = note.data.scope;
         htmlParts.push(template.replaceVars(template.noterow, note));
     }
     document.getElementById('unscopedNotesTable').innerHTML = htmlParts.join("");

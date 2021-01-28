@@ -5,6 +5,7 @@
     --fg-dark: #111;
     --bg: #fff;
     --bg-dark: #ccc;
+    --bg-medium: #eee;
     --accent: rgb(36, 111, 121);
     --accent-light: rgb(83, 151, 160);
     /*
@@ -178,6 +179,15 @@ CLASSES
     min-height: 20vh;
     overflow-y: scroll;
     white-space: pre;
+}
+
+
+tbody tr{
+    transition: background-color 0.5s ease;
+}
+
+tbody tr:hover{
+    background-color: var(--bg-medium);
 }
 
 /**
