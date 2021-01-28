@@ -3,7 +3,7 @@
     <td><input type='text' style='display:block; font-size: 100%; width:100%;' value='{{name}}' id='{{username}}-name'></td>
     <td>{{roleselect}}</td>
     <td>
-        <button onclick='ui.updateUser("{{username}}")'>Save</button>
-        <button onclick='ui.deleteUser("{{username}}")' class='alt'>Delete</button>
+        <button onclick='ui.updateUser("{{username}}", this)'>Save</button>
+        <button onclick='ui.deleteUser("{{username}}", this)' class='alt'>Delete</button>
     </td>
 </tr>

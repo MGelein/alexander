@@ -166,7 +166,8 @@ ui.submitLogout = function(){
     });
 }
 
-ui.saveTextEditor = function(){
+ui.saveTextEditor = function(button){
+    ui.showLoading(button);
     const newTitle = document.getElementById('editorTitle');
     const newAuthor = document.getElementById('editorAuthor');
     const newBibliography = document.getElementById('editorBibliography');
@@ -207,27 +208,32 @@ ui.saveTextEditor = function(){
     });
 }
 
-ui.submitRemove = function(urn){
+ui.submitRemove = function(urn, button){
     if(confirm(`Are you sure you want to remove this text? (${urn})`)){
         api.removeText(urn).then(() =>{
             page.showTexts();
+            ui.showLoading(button);
         });
     }
 }
 
-ui.updateUser = function(username){
+ui.updateUser = function(username, button){
+    ui.showLoading(button);
     const newName = document.getElementById(`${username}-name`).value;
     const newLevel = document.getElementById(`${username}-level`).value;
     api.updateUser(username, newName, newLevel);
 }
 
-ui.deleteUser = function(username){
+ui.deleteUser = function(username, button){
     if(confirm('Are you sure you want to remove this user?')){
-        api.removeUser(username);
+        api.removeUser(username).then(()=>{
+            page.showUsers();
+        });
     }
 }
 
-ui.addUser = function(){
+ui.addUser = function(button){
+    ui.showLoading(button);
     const newUsername = document.getElementById('newUsername');
     const newName = document.getElementById('newName');
     const newLevel = document.getElementById('newLevel');
@@ -257,7 +263,8 @@ ui.addUser = function(){
     }
 }
 
-ui.changePassword = function(){
+ui.changePassword = function(button){
+    ui.showLoading(button);
     const newPassword1 = document.getElementById('newPassword1');
     const newPassword2 = document.getElementById('newPassword2');
     let errorFound = false;
@@ -279,4 +286,15 @@ ui.changePassword = function(){
 ui.blinkError = function(el){
     el.classList.add('error');
     setTimeout(() => el.classList.remove('error'), 2000);
+}
+
+ui.showLoading = function(el){
+    if(!el) return;
+    const backupInnerHTML = el.innerHTML;
+    el.innerHTML = '...';
+    el.classList.add('loading');
+    setTimeout(() => {
+        el.innerHTML = backupInnerHTML;
+        el.classList.remove('loading');
+    }, 1000);
 }
