@@ -4,7 +4,7 @@ ui.passwordtype = function(event){
     if(event.key == 'Enter') ui.submitLogin();
 }
 
-ui.showCreateNote = function(event){
+ui.showCreateNote = function(event, div){
     ui.hideCreateNote();
     setTimeout(() => {
         const sel = window.getSelection();
@@ -55,8 +55,27 @@ ui.openNewNote = async function(scoped){
         const sel = window.getSelection();
         if(!sel || sel.rangeCount < 1) return;
         const range = sel.getRangeAt(0);
+        const start = range.startOffset < range.endOffset ? range.startOffset : range.endOffset;
+        const end = range.startOffset < range.endOffset ? range.endOffset : range.startOffset;
+        if(end - start < 1) return;
+        const allText = document.getElementById('annotationText').innerText;
+        note.data.scope = ui.rangeToScope(allText, start, end);
     }
     ui.openNoteEditor(note);
+}
+
+ui.rangeToScope = function(text, start, end){
+    const counts = {};
+    const parts = [];
+    for(let i = 0; i < end; i++){
+        const letter = text.substr(i, 1);
+        if(counts[letter]) counts[letter] ++;
+        else counts[letter] = 1;
+
+        if(i == start) parts.push(`${letter}[${counts[letter]}]`);
+        if(i == end - 1) parts.push(`${letter}[${counts[letter]}]`);
+    }
+    return parts.join("-");
 }
 
 ui.openNoteEditor = function(note){
@@ -81,13 +100,15 @@ ui.openNote = async function(urn){
 }
 
 ui.removeNote = function(urn){
-    api.removeNote(urn).then(()=>{
-        page.hideOverlay();
-        const parent = document.getElementById('parentURN').value;
-        api.getNotesByParent(parent).then(notes =>{
-            page.updateUnscopedNotes(notes);
+    if(confirm(`Are you sure you want to remove this note? (${urn})`)){
+        api.removeNote(urn).then(()=>{
+            page.hideOverlay();
+            const parent = document.getElementById('parentURN').value;
+            api.getNotesByParent(parent).then(notes =>{
+                page.updateUnscopedNotes(notes);
+            });
         });
-    })
+    }
 }
 
 ui.saveAndExitNote = function(){
@@ -106,7 +127,6 @@ ui.saveAndExitNote = function(){
         }
     }
     api.updateNote(note.urn, note.parent, note.data, note.type).then((response) =>{
-        console.log(response);
         page.hideOverlay();
     });
 }
