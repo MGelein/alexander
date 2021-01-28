@@ -31,5 +31,6 @@ template.replaceVars = function(templateString, vars){
         re = new RegExp(`{{${key}}}`, 'g');
         replaced = replaced.replace(re, vars[key]);
     }
+    replaced = replaced.replace(/{{.+}}/g, '');
     return replaced;
 }

@@ -10,7 +10,7 @@ page.showHome = function(){
         usersLink: user.level == 'admin' ? template.usersButton : ''
     };
     page.show(template.replaceVars(template.home, vars));
-    page.showTexts();
+    page.showAccount();
 }
 
 page.showLogin = function(){
@@ -60,7 +60,8 @@ page.showTextEditor = function(text){
             bibliography: '',
             language: 'gr',
             level: user.level,
-            content: ''
+            content: '',
+            ctsurn: ''
         }
     }
     const languages = {

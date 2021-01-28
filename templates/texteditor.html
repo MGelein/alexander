@@ -9,9 +9,15 @@
         <input type='text' name='textAuthor' id='editorAuthor' placeHolder='Plato' value='{{author}}'>
     </div>
 </div>
-<div class='formfield'>
-    <label for='textURN'>URN: </label>
-    <span name='textURN' id='editorURN'>{{urn}}</span>
+<div style='display: flex; flex-direction: row;'>
+    <div class='formfield inline'>
+        <label for='textURN'>URN:&nbsp;</label>
+        <span name='textURN' id='editorURN'>{{urn}}</span>
+    </div>
+    <div class='formfield inline'>
+        <label for='textCTSURN'>CTS-URN:&nbsp;</label>
+        <input type='text' name='textCTSURN' id='editorCTSURN' placeHolder='urn:cts:' value='{{ctsurn}}'>
+    </div>
 </div>
 <div class='formfield'>
     <label for='textBibliography'>Bibliography: </label>

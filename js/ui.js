@@ -174,6 +174,7 @@ ui.saveTextEditor = function(){
     const newLevel = document.getElementById('editorLevel');
     const newURN = document.getElementById('editorURN');
     const newContent = document.getElementById('editorContent');
+    const newCTSURN = document.getElementById('editorCTSURN');
     const text = {};
     let errorsFound = false;
     if(newTitle.value.length < 2){
@@ -199,6 +200,7 @@ ui.saveTextEditor = function(){
         language: newLanguage.value,
         title: newTitle.value,
         content: newContent.innerText,
+        ctsurn: newCTSURN.value
     }
     api.updateText(text.urn, text.data, text.level).then(response =>{
         console.log(response);
