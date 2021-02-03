@@ -350,7 +350,12 @@ ui.showLoading = function(el){
     el.innerHTML = '...';
     el.classList.add('loading');
     setTimeout(() => {
-        el.innerHTML = backupInnerHTML;
+        el.innerHTML = 'Done!';
         el.classList.remove('loading');
+        el.classList.add('alt');
+        setTimeout(() => {
+            el.innerHTML = backupInnerHTML;
+            el.classList.remove('alt');
+        }, 1000);
     }, 1000);
 }
