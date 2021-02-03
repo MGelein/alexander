@@ -175,16 +175,17 @@ ui.openInTextEditor = async function(urn){
     if(urn) text = await api.getText(urn);
     if(!text.data){
         const newURNInput = document.getElementById('newTextURN');
-        if(newURNInput.value.length < 15) {
+        if(newURNInput.value.length < 1) {
             ui.blinkError(newURNInput);
             return;
         }
-        if(await api.getText(newURNInput.value)){
+        const newURN = 'urn:seip:texts:' + newURNInput.value;
+        if(await api.getText(newURN)){
             ui.blinkError(newURNInput);
             alert("This URN is already taken");
             return;
         }
-        text.urn = newURNInput.value;
+        text.urn = newURN;
     }
     page.showTextEditor(text);
 }

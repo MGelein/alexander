@@ -22,7 +22,10 @@
 </table>
 <h2>Add Text</h2>
 <div class='formfield'>
-    <label for='newTextURN'>URN: </label>
-    <input type='text' name='newTextURN' id='newTextURN' placeHolder='urn:seip:texts:xx'>
+    <label for='newTextURN'>URN: </label><br>
+    <div style='display: flex; flex-direction: row'>
+        <span style='display: flex; margin-top: 0.2em'>urn:seip:texts:</span>
+        <input style='display: flex; width:50%' class='inlineInput' type='text' name='newTextURN' id='newTextURN' placeHolder='a1'>
+    </div>
 </div>
 <button style='display:block;width: 100%' onclick='ui.openInTextEditor()'>Create New Text</button>
