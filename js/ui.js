@@ -123,11 +123,9 @@ ui.openNoteEditor = function(note){
         note.data = JSON.parse(note.data);
     }
     const editorTemplate = template.noteTypeToTemplate(note.type);
-    const vars = {
-        content: note.data.content,
+    let vars = {
         urn: note.urn,
         parent: note.parent,
-        scope: note.data.scope,
         src: note.type == 'urn:seip:edit:src' ? 'selected' : '',
         crit: note.type == 'urn:seip:edit:crit' ? 'selected' : '',
         loc: note.type == 'urn:seip:loc' ? 'selected' : '',
@@ -135,11 +133,29 @@ ui.openNoteEditor = function(note){
         label: note.type == 'urn:seip:label' ? 'selected' : '',
         comm: note.type == 'urn:seip:comm' ? 'selected' : '',
     }
+    const dataFields = Object.keys(note.data);
+    for(const dataField of dataFields){
+        vars[dataField] = note.data[dataField];
+    }
+    vars = ui.appendVarsBasedOnType(vars, note);
     vars.editor = template.replaceVars(editorTemplate, vars);
     const html = template.replaceVars(template.noteeditor, vars);
     ui.noteEditorVars = vars;
     ui.hideCreateNote();
     page.showOverlay(html);
+}
+
+ui.appendVarsBasedOnType = function(vars, note){
+    if(note.type == 'urn:seip:trans'){
+        const lang = note.data.language;
+        vars.en = lang == 'en' ? 'selected' : '';
+        vars.fr = lang == 'fr' ? 'selected' : '';
+        vars.de = lang == 'de' ? 'selected' : '';
+        vars.nl = lang == 'nl' ? 'selected' : '';
+        vars.la = lang == 'la' ? 'selected' : '';
+        vars.gr = lang == 'gr' ? 'selected' : '';
+    }
+    return vars;
 }
 
 ui.changeNoteEditorTemplate = function(typeSelect){
@@ -193,7 +209,8 @@ ui.saveAndExitNote = function(){
 
 ui.appendDataBasedOnType = function(note){
     if(note.type == 'urn:seip:trans'){
-        // note.data.lanuage = document.getElementById
+        note.data.language = document.getElementById('transLanguage').value;
+        note.data.bibliography = document.getElementById('transBib').value;
     }
     return note;
 }
