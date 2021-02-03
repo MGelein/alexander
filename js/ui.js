@@ -124,9 +124,14 @@ ui.openNoteEditor = function(note){
     const vars = {
         content: note.data.content,
         urn: note.urn,
-        type: note.type,
         parent: note.parent,
-        scope: note.data.scope
+        scope: note.data.scope,
+        src: note.type == 'urn:seip:edit:src' ? 'selected' : '',
+        crit: note.type == 'urn:seip:edit:crit' ? 'selected' : '',
+        loc: note.type == 'urn:seip:loc' ? 'selected' : '',
+        trans: note.type == 'urn:seip:trans' ? 'selected' : '',
+        label: note.type == 'urn:seip:label' ? 'selected' : '',
+        comm: note.type == 'urn:seip:comm' ? 'selected' : '',
     }
     const html = template.replaceVars(template.noteeditor, vars);
     ui.hideCreateNote();
@@ -142,13 +147,16 @@ ui.removeNote = function(urn){
     if(confirm(`Are you sure you want to remove this note? (${urn})`)){
         api.removeNote(urn).then(()=>{
             page.hideOverlay();
-            const parent = document.getElementById('parentURN').value;
-            api.getNotesByParent(parent).then(notes =>{
-                page.updateUnscopedNotes(notes);
-            });
+            ui.refreshUnscopedNotesTable();
         });
     }
 }
+
+ui.refreshUnscopedNotesTable = function(){
+    const parent = document.getElementById('parentURN').value;
+    api.getNotesByParent(parent).then(notes =>{
+        page.updateUnscopedNotes(notes);
+    });}
 
 ui.saveAndExitNote = function(){
     const noteURN = document.getElementById('noteEditorURN').textContent;
@@ -167,6 +175,7 @@ ui.saveAndExitNote = function(){
     }
     api.updateNote(note.urn, note.parent, note.data, note.type).then((response) =>{
         page.hideOverlay();
+        ui.refreshUnscopedNotesTable();
     });
 }
 

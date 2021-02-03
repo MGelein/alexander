@@ -15,7 +15,14 @@
         </div>
         <div class='formfield inline'>
             <label for='noteType'>Type:&nbsp;</label>
-            <input type='text' name='noteType' id='noteEditorType' placeHolder='urn:seip:notetype:xx' value='{{type}}'>
+            <select name='noteType' id='noteEditorType'>
+                <option value="urn:seip:edit:crit" {{crit}}>urn:seip:edit:crit</option>
+                <option value="urn:seip:edit:src" {{src}}>urn:seip:edit:src</option>
+                <option value="urn:seip:trans" {{trans}}>urn:seip:edit:trans</option>
+                <option value="urn:seip:comm" {{comm}}>urn:seip:comm</option>
+                <option value="urn:seip:label" {{label}}>urn:seip:label</option>
+                <option value="urn:seip:loc" {{loc}}>urn:seip:loc</option>
+            </select>
         </div>
     </div>
     <div class='editor' id='noteEditorContent' contenteditable="">{{content}}</div>
