@@ -1,4 +1,4 @@
-const template = {'db': {}};
+const template = {'db': {}, 'editors': {}};
 
 template.load = async function(){
     template.login = await get('./templates/login.html');
@@ -13,6 +13,9 @@ template.load = async function(){
     template.textrow = await get('./templates/textrow.html');
     template.noteeditor = await get('./templates/noteeditor.html');
     template.noterow = await get('./templates/noterow.html');
+    template.editors.default = await get('./templates/editors/default.html');
+    template.editors.crit = await get('./templates/editors/crit.html');
+    template.editors.trans = await get('./templates/editors/trans.html');
 
     template.usersButton = "<li><a id='usersLink' onclick='page.showUsers()'>Users</a></li>";
     template.roleselect = `<select name='roleselect' id='{{id}}'><option value='admin' {{adminselected}}>admin</option>
@@ -33,4 +36,10 @@ template.replaceVars = function(templateString, vars){
     }
     replaced = replaced.replace(/{{.+}}/g, '');
     return replaced;
+}
+
+template.noteTypeToTemplate = function(noteType){
+    if(noteType == 'urn:seip:trans') return template.editors.trans;
+    //if(noteType == 'urn:seip:edit:crit') return template.editors.crit;
+    else return template.editors.default;
 }

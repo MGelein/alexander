@@ -1,4 +1,5 @@
 const ui = {};
+ui.noteEditorVars = {};
 
 ui.passwordtype = function(event){
     if(event.key == 'Enter') ui.submitLogin();
@@ -121,6 +122,7 @@ ui.openNoteEditor = function(note){
     if(!note.data.scope){
         note.data = JSON.parse(note.data);
     }
+    const editorTemplate = template.noteTypeToTemplate(note.type);
     const vars = {
         content: note.data.content,
         urn: note.urn,
@@ -133,9 +135,18 @@ ui.openNoteEditor = function(note){
         label: note.type == 'urn:seip:label' ? 'selected' : '',
         comm: note.type == 'urn:seip:comm' ? 'selected' : '',
     }
+    vars.editor = template.replaceVars(editorTemplate, vars);
     const html = template.replaceVars(template.noteeditor, vars);
+    ui.noteEditorVars = vars;
     ui.hideCreateNote();
     page.showOverlay(html);
+}
+
+ui.changeNoteEditorTemplate = function(typeSelect){
+    const noteType = typeSelect.value;
+    const editorTemplate = template.noteTypeToTemplate(noteType);
+    const html = template.replaceVars(editorTemplate, ui.noteEditorVars);
+    document.getElementById('editorHolder').innerHTML = html;
 }
 
 ui.openNote = async function(urn){
@@ -164,7 +175,7 @@ ui.saveAndExitNote = function(){
     const scope = document.getElementById('noteEditorScope').textContent;
     const type = document.getElementById('noteEditorType').value;
     const content = document.getElementById('noteEditorContent').innerText;
-    const note = {
+    let note = {
         'urn': noteURN,
         'parent': parent,
         'type': type,
@@ -173,10 +184,18 @@ ui.saveAndExitNote = function(){
             'content': content
         }
     }
-    api.updateNote(note.urn, note.parent, note.data, note.type).then((response) =>{
+    note = ui.appendDataBasedOnType(note);
+    api.updateNote(note.urn, note.parent, note.data, note.type).then(() =>{
         page.hideOverlay();
         ui.refreshUnscopedNotesTable();
     });
+}
+
+ui.appendDataBasedOnType = function(note){
+    if(note.type == 'urn:seip:trans'){
+        // note.data.lanuage = document.getElementById
+    }
+    return note;
 }
 
 ui.openInTextEditor = async function(urn){
