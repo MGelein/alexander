@@ -199,6 +199,7 @@ IDs
     display: flex;
     flex-direction: row;
     height: 100vh;
+    min-height: 100vh;
 }
 
 #side{
@@ -237,6 +238,11 @@ IDs
 #nav a{
     display:block;
     width: 100%;
+}
+
+#navLinks{
+    display: flex;
+    flex-direction: column;
 }
 
 #title{
@@ -301,4 +307,74 @@ IDs
 
 #annotationText{
     white-space: pre-wrap;
+}
+
+#logoutButton{
+    margin-top: 2em;
+}
+
+@media screen and (max-width: 1100px){
+    #content{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #main{
+        min-height: 80vh;
+        overflow-y: visible;
+        margin-top: 1em;
+        padding: 0;
+        overflow-y: auto;
+    }
+
+    #mainpanel{
+        margin-top: 0;
+    }
+
+    #side{
+        flex-direction: row;
+        padding: 0;
+        flex-grow: 0;
+        height: auto;
+        flex-basis: 0%;
+    }
+
+    #sidepanel{
+        flex-direction: row;
+        padding: 0;
+        height: auto;
+    }
+
+    #navLinks *{
+        flex-grow: 1;
+    }
+
+    #nav{
+        margin-top: 1em;
+    }
+
+    #nav, #navLinks{
+        display: flex;
+        flex-direction: row;
+    }
+
+    #logoutButton{
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    #nav a{
+        padding-right: 1em;
+        padding-left: 0.2em;
+    }
+
+    a:hover, a.current{
+        padding-left: 0.2em;
+        color: var(--accent);
+    }
+    
+    a.current{
+        border-bottom: none;
+        border-left: 5px solid var(--accent);
+    }
 }

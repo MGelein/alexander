@@ -1,6 +1,6 @@
 <div id='side'>
     <div id='sidepanel'>
-        <div style='display: flex; flex-direction: column;'>
+        <div id='navLinks'>
             <h1 id='title'>Ale<span class='accent'>x</span>ander</h1>
             <ul id='nav'>
                 <li><a id='accountLink' onclick='page.showAccount()'>Account</a></li>
@@ -8,7 +8,7 @@
                 {{usersLink}}
                 <li><a id='aboutLink' onclick='page.showAbout()'>About</a></li>
             </ul>
-            <button onclick='ui.submitLogout();' style='margin-top: 2em;'>Log out</button>
+            <button onclick='ui.submitLogout();' id='logoutButton'>Log out</button>
         </div>
     </div>
 </div>
