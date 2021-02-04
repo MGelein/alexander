@@ -1,0 +1,22 @@
+<div style='display: flex; flex-direction: row;'>
+    <div class='formfield inline'>
+        <label for='ctsURN'>CTS URN:&nbsp;</label>
+        <input type='text' name='ctsURN' id='srcCTSURN' value='{{ctsURN}}'>
+    </div>
+    <div class='formfield inline'>
+        <label for='author'>Author:&nbsp;</label>
+        <input type='text' name='author' id='srcAuthor' value='{{author}}'>
+    </div>
+</div>
+<div style='display: flex; flex-direction: row;'>
+    <div class='formfield inline'>
+        <label for='title'>Title:&nbsp;</label>
+        <input type='text' name='title' id='srcTitle' value='{{title}}'>
+    </div>
+    <div class='formfield inline'>
+        <label for='locus'>Locus:&nbsp;</label>
+        <input type='text' name='locus' id='srcLocus' value='{{locus}}'>
+    </div>
+</div>
+<label for='editor'>Explanation:&nbsp;</label>
+<div class='editor' id='noteEditorContent' contenteditable="">{{content}}</div>

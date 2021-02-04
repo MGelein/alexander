@@ -16,6 +16,7 @@ template.load = async function(){
     template.editors.default = await get('./templates/editors/default.html');
     template.editors.crit = await get('./templates/editors/crit.html');
     template.editors.trans = await get('./templates/editors/trans.html');
+    template.editors.src = await get('./templates/editors/src.html');
 
     template.usersButton = "<li><a id='usersLink' onclick='page.showUsers()'>Users</a></li>";
     template.roleselect = `<select name='roleselect' id='{{id}}'><option value='admin' {{adminselected}}>admin</option>
@@ -40,6 +41,7 @@ template.replaceVars = function(templateString, vars){
 
 template.noteTypeToTemplate = function(noteType){
     if(noteType == 'urn:seip:trans') return template.editors.trans;
+    else if(noteType == 'urn:seip:edit:src') return template.editors.src;
     //if(noteType == 'urn:seip:edit:crit') return template.editors.crit;
     else return template.editors.default;
 }

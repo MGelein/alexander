@@ -211,6 +211,11 @@ ui.appendDataBasedOnType = function(note){
     if(note.type == 'urn:seip:trans'){
         note.data.language = document.getElementById('transLanguage').value;
         note.data.bibliography = document.getElementById('transBib').value;
+    }else if(note.type == 'urn:seip:edit:src'){
+        note.data.author = document.getElementById('srcAuthor').value;
+        note.data.ctsURN = document.getElementById('srcCTSURN').value;
+        note.data.locus = document.getElementById('srcLocus').value;
+        note.data.title = document.getElementById('srcTitle').value;
     }
     return note;
 }
