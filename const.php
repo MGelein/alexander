@@ -10,6 +10,16 @@ function is_logged_in(){
     return isset($_SESSION['username']) && isset($_SESSION['userlevel']);
 }
 
+function session_start_if_valid(){
+    session_start();
+    $now = time();
+    if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
+        session_unset();
+        session_destroy();
+        session_start();
+    }
+}
+
 function levelstring_to_level($str){
     $str = strtolower($str);
     if($str == 'admin') return Level::Admin;

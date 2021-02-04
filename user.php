@@ -1,7 +1,7 @@
 <?php
 require_once('./const.php');
 require_once('./database.php');
-session_start();
+session_start_if_valid();
 header('Content-Type: application/json');
 
 $json = json_decode(file_get_contents('php://input'), true);
@@ -23,6 +23,7 @@ if($action == 'ping'){
     $user = $credentials->get_user($username);
     $_SESSION['username'] = $username;
     $_SESSION['userlevel'] = $user['level'];
+    $_SESSION['discard_after'] = time() + 3600;
     exit('OK');
 }else if($action == 'logout'){
     session_unset();
@@ -83,4 +84,7 @@ if($action == 'create' || $action == 'add'){
     $user['level'] = level_to_levelstring($user['level']);
 
     exit(json_encode($user));
+}else if($action == 'expiration'){
+    if(isset($_SESSION['discard_after'])) exit(strval($_SESSION['discard_after']));
+    else exit();
 }

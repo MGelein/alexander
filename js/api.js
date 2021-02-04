@@ -126,6 +126,10 @@ api.addUser = async function(username, name, password, level){
     return post('./user.php', obj);
 }
 
+api.getSessionExpiration = async function(){
+    return post('./user.php', {'action': 'expiration'});
+}
+
 async function post(url, object, returnJSON){
     if(!returnJSON) returnJSON = false;
     let response = await fetch(url, {

@@ -1,7 +1,7 @@
 <?php
 require_once('./const.php');
 require_once('./database.php');
-session_start();
+session_start_if_valid();
 if(!is_logged_in()) exit();
 header('Content-Type: application/json');
 
