@@ -1,0 +1,42 @@
+<div id='noteEditor'>
+    <h1>Note Editor</h1>
+    <div style='display: flex; flex-direction: row;'>
+        <div class='formfield inline'>
+            <label for='noteURN'>URN:&nbsp;</label>
+            <span name='noteURN' id='noteEditorURN'>{{urn}}</span>
+        </div>
+        <div class='formfield inline'>  
+            <label for='noteParent'>Parent:&nbsp;</label>
+            <span name='noteParent' id='noteEditorParent'>{{parent}}</span>
+        </div>
+        <div class='formfield inline'>
+            <label for='noteScope'>Scope:&nbsp;</label>
+            <span name='noteScope' id='noteEditorScope'>{{scope}}</span>
+        </div>
+        <div class='formfield inline'>
+            <label for='noteType'>Type:&nbsp;</label>
+            <select onchange='ui.changeNoteEditorTemplate(this)' name='noteType' id='noteEditorType'>
+                <option value="urn:seip:edit:crit" {{crit}}>urn:seip:edit:crit</option>
+                <option value="urn:seip:edit:src" {{src}}>urn:seip:edit:src</option>
+                <option value="urn:seip:trans" {{trans}}>urn:seip:edit:trans</option>
+                <option value="urn:seip:comm" {{comm}}>urn:seip:comm</option>
+                <option value="urn:seip:label" {{label}}>urn:seip:label</option>
+                <option value="urn:seip:loc" {{loc}}>urn:seip:loc</option>
+            </select>
+        </div>
+    </div>
+    <div id='editorHolder'>
+        {{editor}}
+    </div>
+    <div style='display:flex; flex-direction: row'>
+        <div style='flex-grow: 1; padding-right: 0.5em;'>
+            <button style='display:block; width: 100%' onclick='ui.saveAndExitNote()'>Save &amp; Exit</button>
+        </div>
+        <div style='flex-grow: 1; padding-left: 0.5em;'>
+            <button class='alt' style='display:block; width: 100%' onclick='page.hideOverlay()'>Cancel</button>
+        </div>
+        <div style='flex-grow: 1; padding-left: 0.5em;'>
+            <button style='display:block; width: 100%' onclick='ui.removeNote("{{urn}}")'>Delete</button>
+        </div>
+    </div>
+</div>

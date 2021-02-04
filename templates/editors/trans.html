@@ -1,0 +1,17 @@
+<div>
+    <label for='transLanguage'>Language:&nbsp;</label>
+    <select name='transLanguage' id='transLanguage'>
+        <option value='en' {{en}}>English</option>
+        <option value='de' {{de}}>German</option>
+        <option value='fr' {{fr}}>French</option>
+        <option value='nl' {{nl}}>Dutch</option>
+        <option value='la' {{la}}>Latin</option>
+        <option value='gr' {{gr}}>Greek</option>
+    </select>
+</div>
+<div>
+    <label for='transBib'>Bibliography:&nbsp;</label>
+    <input type='text' name='transBib' id='transBib' value='{{bibliography}}'>
+</div>
+<label for='editor'>Translation:&nbsp;</label>
+<div class='editor' id='noteEditorContent' contenteditable="">{{content}}</div>

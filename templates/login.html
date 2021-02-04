@@ -1,0 +1,20 @@
+<div id='loginpanel'>
+    <div id='logincontents'>
+        <h1 id='title'>Ale<span class='accent'>x</span>ander</h1>
+    
+        <div>
+            <label for='uname'>Username: </label>
+            <input id='usernameField' class='inputfield' type='email' name='uname' placeholder='example@example.com'/>
+        </div>
+    
+        <div>
+            <label for='pass'>Password: </label>
+            <input id='passwordField' class='inputfield' type='password' name='pass' 
+            onkeydown='ui.passwordtype(event);' placeholder='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;'/>
+        </div>
+        <div style='text-align: center; padding: 0.5em;'>
+            <span style='background-color: #FFCCCC;' id='loginFeedback'></span>
+        </div>
+        <button class='centered' onclick='ui.submitLogin();'>Login</button>
+    </div>
+</div>

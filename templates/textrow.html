@@ -1,0 +1,11 @@
+<tr>
+    <td>{{urn}}</td>
+    <td>{{level}}</td>
+    <td>{{title}}</td>
+    <td>{{author}}</td>
+    <td>
+        <button onclick='ui.openInTextEditor("{{urn}}")'>Edit</button>
+        <button onclick='ui.openInAnnotationEditor("{{urn}}")' class='alt'>Annotate</button>
+        <button onclick='ui.submitRemove("{{urn}}", this)'>Delete</button>
+    </td>
+</tr>

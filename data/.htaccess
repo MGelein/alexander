@@ -1,0 +1,3 @@
+# Shows that the given file was not found on the server
+RewriteEngine On
+RewriteRule ^ -[R=404,L]

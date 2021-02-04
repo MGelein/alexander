@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Roboto&display=swap');
+
+:root{
+    --fg: #333;
+    --fg-dark: #111;
+    --bg: #fff;
+    --bg-dark: #ccc;
+    --bg-medium: #eee;
+    --accent: rgb(36, 111, 121);
+    --accent-light: rgb(83, 151, 160);
+    /*
+    PINK
+     --accent: rgb(167, 73, 167);
+    --accent-light: rgb(202, 117, 202); */
+}
+
+/**
+HTML OVERRIDES
+**/
+body{
+    background-color: var(--fg);
+    background: linear-gradient(var(--fg), var(--fg-dark));
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    color: var(--fg);
+    font-size: 120%;
+    line-height: 1.2;
+}
+
+select{
+    display: block;
+    font-size: 100%;
+    width: 100%;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+thead{
+    background-color: var(--fg);
+    color: var(--bg);
+    font-weight: bold;
+}
+
+td{
+    padding: 0.5em;
+    margin: 0;
+    border: 1px solid var(--bg);
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Oswald', sans-serif;
+    padding-left: 0.5em;
+    border-left: 5px solid var(--accent);
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+div{
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: var(--fg);
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+a:hover, a.current{
+    padding-left: 0.2em;
+    color: var(--accent);
+}
+
+a.current{
+    border-bottom: 5px solid var(--accent);
+}
+
+button{
+    background-color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 1em;
+    color: var(--bg);
+    font-weight: bold;
+    transition: background-color 0.5s ease;
+    font-size: 90%;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+}
+
+button.alt{
+    background-color: var(--bg);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
+
+button:hover{
+    background-color: var(--accent-light);
+}
+
+button.alt:hover{
+    color: white;
+}
+
+input[type='text'], input[type='email'], input[type='password']{
+    display: block;
+    width: 100%;
+    padding: 0.2em;
+    font-size: 100%;
+    border: 1px solid var(--bg-dark);
+}
+
+input.error{
+    border: 1px solid #c00;
+    color: #c00;
+}
+
+label{
+    font-weight: bold;
+}
+
+.inline label{
+    float: left;
+    flex-grow: 0;
+}
+
+.inline input{
+    width: auto;
+    flex-grow: 1;
+}
+
+.inline select{
+    width: auto;
+    flex-grow: 1;
+}
+
+.inline{
+    display: flex;
+    flex-grow: 1;
+    padding-right: 1em;
+}
+
+/**
+CLASSES
+**/
+
+.formfield{
+    margin-bottom: 1em;
+}
+
+.accent{
+    color: var(--accent);
+}
+
+.accent-bg{
+    background-color: var(--accent);
+}
+
+.inputfield{
+    margin-top: 0.2em;
+    margin-bottom: 1em;
+}
+
+.editor{
+    font-family: inherit;
+    font-size: inherit;
+    border: 1px solid var(--fg-dark);
+    padding: 0.5em;
+    min-height: 20vh;
+    overflow-y: scroll;
+    white-space: pre-wrap;
+}
+
+
+tbody tr{
+    transition: background-color 0.5s ease;
+}
+
+tbody tr:hover{
+    background-color: var(--bg-medium);
+}
+
+/**
+IDs
+**/
+#content{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+#side{
+    padding: 0em 1em 0em 0em;
+    flex-basis: 25%;
+    flex-direction: column;
+}
+
+#main{
+    padding: 1em;
+    flex-basis: 75%;
+    flex-grow: 1;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+#sidepanel{
+    background-color: var(--bg);
+    border-right: 5px solid var(--accent);
+    height: 100%;
+    padding: 1em;
+    font-size: 130%;
+}
+
+#mainpanel{
+    background-color: var(--bg);
+    padding: 1em 1em 4em 1em;
+    margin-top: 2em;
+}
+
+#nav li{
+    padding-top: 1em;
+    width: 100%;
+}
+
+#nav a{
+    display:block;
+    width: 100%;
+}
+
+#title{
+    text-align: center;
+    border: none;
+    padding: 0;
+}
+
+#loginpanel{
+    background-color: var(--bg);
+    border-left: 10px solid var(--accent);
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    width: 40%;
+    padding: 0;
+    margin: 0;
+}
+
+#logincontents{
+    font-size: 100%;
+    display: flex;
+    padding: 2em;
+    flex-direction: column;
+}
+
+#createNoteButton{
+    position: absolute;
+    border-width: 2px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#overlay{
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#noteEditor{
+    padding: 1em;
+    position: absolute;
+    top: 10%;
+    left: 25%;
+    width: 60%;
+    max-height: 80%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--bg);
+    border: 1px solid var(--bg-dark);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+#noteEditor .editor{
+    max-height: 45vh;
+    margin-bottom: 1em;
+}
+
+#annotationText{
+    white-space: pre-wrap;
+}

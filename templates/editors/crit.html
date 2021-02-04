@@ -1,0 +1,23 @@
+<div style='display: flex; flex-direction: row;'>
+    <div class='formfield inline'>
+        <label for='reading'>Reading:&nbsp;</label>
+        <input type='text' name='reading' id='critReading'>
+    </div>
+    <div class='formfield inline'>
+        <label for='editor'>Editor:&nbsp;</label>
+        <input type='text' name='editor' id='critEditor'>
+    </div>
+    <div class='formfield inline'>
+        <label for='operation'>Operation:&nbsp;</label>
+        <select name='operation' id='critOperation'>
+            <option value='witness'>witness</option>
+            <option value='correction'>corr.</option>
+            <option value='omission'>om.</option>
+            <option value='addition'>add.</option>
+        </select>
+    </div>
+</div>
+<div>
+    <label for='explanation'>Explanation:&nbsp;</label>
+    <div class='editor' id='noteEditorContent' contenteditable="">{{content}}</div>
+</div>
