@@ -48,7 +48,7 @@ ui.openNewNote = async function(scoped){
     let note = {
         data: {content: '', scope: 'unscoped'},
         urn: await api.requestNoteURN(),
-        type: '',
+        type: 'urn:seip:comm',
         parent: document.getElementById('parentURN').value,
     }
     await api.addNote(note.urn, note.parent, note.data, note.type);
