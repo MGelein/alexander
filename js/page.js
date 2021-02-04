@@ -20,7 +20,7 @@ page.showLogin = function(){
 page.changeHomepage = function(html){
     document.querySelector('#mainpanel').innerHTML = html;
     document.querySelector('#accountLink').classList.remove('current');
-    document.querySelector('#dashboardLink').classList.remove('current');
+    document.querySelector('#aboutLink').classList.remove('current');
     document.querySelector('#textsLink').classList.remove('current');
     const usersButton = document.querySelector('#usersLink');
     if(usersButton) usersButton.classList.remove('current');
@@ -31,9 +31,9 @@ page.showAccount = function(){
     document.querySelector('#accountLink').classList.add('current');
 }
 
-page.showDashboard = function(){
-    page.changeHomepage(template.dashboard);
-    document.querySelector('#dashboardLink').classList.add('current');
+page.showAbout = function(){
+    page.changeHomepage(template.about);
+    document.querySelector('#aboutLink').classList.add('current');
 }
 
 page.showTexts = function(){
@@ -110,7 +110,7 @@ page.hideOverlay = function(){
 }
 
 page.showUsers = function(){
-    if(user.level != 'admin') return page.showDashboard();
+    if(user.level != 'admin') return page.showAbout();
     page.changeHomepage(template.users);
     document.querySelector('#usersLink').classList.add('current');
 
